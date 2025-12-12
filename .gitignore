@@ -1,0 +1,15 @@
+**/.idea/*
+src/packages/Country.Reference.Iso3166/obj/**
+src/packages/Country.Reference.Iso3166/bin/**
+src/packages/Country.Reference.Iso3166.Generators/obj/**
+src/packages/Country.Reference.Iso3166.Generators/bin/**
+src/tests/Country.Reference.Iso3166.Tests/obj/**
+src/tests/Country.Reference.Iso3166.Tests/bin/**
+src/tests/Country.Reference.Iso3166.Generators.Tests/obj/**
+src/tests/Country.Reference.Iso3166.Generators.Tests/bin/**
+src/samples/Country.Reference.Iso3166.Console/obj/**
+src/samples/Country.Reference.Iso3166.Console/bin/**
+src/samples/Country.Reference.Iso3166.WebApi/obj/**
+src/samples/Country.Reference.Iso3166.WebApi/bin/**
+src/NuGetPackages/**
+**/*.user
