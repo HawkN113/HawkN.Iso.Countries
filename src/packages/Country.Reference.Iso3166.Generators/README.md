@@ -6,8 +6,8 @@
 ```
 - Save changes;
 - Rebuild the solution;
-- Review changes in ``CurrencyCode.cs`` and ``LocalDatabase.cs``files;
-- The parameter setting ``GenerateCurrencyFiles`` set `false` value;
+- Review changes in ``CountryCode.cs`` and ``LocalCountryDatabase.cs``files;
+- The parameter setting ``GenerateCountryFiles`` set `false` value;
 - Save changes again;
 - Rebuild the solution again.
 
@@ -15,4 +15,4 @@
 - Open https://unstats.un.org/unsd/methodology/m49/overview/
 - Download a CSV file
 - Save data in the file ``Content\UNSD—Methodology.csv``
-- Use command from section <a id="how-use-sourceGenerato">How to use source generator</a>
+- Use command from section <a id="how-use-sourceGenerator">How to use source generator</a>

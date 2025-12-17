@@ -1,65 +1,89 @@
-﻿using Country.Reference.Iso3166.Abstractions;
+﻿using System.Diagnostics.CodeAnalysis;
+using Country.Reference.Iso3166.Abstractions;
 using Country.Reference.Iso3166.Models;
-
 namespace Country.Reference.Iso3166.Services;
 
 internal sealed class CountryCodeService : ICountryCodeService
 {
-    private readonly IReadOnlyList<Models.Country> _countries = LocalCountryDatabase.ActualCountries;
-
-    public bool TryValidateByCode(string code, out ValidationResult result)
+    private readonly Dictionary<string, Models.Country> _byCode = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<CountryCode.TwoLetterCode, Models.Country> _byAlpha2 = [];
+    private readonly Dictionary<CountryCode.ThreeLetterCode, Models.Country> _byAlpha3 = [];
+    private static readonly Dictionary<string, Models.Country> _byName = new(StringComparer.OrdinalIgnoreCase);
+    private readonly IReadOnlyList<Models.Country> _allCountries;
+    
+public CountryCodeService()
     {
-        if (string.IsNullOrWhiteSpace(code))
-        {
-            result = ValidationResult.Invalid("Code is null or empty.", ValidationType.Value);
-            return false;
-        }
+        _allCountries = LocalCountryDatabase.ActualCountries
+            .OrderBy(c => c.Name)
+            .ToList()
+            .AsReadOnly();
 
-        var existingCountry = GetByCode(code);
-        result = existingCountry is not null
-            ? ValidationResult.Success()
-            : ValidationResult.Invalid(
-                $"The country with code (TwoLetterCode or ThreeLetterCode) '{code}' does not exist");
-        return existingCountry is not null && !string.IsNullOrWhiteSpace(existingCountry.Name);
+        foreach (var country in _allCountries)
+        {
+            _byCode[country.TwoLetterCode.ToString()] = country;
+            _byCode[country.ThreeLetterCode.ToString()] = country;
+            _byCode[country.NumericCode] = country;
+            _byName[country.Name] = country;
+            
+            _byAlpha2[country.TwoLetterCode] = country;
+            _byAlpha3[country.ThreeLetterCode] = country;
+        }
     }
 
-    public bool TryValidateByName(string name, out ValidationResult result)
+    public Models.Country? FindByCode(string code)
     {
-        throw new NotImplementedException();
-    }
-
-    public Models.Country? GetByCode(string code)
-    {
-        if (string.IsNullOrWhiteSpace(code))
-        {
-            return null;
-        }
-
-        return _countries.FirstOrDefault(c =>
-            code.Contains(c.TwoLetterCode.ToString(), StringComparison.OrdinalIgnoreCase) ||
-            code.Contains(c.ThreeLetterCode.ToString(), StringComparison.OrdinalIgnoreCase));
-    }
-
-    public Models.Country? GetByName(string name)
-    {
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            return null;
-        }
-
-        return _countries.FirstOrDefault(c =>
-            name.Contains(c.Name.ToString(), StringComparison.OrdinalIgnoreCase));
+        return string.IsNullOrWhiteSpace(code) ? null : _byCode.GetValueOrDefault(code.Trim());
     }
 
     public Models.Country Get(CountryCode.TwoLetterCode code)
     {
-        return _countries.First(c => c.TwoLetterCode == code);
+        return _byAlpha2[code];
     }
 
     public Models.Country Get(CountryCode.ThreeLetterCode code)
     {
-        return _countries.First(c => c.ThreeLetterCode == code);
+        return _byAlpha3[code];
     }
 
-    public IReadOnlyList<Models.Country> GetAll() => _countries.OrderBy(c => c.Name).ToList().AsReadOnly();
+    public Models.Country? Get(string name)
+    {
+        return string.IsNullOrWhiteSpace(name) ? null : _byName.GetValueOrDefault(name.Trim());
+    }
+
+    public bool TryGet(string code, [NotNullWhen(true)] out Models.Country? country)
+    {
+        country = FindByCode(code);
+        return country is not null;
+    }
+
+    public ValidationResult ValidateByCode(string code, [NotNullWhen(true)] out Models.Country? country)
+    {
+        if (string.IsNullOrWhiteSpace(code))
+        {
+            country = null;
+            return ValidationResult.Invalid("Code is required..", ValidationType.Code);
+        }
+
+        country = FindByCode(code);
+        
+        return country is not null
+            ? ValidationResult.Success()
+            : ValidationResult.Invalid($"The country code '{code}' does not exist.", ValidationType.Code);
+    }
+
+    public ValidationResult ValidateByName(string name, [NotNullWhen(true)] out Models.Country? country)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            country = null;
+            return ValidationResult.Invalid("Name is required.", ValidationType.Code);
+        }
+        
+        country = Get(name);
+        return country is not null
+            ? ValidationResult.Success()
+            : ValidationResult.Invalid($"Country with name '{name}' was not found.", ValidationType.Value);
+    }
+
+    public IReadOnlyList<Models.Country> GetAll() => _allCountries;
 }

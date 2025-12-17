@@ -1,6 +1,28 @@
-@Country.Reference.Iso3166.WebApi_HostAddress = http://localhost:5252
+@Host = http://localhost:5252
+@ApiUrl = {{Host}}/api/countries
 
-GET {{Country.Reference.Iso3166.WebApi_HostAddress}}/weatherforecast/
+### Get all active countries
+GET {{ApiUrl}}
 Accept: application/json
 
-###
+### Use this for flexible search (works for 'AT', 'AUT', or '040')
+GET {{ApiUrl}}/find/code/AUT
+Accept: application/json
+
+### Get country by official name
+GET {{ApiUrl}}/find/name/Germany
+Accept: application/json
+
+### Validate country code
+# Tests the ValidateByCode logic and returns ValidationResult
+GET {{ApiUrl}}/validate/code/US
+Accept: application/json
+
+### Validate country name
+# Tests the ValidateByName logic and returns ValidationResult
+GET {{ApiUrl}}/validate/name/France
+Accept: application/json
+
+### Test Invalid Search (Error Handling)
+GET {{ApiUrl}}/find/code/XYZ
+Accept: application/json
