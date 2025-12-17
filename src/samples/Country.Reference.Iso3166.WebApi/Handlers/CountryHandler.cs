@@ -19,14 +19,14 @@ public static class CountryHandler
         service.ValidateByName(countryName, out var country);
         return country is null ? Results.NotFound() : Results.Json(country);
     }
-    
+
     internal static IResult ValidateCountryByCode([FromServices] ICountryCodeService service,
         [FromRoute(Name = "code")] string countryCode)
     {
         var validationResult = service.ValidateByCode(countryCode, out _);
         return !validationResult.IsValid ? Results.BadRequest($"{validationResult.Reason}. Validation result: {validationResult.IsValid}") : Results.Ok($"Validation result: {validationResult.IsValid}");
     }
-    
+
     internal static IResult ValidateCountryByName([FromServices] ICountryCodeService service,
         [FromRoute(Name = "name")] string countryName)
     {

@@ -10,8 +10,8 @@ internal sealed class CountryCodeService : ICountryCodeService
     private readonly Dictionary<CountryCode.ThreeLetterCode, Models.Country> _byAlpha3 = [];
     private static readonly Dictionary<string, Models.Country> _byName = new(StringComparer.OrdinalIgnoreCase);
     private readonly IReadOnlyList<Models.Country> _allCountries;
-    
-public CountryCodeService()
+
+    public CountryCodeService()
     {
         _allCountries = LocalCountryDatabase.ActualCountries
             .OrderBy(c => c.Name)
@@ -24,7 +24,7 @@ public CountryCodeService()
             _byCode[country.ThreeLetterCode.ToString()] = country;
             _byCode[country.NumericCode] = country;
             _byName[country.Name] = country;
-            
+
             _byAlpha2[country.TwoLetterCode] = country;
             _byAlpha3[country.ThreeLetterCode] = country;
         }
@@ -65,7 +65,7 @@ public CountryCodeService()
         }
 
         country = FindByCode(code);
-        
+
         return country is not null
             ? ValidationResult.Success()
             : ValidationResult.Invalid($"The country code '{code}' does not exist.", ValidationType.Code);
@@ -78,7 +78,7 @@ public CountryCodeService()
             country = null;
             return ValidationResult.Invalid("Name is required.", ValidationType.Code);
         }
-        
+
         country = Get(name);
         return country is not null
             ? ValidationResult.Success()

@@ -12,7 +12,7 @@ internal sealed class CsvCountryLoader
             .LoadActualCountries()
             .OrderBy(c => c.Name)
             .ToList();
-        
+
         _actualCountries.AddRange(actual);
     }
 }

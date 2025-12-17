@@ -14,7 +14,7 @@ public static class CountryEndpoint
                 o.Description = "Returns the country list";
                 return o;
             });
-        
+
         app.MapGet("/api/countries/find/code/{code}", CountryHandler.FindCountryByCode)
             .WithName("FindCountryByCode")
             .WithOpenApi(o =>
@@ -23,7 +23,7 @@ public static class CountryEndpoint
                 o.Description = "Returns the country";
                 return o;
             });
-        
+
         app.MapGet("/api/countries/find/name/{name}", CountryHandler.FindCountryByName)
             .WithName("FindCountryByName")
             .WithOpenApi(o =>
@@ -32,7 +32,7 @@ public static class CountryEndpoint
                 o.Description = "Returns the country";
                 return o;
             });
-        
+
         app.MapGet("/api/countries/validate/code/{code}", CountryHandler.ValidateCountryByCode)
             .WithName("ValidateCountryByCode")
             .WithOpenApi(o =>
@@ -41,7 +41,7 @@ public static class CountryEndpoint
                 o.Description = "Returns the ValidationResult";
                 return o;
             });
-        
+
         app.MapGet("/api/countries/validate/name/{name}", CountryHandler.ValidateCountryByName)
             .WithName("ValidateCountryByName")
             .WithOpenApi(o =>

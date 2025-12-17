@@ -24,7 +24,7 @@ public interface ICountryCodeService
     /// Gets a country using its strictly typed Alpha-3 code.
     /// </summary>
     Models.Country Get(CountryCode.ThreeLetterCode code);
-    
+
     /// <summary>
     /// Finds a country by its official name. Case-insensitive.
     /// </summary>
@@ -37,14 +37,14 @@ public interface ICountryCodeService
     /// Returns true if the country exists; otherwise, false.
     /// </summary>
     bool TryGet(string code, [NotNullWhen(true)] out Models.Country? country);
-    
+
     /// <summary>
     /// Validates if a country code exists and provides detailed feedback.
     /// </summary>
     /// <param name="code">The Alpha-2, Alpha-3, or Numeric M49 code to validate.</param>
     /// <param name="country">When this method returns, contains the country data if valid; otherwise, null.</param>
     ValidationResult ValidateByCode(string code, [NotNullWhen(true)] out Models.Country? country);
-    
+
     /// <summary>
     /// Validates if a country exists by its name and provides detailed feedback.
     /// </summary>

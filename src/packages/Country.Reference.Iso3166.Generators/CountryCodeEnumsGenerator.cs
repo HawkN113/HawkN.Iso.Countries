@@ -86,7 +86,7 @@ public class CountryCodeEnumsGenerator : BaseIncrementalGenerator
 
             var loader = new CsvCountryLoader(originalCsv);
             var sb = CreateSourceBuilder(
-                Constants.GeneratorName, 
+                Constants.GeneratorName,
                 Constants.DefaultNamespace,
                 [
                     "System.Collections.Generic"
@@ -130,10 +130,10 @@ public class CountryCodeEnumsGenerator : BaseIncrementalGenerator
     }
 
     private static void GenerateCountryEnumSection(
-        StringBuilder sb, 
+        StringBuilder sb,
         string propertyName,
-        List<Models.Country> countryList, 
-        string summary, 
+        List<Models.Country> countryList,
+        string summary,
         bool isThreeLetterCode)
     {
         sb.AppendLine(

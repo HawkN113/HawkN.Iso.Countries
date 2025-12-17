@@ -70,11 +70,11 @@ internal sealed class CsvCountryHandler(string csvContent)
 
         return indices;
     }
-    
+
     private static bool TryGetField(string[] fields, int index, int expectedLength, out string? code)
     {
         var value = fields[index].Trim();
-            
+
         if (string.IsNullOrEmpty(value) || value.Length != expectedLength)
         {
             code = null;

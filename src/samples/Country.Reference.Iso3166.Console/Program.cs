@@ -31,7 +31,7 @@ try
     var allCountries = countryCodeService!.GetAll();
     Console.WriteLine("| Alpha-2 | Alpha-3 | Numeric | Country Name |");
     Console.WriteLine("|:-------:|:-------:|:-------:|:-------------|");
-    
+
     foreach (var country in allCountries)
     {
         Console.WriteLine(
@@ -57,7 +57,7 @@ try
     Console.WriteLine(separator);
     Console.WriteLine("Validation with Result Object");
     Console.WriteLine(separator);
-    
+
     // Validating an existing Alpha-2 code
     var resOk = countryCodeService.ValidateByCode("US", out var usa);
     Console.WriteLine($"\t[Validate 'US']       -> IsValid: {resOk.IsValid}, Found: {usa?.Name}");
@@ -72,13 +72,13 @@ try
     // Validating by Name
     var resName = countryCodeService.ValidateByName("France", out _);
     Console.WriteLine($"\t[Validate 'France']   -> IsValid: {resName.IsValid}");
-    
+
     Console.WriteLine(separator);
     Console.WriteLine("Fluent String Extensions (.ToCountry)");
     Console.WriteLine(separator);
-    
+
     var inputCode = "GBR"; // United Kingdom
-    
+
     // Check existence using extension method
     if (inputCode.IsCountryCode(countryCodeService))
     {
