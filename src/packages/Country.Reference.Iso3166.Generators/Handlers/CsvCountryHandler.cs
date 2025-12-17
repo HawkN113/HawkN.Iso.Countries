@@ -14,7 +14,7 @@ internal sealed class CsvCountryHandler(string csvContent)
         var lines = csvContent.Split(['\n', '\r'], StringSplitOptions.RemoveEmptyEntries);
 
         if (lines.Length <= 1) return countries;
-        var headerLine = lines.First();
+        var headerLine = lines[0];
         var headerFields = headerLine.Split(Delimiter);
 
         var indices = GetColumnIndices(headerFields);
@@ -37,13 +37,11 @@ internal sealed class CsvCountryHandler(string csvContent)
             }
             var m49String = fields[indices[HeaderM49CodeName]].Trim();
 
-            var country = new Models.Country
-            {
-                Name = fields[indices[HeaderCountryOrAreaName]].Trim(),
-                CodeAlpha2 = alpha2Code,
-                CodeAlpha3 = alpha3Code,
-                NumericCode = m49String,
-            };
+            var country = new Models.Country(
+                fields[indices[HeaderCountryOrAreaName]].Trim(),
+                alpha2Code!.Trim(),
+                alpha3Code!.Trim(),
+                m49String);
             countries.Add(country);
         }
 

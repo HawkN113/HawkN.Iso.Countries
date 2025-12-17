@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -24,29 +23,24 @@
         <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
         <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\Generated</CompilerGeneratedFilesOutputPath>
     </PropertyGroup>
-
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <DebugType>embedded</DebugType>
         <DocumentationFile>bin\Debug\Country.Reference.Iso3166.xml</DocumentationFile>
         <WarningsAsErrors>;NU1605</WarningsAsErrors>
     </PropertyGroup>
-
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DebugType>embedded</DebugType>
         <DocumentationFile>bin\Release\Country.Reference.Iso3166.xml</DocumentationFile>
         <WarningsAsErrors>;NU1605</WarningsAsErrors>
     </PropertyGroup>
-
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
     </ItemGroup>
-
     <ItemGroup>
         <InternalsVisibleTo Include="Country.Reference.Iso3166.Tests" />
         <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
     </ItemGroup>
-
     <ItemGroup>
         <None Update="Package\Content\Country.Reference.Iso3166.ico.png">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -55,7 +49,6 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
-
     <!-- Warning! [Start] Do not modify the settings manually. -->
     <!-- Need to update 'LocalCountryDatabase' -->
     <ItemGroup Condition="'$(GenerateCountryFiles)' == 'true'">
@@ -103,5 +96,4 @@
         </PropertyGroup>
     </Target>
     <!-- Warning! [Finish] Do not modify the settings manually. -->
-
 </Project>
