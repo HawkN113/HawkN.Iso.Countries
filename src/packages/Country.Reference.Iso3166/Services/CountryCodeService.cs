@@ -72,10 +72,7 @@ internal sealed class CountryCodeService : ICountryCodeService
 
     public ValidationResult ValidateByCode(string code, [NotNullWhen(true)] out Models.Country? country)
     {
-        if (TryGet(code, out country))
-            return ValidationResult.Success();
-
-        return ValidationResult.Failure($"Country code '{code}' is not a valid ISO 3166-1 code.");
+        return TryGet(code, out country) ? ValidationResult.Success() : ValidationResult.Failure($"Country code '{code}' is not a valid ISO 3166-1 code.");
     }
 
     public ValidationResult ValidateByName(string name, [NotNullWhen(true)] out Models.Country? country)

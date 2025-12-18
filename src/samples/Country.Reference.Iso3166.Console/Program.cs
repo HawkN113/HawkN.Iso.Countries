@@ -30,7 +30,7 @@ try
     Console.WriteLine("\t| Alpha-2 | Alpha-3 | Numeric | Country Name |");
     Console.WriteLine("\t|:-------:|:-------:|:-------:|:-------------|");
 
-    foreach (var country in allCountries.Take(5)) // Show first 5 for brevity
+    foreach (var country in allCountries)
     {
         Console.WriteLine($"\t| {country.TwoLetterCode,-7} | {country.ThreeLetterCode,-7} | {country.NumericCode,-7} | {country.Name,-12} |");
     }

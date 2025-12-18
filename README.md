@@ -38,7 +38,6 @@ dotnet add package HawkN.Country.Reference.Iso3166 --version <last version>
 ```csharp
 using Country.Reference.Iso3166.Abstractions;
 using Country.Reference.Iso3166.Models;
-using Country.Reference.Iso3166.Enums;
 using Country.Reference.Iso3166.Extensions;
 ```
 ---
@@ -56,6 +55,7 @@ using var host = Host.CreateDefaultBuilder(args)
     .Build();
 ```
 #### Retrieval & Search
+The service provides O(1) lookups via pre-indexed dictionaries and efficient partial searching.
 ```csharp
 var service = scope.ServiceProvider.GetRequiredService<ICountryCodeService>();
 
@@ -67,7 +67,7 @@ var germany = service.FindByCode("DE");
 var austria = service.FindByCode("040");
 
 // Lookup by Name
-var france = service.Get("France");
+var france = service.FindByName("France");
 
 // Strongly typed lookup
 var uk = service.Get(CountryCode.TwoLetterCode.GB);
@@ -101,6 +101,13 @@ var country = input.ToCountry(service);
 if ("US".IsCountryCode(service)) 
 {
     // ...
+}
+
+// Quick validation
+var validationResult = "US".ValidateAsCountryCode(countryCodeService, out var _);
+if (validationResult.IsValid)
+{
+   // ...
 }
 ```
 
