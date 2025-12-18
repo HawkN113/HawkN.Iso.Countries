@@ -33,6 +33,7 @@
 
 ```bash
 dotnet add package HawkN.Country.Reference.Iso3166 --version <last version>
+````
 
 ### Required Namespaces
 ```csharp
