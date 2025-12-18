@@ -2,27 +2,48 @@
 @ApiUrl = {{Host}}/api/countries
 
 ### Get all active countries
+# Returns IReadOnlyList<Country>
 GET {{ApiUrl}}
 Accept: application/json
 
-### Use this for flexible search (works for 'AT', 'AUT', or '040')
+---
+
+### Find by Code (Alpha-2, Alpha-3, or Numeric)
+# Matches FindByCode(string code) - Case-insensitive
 GET {{ApiUrl}}/find/code/AUT
 Accept: application/json
 
-### Get country by official name
+### Find by Exact Name
+# Matches FindByName(string name) - Case-insensitive
 GET {{ApiUrl}}/find/name/Germany
 Accept: application/json
 
+### Search by Name (Partial Match / Autocomplete)
+# Matches SearchByName(string query)
+# Try 'unit' to see United Kingdom, United States, etc.
+GET {{ApiUrl}}/search?query=unit
+Accept: application/json
+
+---
+
 ### Validate country code
-# Tests the ValidateByCode logic and returns ValidationResult
+# Returns ValidationResult with Success/Failure details
 GET {{ApiUrl}}/validate/code/US
 Accept: application/json
 
 ### Validate country name
-# Tests the ValidateByName logic and returns ValidationResult
+# Returns ValidationResult with Success/Failure details
 GET {{ApiUrl}}/validate/name/France
 Accept: application/json
 
-### Test Invalid Search (Error Handling)
+---
+
+### Error Handling: Non-existent code
+# Should return 404 NotFound
 GET {{ApiUrl}}/find/code/XYZ
+Accept: application/json
+
+### Error Handling: Invalid Validation
+# Should return 400 BadRequest with reason
+GET {{ApiUrl}}/validate/code/INVALID
 Accept: application/json

@@ -23,7 +23,7 @@ public static class CountryStringExtensions
     {
         if (!string.IsNullOrWhiteSpace(code)) return service.ValidateByCode(code, out country);
         country = null;
-        return ValidationResult.Invalid("Code is required.", ValidationType.Code);
+        return ValidationResult.Failure("Code is required.", ValidationType.Code);
     }
 
     /// <summary>

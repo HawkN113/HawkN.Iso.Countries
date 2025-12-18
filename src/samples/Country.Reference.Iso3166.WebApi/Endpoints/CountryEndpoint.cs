@@ -6,7 +6,9 @@ public static class CountryEndpoint
 {
     public static IEndpointRouteBuilder MapCountryEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/countries", CountryHandler.GetAllCountries)
+        var countriesGroup = app.MapGroup("/api/countries");
+
+        countriesGroup.MapGet("/", CountryHandler.GetAllCountries)
             .WithName("GetAllCountries")
             .WithOpenApi(o =>
             {
@@ -15,7 +17,7 @@ public static class CountryEndpoint
                 return o;
             });
 
-        app.MapGet("/api/countries/find/code/{code}", CountryHandler.FindCountryByCode)
+        countriesGroup.MapGet("/find/code/{code}", CountryHandler.FindCountryByCode)
             .WithName("FindCountryByCode")
             .WithOpenApi(o =>
             {
@@ -24,7 +26,7 @@ public static class CountryEndpoint
                 return o;
             });
 
-        app.MapGet("/api/countries/find/name/{name}", CountryHandler.FindCountryByName)
+        countriesGroup.MapGet("/find/name/{name}", CountryHandler.FindCountryByName)
             .WithName("FindCountryByName")
             .WithOpenApi(o =>
             {
@@ -33,7 +35,16 @@ public static class CountryEndpoint
                 return o;
             });
 
-        app.MapGet("/api/countries/validate/code/{code}", CountryHandler.ValidateCountryByCode)
+        countriesGroup.MapGet("/search", CountryHandler.SearchCountries)
+            .WithName("SearchCountries")
+            .WithOpenApi(o =>
+            {
+                o.Summary = "Search countries by name";
+                o.Description = "Returns the list of country";
+                return o;
+            });
+
+        countriesGroup.MapGet("/validate/code/{code}", CountryHandler.ValidateCountryByCode)
             .WithName("ValidateCountryByCode")
             .WithOpenApi(o =>
             {
@@ -42,7 +53,7 @@ public static class CountryEndpoint
                 return o;
             });
 
-        app.MapGet("/api/countries/validate/name/{name}", CountryHandler.ValidateCountryByName)
+        countriesGroup.MapGet("/validate/name/{name}", CountryHandler.ValidateCountryByName)
             .WithName("ValidateCountryByName")
             .WithOpenApi(o =>
             {

@@ -23,7 +23,7 @@ public sealed class ValidationResult
     /// </summary>
     /// <param name="reason">The reason why the validation failed.</param>
     /// <param name="type">The type of validation that failed.</param>
-    public static ValidationResult Invalid(string reason, ValidationType type = ValidationType.None) =>
+    public static ValidationResult Failure(string reason, ValidationType type = ValidationType.None) =>
         new()
         {
             Reason = reason,

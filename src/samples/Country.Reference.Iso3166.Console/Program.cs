@@ -20,76 +20,90 @@ try
 {
     var container = host.Services;
     using var scope = container.CreateScope();
-    // Retrieve the service instance from the DI container
     var countryCodeService = scope.ServiceProvider.GetRequiredService<ICountryCodeService>();
 
     Console.WriteLine(separator);
-    Console.WriteLine("Data Retrieval (GetAll)");
+    Console.WriteLine("1. Data Retrieval (GetAll)");
     Console.WriteLine(separator);
 
-    // Get all existing country codes
-    var allCountries = countryCodeService!.GetAll();
-    Console.WriteLine("| Alpha-2 | Alpha-3 | Numeric | Country Name |");
-    Console.WriteLine("|:-------:|:-------:|:-------:|:-------------|");
+    var allCountries = countryCodeService.GetAll();
+    Console.WriteLine("\t| Alpha-2 | Alpha-3 | Numeric | Country Name |");
+    Console.WriteLine("\t|:-------:|:-------:|:-------:|:-------------|");
 
-    foreach (var country in allCountries)
+    foreach (var country in allCountries.Take(5)) // Show first 5 for brevity
     {
-        Console.WriteLine(
-                $"| {country.TwoLetterCode}      | {country.ThreeLetterCode}     | {country.NumericCode}     | {country.Name}      |");
+        Console.WriteLine($"\t| {country.TwoLetterCode,-7} | {country.ThreeLetterCode,-7} | {country.NumericCode,-7} | {country.Name,-12} |");
     }
-    Console.WriteLine(
-        $"\tTotal countries found: {allCountries.Count}");
+    Console.WriteLine($"\tTotal countries found: {allCountries.Count}");
 
     Console.WriteLine(separator);
-    Console.WriteLine("Lookup Operations (By Name, Code, and Enum)");
+    Console.WriteLine("2. Lookup Operations (Find & Get)");
     Console.WriteLine(separator);
-    var byName = countryCodeService.Get("Germany");
-    Console.WriteLine($"\t[By Name 'Germany']   -> Code: {byName?.TwoLetterCode}, Numeric: {byName?.NumericCode}");
 
-    // Lookup by any String Code (Alpha-2, Alpha-3, or Numeric M49)
-    var byCode = countryCodeService.FindByCode("at"); // Austria
-    Console.WriteLine($"\t[By Code 'at']        -> Name: {byCode?.Name}");
+    // Exact name lookup (now using FindByName)
+    var byName = countryCodeService.FindByName("Germany");
+    Console.WriteLine($"\t[FindByName 'Germany'] -> Code: {byName?.TwoLetterCode}, Numeric: {byName?.NumericCode}");
 
-    // Lookup by Strongly Typed Enum (Generated at compile time)
+    // Lookup by any String Code (Alpha-2, Alpha-3, or Numeric M49 string)
+    var byCode = countryCodeService.FindByCode("at"); 
+    Console.WriteLine($"\t[FindByCode 'at']      -> Name: {byCode?.Name}");
+
+    // Lookup by Numeric Integer (New in interface)
+    var byInt = countryCodeService.Get(840); 
+    Console.WriteLine($"\t[Get by Int 840]       -> Name: {byInt?.Name}");
+
+    // Strongly Typed Enum lookups
     var byEnum = countryCodeService.Get(CountryCode.TwoLetterCode.FR);
-    Console.WriteLine($"\t[By Enum 'FR']        -> Name: {byEnum.Name}");
+    Console.WriteLine($"\t[Get by Enum FR]       -> Name: {byEnum.Name}");
 
     Console.WriteLine(separator);
-    Console.WriteLine("Validation with Result Object");
+    Console.WriteLine("3. Smart Search (SearchByName)");
     Console.WriteLine(separator);
 
-    // Validating an existing Alpha-2 code
+    // Partial match search (Autocomplete simulation)
+    var searchResults = countryCodeService.SearchByName("uni");
+    Console.WriteLine($"\tSearch for 'uni' found {searchResults.Count()} matches:");
+    foreach (var match in searchResults)
+    {
+        Console.WriteLine($"\t  - {match.Name} ({match.TwoLetterCode})");
+    }
+
+    Console.WriteLine(separator);
+    Console.WriteLine("4. Validation with Result Object");
+    Console.WriteLine(separator);
+
+    // Validating Alpha-2 code
     var resOk = countryCodeService.ValidateByCode("US", out var usa);
-    Console.WriteLine($"\t[Validate 'US']       -> IsValid: {resOk.IsValid}, Found: {usa?.Name}");
+    Console.WriteLine($"\t[Validate 'US']        -> IsValid: {resOk.IsValid}, Found: {usa?.Name}");
 
     // Validating a non-existent code
     var resFail = countryCodeService.ValidateByCode("XYZ", out _);
     if (!resFail.IsValid)
     {
-        Console.WriteLine($"\t[Validate 'XYZ']      -> IsValid: {resFail.IsValid}, Reason: '{resFail.Reason}'");
+        Console.WriteLine($"\t[Validate 'XYZ']       -> IsValid: {resFail.IsValid}, Reason: '{resFail.Reason}'");
     }
 
-    // Validating by Name
-    var resName = countryCodeService.ValidateByName("France", out _);
-    Console.WriteLine($"\t[Validate 'France']   -> IsValid: {resName.IsValid}");
-
     Console.WriteLine(separator);
-    Console.WriteLine("Fluent String Extensions (.ToCountry)");
+    Console.WriteLine("5. Fluent Extensions & Safety");
     Console.WriteLine(separator);
 
-    var inputCode = "GBR"; // United Kingdom
+    const string inputCode = "GBR"; 
 
-    // Check existence using extension method
-    if (inputCode.IsCountryCode(countryCodeService))
+    // Using TryGet for safe retrieval
+    if (countryCodeService.TryGet(inputCode, out var gbr))
     {
-        // Direct conversion from string to Model
-        var country = inputCode.ToCountry(countryCodeService);
-        Console.WriteLine($"\t[Extension method]    -> Input '{inputCode}' resolved to: {country?.Name}");
+        Console.WriteLine($"\t[TryGet '{inputCode}']   -> Success: {gbr.Name}");
     }
 
-    await host.RunAsync();
+    // Direct conversion using extension method
+    var countryExt = inputCode.ToCountry(countryCodeService);
+    Console.WriteLine($"\t[Extension method]     -> Resolved to: {countryExt?.Name}");
+
+    Console.WriteLine(separator);
+    Console.WriteLine("Console Example Finished.");
+    Console.WriteLine(separator);
 }
 catch (Exception ex)
 {
-    Console.WriteLine(ex);
+    Console.WriteLine($"Error: {ex.Message}");
 }
