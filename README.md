@@ -37,6 +37,7 @@ dotnet add package HawkN.Country.Reference.Iso3166 --version <last version>
 
 ### Required Namespaces
 ```csharp
+using Country.Reference.Iso3166;
 using Country.Reference.Iso3166.Abstractions;
 using Country.Reference.Iso3166.Models;
 using Country.Reference.Iso3166.Extensions;
