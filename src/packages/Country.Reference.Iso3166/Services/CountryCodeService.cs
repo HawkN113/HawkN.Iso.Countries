@@ -10,9 +10,9 @@ internal sealed class CountryCodeService : ICountryCodeService
     private readonly Dictionary<CountryCode.TwoLetterCode, Models.Country> _byAlpha2 = [];
     private readonly Dictionary<CountryCode.ThreeLetterCode, Models.Country> _byAlpha3 = [];
     private readonly Dictionary<int, Models.Country> _byNumericInt = [];
-    
+
     private readonly Dictionary<string, Models.Country> _byName = new(StringComparer.OrdinalIgnoreCase);
-    
+
     private readonly IReadOnlyList<Models.Country> _allCountries;
 
     public CountryCodeService()
@@ -26,13 +26,13 @@ internal sealed class CountryCodeService : ICountryCodeService
             _byCode[country.TwoLetterCode.ToString()] = country;
             _byCode[country.ThreeLetterCode.ToString()] = country;
             _byCode[country.NumericCode] = country;
-            
+
             if (int.TryParse(country.NumericCode, out var nCode))
                 _byNumericInt[nCode] = country;
 
             _byAlpha2[country.TwoLetterCode] = country;
             _byAlpha3[country.ThreeLetterCode] = country;
-            
+
             IndexName(country.Name, country);
         }
     }
@@ -43,10 +43,10 @@ internal sealed class CountryCodeService : ICountryCodeService
             _byName[name!] = country;
     }
 
-    public Models.Country? FindByCode(string code) => 
+    public Models.Country? FindByCode(string code) =>
         _byCode.GetValueOrDefault(code);
 
-    public Models.Country? FindByName(string name) => 
+    public Models.Country? FindByName(string name) =>
         _byName.GetValueOrDefault(name);
 
     public IEnumerable<Models.Country> SearchByName(string query)
@@ -64,10 +64,10 @@ internal sealed class CountryCodeService : ICountryCodeService
 
     public Models.Country Get(CountryCode.ThreeLetterCode code) => _byAlpha3[code];
 
-    public Models.Country? Get(int numericCode) => 
+    public Models.Country? Get(int numericCode) =>
         _byNumericInt.GetValueOrDefault(numericCode);
 
-    public bool TryGet(string code, [NotNullWhen(true)] out Models.Country? country) => 
+    public bool TryGet(string code, [NotNullWhen(true)] out Models.Country? country) =>
         _byCode.TryGetValue(code, out country);
 
     public ValidationResult ValidateByCode(string code, [NotNullWhen(true)] out Models.Country? country)

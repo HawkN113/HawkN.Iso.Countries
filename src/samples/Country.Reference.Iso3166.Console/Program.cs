@@ -45,11 +45,11 @@ try
     Console.WriteLine($"\t[FindByName 'Germany'] -> Code: {byName?.TwoLetterCode}, Numeric: {byName?.NumericCode}");
 
     // Lookup by any String Code (Alpha-2, Alpha-3, or Numeric M49 string)
-    var byCode = countryCodeService.FindByCode("at"); 
+    var byCode = countryCodeService.FindByCode("at");
     Console.WriteLine($"\t[FindByCode 'at']      -> Name: {byCode?.Name}");
 
     // Lookup by Numeric Integer (New in interface)
-    var byInt = countryCodeService.Get(840); 
+    var byInt = countryCodeService.Get(840);
     Console.WriteLine($"\t[Get by Int 840]       -> Name: {byInt?.Name}");
 
     // Strongly Typed Enum lookups
@@ -87,7 +87,7 @@ try
     Console.WriteLine("5. Fluent Extensions & Safety");
     Console.WriteLine(separator);
 
-    const string inputCode = "GBR"; 
+    const string inputCode = "GBR";
 
     // Using TryGet for safe retrieval
     if (countryCodeService.TryGet(inputCode, out var gbr))

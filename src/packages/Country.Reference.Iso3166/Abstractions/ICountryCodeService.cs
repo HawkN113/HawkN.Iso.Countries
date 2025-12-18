@@ -74,7 +74,7 @@ public interface ICountryCodeService
     /// <param name="country">Contains the <see cref="Country"/> if validation succeeds.</param>
     /// <returns>A <see cref="ValidationResult"/> indicating success or failure reasons.</returns>
     ValidationResult ValidateByName(string name, [NotNullWhen(true)] out Models.Country? country);
-    
+
     /// <summary>
     /// Returns all officially assigned ISO 3166-1 countries.
     /// </summary>

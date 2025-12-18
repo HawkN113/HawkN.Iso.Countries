@@ -23,8 +23,8 @@ public static class CountryHandler
     /// <returns>A country object if found; otherwise, a 404 NotFound response.</returns>
     internal static IResult FindCountryByCode(ICountryCodeService service, [FromRoute] string code)
     {
-        return service.TryGet(code, out var country) 
-            ? Results.Ok(country) 
+        return service.TryGet(code, out var country)
+            ? Results.Ok(country)
             : Results.NotFound(new { Message = $"Country with code '{code}' not found." });
     }
 
@@ -37,8 +37,8 @@ public static class CountryHandler
     internal static IResult FindCountryByName(ICountryCodeService service, [FromRoute] string name)
     {
         var country = service.FindByName(name);
-        return country is not null 
-            ? Results.Ok(country) 
+        return country is not null
+            ? Results.Ok(country)
             : Results.NotFound(new { Message = $"Country with name '{name}' not found." });
     }
 
@@ -63,8 +63,8 @@ public static class CountryHandler
     internal static IResult ValidateCountryByCode(ICountryCodeService service, [FromRoute] string code)
     {
         var result = service.ValidateByCode(code, out var country);
-        return result.IsValid 
-            ? Results.Ok(new { Valid = true, Country = country }) 
+        return result.IsValid
+            ? Results.Ok(new { Valid = true, Country = country })
             : Results.BadRequest(new { Valid = false, Message = result.Reason });
     }
 
@@ -77,8 +77,8 @@ public static class CountryHandler
     internal static IResult ValidateCountryByName(ICountryCodeService service, [FromRoute] string name)
     {
         var result = service.ValidateByName(name, out var country);
-        return result.IsValid 
-            ? Results.Ok(new { Valid = true, Country = country }) 
+        return result.IsValid
+            ? Results.Ok(new { Valid = true, Country = country })
             : Results.BadRequest(new { Valid = false, Message = result.Reason });
     }
 }
