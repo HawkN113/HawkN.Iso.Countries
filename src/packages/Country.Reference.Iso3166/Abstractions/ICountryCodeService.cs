@@ -17,9 +17,6 @@ public interface ICountryCodeService
     /// <summary>
     /// Retrieves a country by its common name or official ISO 3166-1 name.
     /// </summary>
-    /// <remarks>
-    /// Matches against both <see cref="Country.Name"/> and <see cref="Country.OfficialName"/>.
-    /// </remarks>
     /// <param name="name">The common or official name (e.g., "South Korea" or "Republic of Korea"). Case-insensitive.</param>
     /// <returns>A <see cref="Country"/> instance if found; otherwise, <see langword="null"/>.</returns>
     Models.Country? FindByName(string name);
