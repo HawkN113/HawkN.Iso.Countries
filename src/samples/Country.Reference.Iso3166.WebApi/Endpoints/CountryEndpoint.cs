@@ -1,5 +1,4 @@
 ﻿using Country.Reference.Iso3166.WebApi.Handlers;
-
 namespace Country.Reference.Iso3166.WebApi.Endpoints;
 
 public static class CountryEndpoint

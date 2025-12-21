@@ -4,7 +4,6 @@ using Country.Reference.Iso3166.Generators.Factories;
 using Country.Reference.Iso3166.Generators.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
-
 namespace Country.Reference.Iso3166.Generators;
 
 public abstract class BaseIncrementalGenerator : IIncrementalGenerator

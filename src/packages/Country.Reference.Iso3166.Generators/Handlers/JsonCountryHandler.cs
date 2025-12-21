@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using Country.Reference.Iso3166.Generators.Models;
-
 namespace Country.Reference.Iso3166.Generators.Handlers;
 
 internal sealed class JsonCountryHandler(string jsonContent)

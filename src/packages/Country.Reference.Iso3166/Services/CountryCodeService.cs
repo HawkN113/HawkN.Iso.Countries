@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Country.Reference.Iso3166.Abstractions;
 using Country.Reference.Iso3166.Models;
-
 namespace Country.Reference.Iso3166.Services;
 
 internal sealed class CountryCodeService : ICountryCodeService

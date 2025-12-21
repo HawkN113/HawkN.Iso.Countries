@@ -1,6 +1,5 @@
 ﻿using Country.Reference.Iso3166.Generators.Models;
 using Microsoft.CodeAnalysis;
-
 namespace Country.Reference.Iso3166.Generators.Factories;
 
 public class ErrorFactory
