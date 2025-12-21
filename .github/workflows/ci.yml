@@ -27,8 +27,8 @@ jobs:
 
     env:
       SOLUTION_NAME: src/Country.Reference.Iso3166.Solution.sln
-      PACKAGE_PROJECT_PATH: src/packages/Country.Reference.Iso3166/Country.Reference.Iso3166.csproj
-      PACKAGE_NUSPEC_FILE_PATH: Country.Reference.Iso3166.nuspec
+      PACKAGE_COUNTRY_PROJECT_PATH: src/packages/Country.Reference.Iso3166/Country.Reference.Iso3166.csproj
+      PACKAGE_COUNTRY_NUSPEC_FILE_PATH: Country.Reference.Iso3166.nuspec
       OUTPUT_NUGET_DIR: nuget-packages
       ARTIFACTS_DIR: artifacts
 
@@ -61,15 +61,15 @@ jobs:
     - name: Check code formatting
       run: dotnet format ${{ env.SOLUTION_NAME }} --no-restore --verify-no-changes --verbosity detailed
 
-    - name: Extract project version
+    - name: Extract project version (Country.Reference.Iso3166)
       id: get_version
       run: |
-        VERSION=$(grep -oP '(?<=<Version>).*(?=</Version>)' ${{ env.PACKAGE_PROJECT_PATH }} || true | head -1)
+        VERSION=$(grep -oP '(?<=<Version>).*(?=</Version>)' ${{ env.PACKAGE_COUNTRY_PROJECT_PATH }} || true | head -1)
         if [ -z "$VERSION" ]; then
-          VERSION=$(grep -oP '(?<=<VersionPrefix>).*(?=</VersionPrefix>)' ${{ env.PACKAGE_PROJECT_PATH }} || true | head -1)
+          VERSION=$(grep -oP '(?<=<VersionPrefix>).*(?=</VersionPrefix>)' ${{ env.PACKAGE_COUNTRY_PROJECT_PATH }} || true | head -1)
         fi
         if [ -z "$VERSION" ]; then
-          VERSION=$(grep -oP '(?<=<PackageVersion>).*(?=</PackageVersion>)' ${{ env.PACKAGE_PROJECT_PATH }} || true | head -1)
+          VERSION=$(grep -oP '(?<=<PackageVersion>).*(?=</PackageVersion>)' ${{ env.PACKAGE_COUNTRY_PROJECT_PATH }} || true | head -1)
         fi
         if [ -z "$VERSION" ]; then
           VERSION=$(date +%Y%m%d)
@@ -77,8 +77,8 @@ jobs:
         echo "CURRENT_VERSION=$VERSION" >> $GITHUB_ENV
       shell: bash
 
-    - name: Validate package creation
-      run: dotnet pack ${{ env.PACKAGE_PROJECT_PATH }} /p:NuspecFile=${{ env.PACKAGE_NUSPEC_FILE_PATH }} --configuration Release --no-build --output ${{ env.OUTPUT_NUGET_DIR }}
+    - name: Validate package creation (Country.Reference.Iso3166)
+      run: dotnet pack ${{ env.PACKAGE_COUNTRY_PROJECT_PATH }} /p:NuspecFile=${{ env.PACKAGE_COUNTRY_NUSPEC_FILE_PATH }} --configuration Release --no-build --output ${{ env.OUTPUT_NUGET_DIR }}
 
     - name: Prepare artifacts folder
       run: |
@@ -91,7 +91,7 @@ jobs:
     - name: Install git-cliff
       run: cargo install git-cliff
 
-    - name: Determine previous version
+    - name: Determine previous version (Country.Reference.Iso3166)
       id: prev_tag
       run: |
         PREV=$(git tag --sort=-creatordate | sed -n '2p')
