@@ -1,6 +1,6 @@
 # HawkN.Country.Reference.Iso3166
 
-**Country.Reference.Iso3166** provides ISO 3166-1 country codes (Alpha-2, Alpha-3, Numeric M49), official names, and validation utilities.
+**Country.Reference.Iso3166** provides ISO 3166-1 country codes (Alpha-2, Alpha-3), official names, and validation utilities.
 
 ## Features
 - **Comprehensive Country List** – Provides an up-to-date set of country data according to the `ISO 3166-1` standard.
@@ -113,10 +113,10 @@ Last updated at 01.12.2025.
 ---
 
 ### License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. Data sourced from Debian iso-codes (LGPL v2.1).
 
 ---
 
 ### References
 - [ISO 3166 Standard](https://www.iso.org/iso-3166-country-codes.html)
-- [GitHub Repository](https://github.com/HawkN113/Country.Reference.Iso4217)
+- [GitHub Repository](https://github.com/HawkN113/Country.Reference.Iso3166)

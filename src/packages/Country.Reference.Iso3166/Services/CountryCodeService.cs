@@ -34,13 +34,14 @@ internal sealed class CountryCodeService : ICountryCodeService
             _byAlpha3[country.ThreeLetterCode] = country;
 
             IndexName(country.Name, country);
+            IndexName(country.OfficialName, country);
         }
     }
 
     private void IndexName(string? name, Models.Country country)
     {
-        if (!string.IsNullOrWhiteSpace(name))
-            _byName[name!] = country;
+        if (string.IsNullOrWhiteSpace(name)) return;
+        _byName.TryAdd(name!, country);
     }
 
     public Models.Country? FindByCode(string code) =>
@@ -51,12 +52,15 @@ internal sealed class CountryCodeService : ICountryCodeService
 
     public IEnumerable<Models.Country> SearchByName(string query)
     {
-        if (string.IsNullOrWhiteSpace(query)) return Enumerable.Empty<Models.Country>();
+        if (string.IsNullOrWhiteSpace(query)) return [];
 
-        var searchTerm = query.Trim();
+        var term = query.Trim();
+        const StringComparison comparison = StringComparison.OrdinalIgnoreCase;
+
         return _allCountries
-            .Where(c => (c.Name?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false))
-            .OrderBy(c => c.Name.StartsWith(searchTerm, StringComparison.OrdinalIgnoreCase) ? 0 : 1)
+            .Where(c => (c.Name?.Contains(term, comparison) ?? false) ||
+                        (c.OfficialName?.Contains(term, comparison) ?? false))
+            .OrderBy(c => c.Name.StartsWith(term, comparison) ? 0 : 1)
             .ThenBy(c => c.Name);
     }
 

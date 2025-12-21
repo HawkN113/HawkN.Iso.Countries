@@ -1,33 +1,35 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Country.Reference.Iso3166.Models;
 namespace Country.Reference.Iso3166.Abstractions;
-
 /// <summary>
 /// Provides a unified service for validating, retrieving, and searching ISO 3166-1 country data.
-/// Supports Alpha-2, Alpha-3, Numeric (M49) codes, and official names.
+/// Supports Alpha-2, Alpha-3 codes, common names, and official names.
 /// </summary>
 public interface ICountryCodeService
 {
     /// <summary>
-    /// Retrieves a country by any valid ISO 3166-1 code (Alpha-2, Alpha-3, or Numeric M49 string).
+    /// Retrieves a country by any valid ISO 3166-1 code (Alpha-2, Alpha-3 string).
     /// </summary>
     /// <param name="code">The code string (e.g., "US", "USA", or "840"). Case-insensitive.</param>
     /// <returns>A <see cref="Country"/> instance if found; otherwise, <see langword="null"/>.</returns>
     Models.Country? FindByCode(string code);
 
     /// <summary>
-    /// Retrieves a country by its official ISO 3166-1 name or common alias.
+    /// Retrieves a country by its common name or official ISO 3166-1 name.
     /// </summary>
-    /// <param name="name">The full or short name of the country. Case-insensitive.</param>
+    /// <remarks>
+    /// Matches against both <see cref="Country.Name"/> and <see cref="Country.OfficialName"/>.
+    /// </remarks>
+    /// <param name="name">The common or official name (e.g., "South Korea" or "Republic of Korea"). Case-insensitive.</param>
     /// <returns>A <see cref="Country"/> instance if found; otherwise, <see langword="null"/>.</returns>
     Models.Country? FindByName(string name);
 
     /// <summary>
-    /// Performs a partial match search across country names. 
+    /// Performs a partial match search across common and official country names.
     /// Useful for autocomplete or filtering UI components.
     /// </summary>
-    /// <param name="query">The search term (e.g., "United").</param>
-    /// <returns>A collection of countries matching the query. Returns an empty collection if no matches are found.</returns>
+    /// <param name="query">The search term (e.g., "United" or "Republic").</param>
+    /// <returns>A collection of countries sorted by relevance (starts-with matches first).</returns>
     IEnumerable<Models.Country> SearchByName(string query);
 
     /// <summary>
@@ -45,7 +47,7 @@ public interface ICountryCodeService
     Models.Country Get(CountryCode.ThreeLetterCode code);
 
     /// <summary>
-    /// Gets a country using its Numeric (M49) integer code.
+    /// Gets a country using its Numeric integer code.
     /// </summary>
     /// <param name="numericCode">The numeric code (e.g., 840 for USA).</param>
     /// <returns>A <see cref="Country"/> instance if found; otherwise, <see langword="null"/>.</returns>
@@ -68,7 +70,7 @@ public interface ICountryCodeService
     ValidationResult ValidateByCode(string code, [NotNullWhen(true)] out Models.Country? country);
 
     /// <summary>
-    /// Validates a country name and returns a detailed result with the associated country data.
+    /// Validates a country name (common or official) and returns a detailed result.
     /// </summary>
     /// <param name="name">The name to validate.</param>
     /// <param name="country">Contains the <see cref="Country"/> if validation succeeds.</param>

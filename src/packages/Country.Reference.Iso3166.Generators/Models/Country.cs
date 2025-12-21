@@ -1,11 +1,16 @@
 ﻿namespace Country.Reference.Iso3166.Generators.Models;
 
-public class Country(string name, string codeAlpha2, string codeAlpha3, string numericCode)
+internal class Country(string name, string codeAlpha2, string codeAlpha3, string numericCode, string? officialName)
 {
     /// <summary>
     /// Country name (English)
     /// </summary>
     public string Name { get; } = name;
+
+    /// <summary>
+    /// Country name (English)
+    /// </summary>
+    public string? OfficialName { get; } = officialName;
 
     /// <summary>
     /// ISO 3166-1 Alpha-2

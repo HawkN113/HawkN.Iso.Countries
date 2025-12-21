@@ -52,17 +52,15 @@ public class CountryCodeEnumsGenerator : BaseIncrementalGenerator
     public override void Initialize(IncrementalGeneratorInitializationContext context)
     {
         ErrorFactory.Clear();
-
-        var csvContentProvider = context.CompilationProvider.Select(ReadCsvResource);
-
+        var csvContentProvider = context.CompilationProvider.Select(ReadIsoResource);
         context.RegisterSourceOutput(csvContentProvider, (spc, content) => GenerateSourceOutput(content, spc));
     }
 
-    static string ReadCsvResource(Compilation compilation, CancellationToken ct)
+    static string ReadIsoResource(Compilation compilation, CancellationToken ct)
     {
         try
         {
-            return LoadCsvResources(Assembly.GetExecutingAssembly());
+            return LoadResources(Assembly.GetExecutingAssembly());
         }
         catch (Exception ex)
         {
@@ -71,11 +69,11 @@ public class CountryCodeEnumsGenerator : BaseIncrementalGenerator
         }
     }
 
-    private new void GenerateSourceOutput(string originalCsv, SourceProductionContext spc)
+    private new void GenerateSourceOutput(string originalIsoData, SourceProductionContext spc)
     {
         try
         {
-            if (HasResourceErrors(originalCsv, out var errorMessages))
+            if (HasResourceErrors(originalIsoData, out var errorMessages))
             {
                 foreach (var msg in errorMessages)
                     ReportResourceError(msg);
@@ -84,10 +82,11 @@ public class CountryCodeEnumsGenerator : BaseIncrementalGenerator
                 return;
             }
 
-            var loader = new CsvCountryLoader(originalCsv);
+            var loader = new JsonCountryLoader(originalIsoData);
             var sb = CreateSourceBuilder(
                 Constants.GeneratorName,
                 Constants.DefaultNamespace,
+                Constants.ExtendedSourceData,
                 [
                     "System.Collections.Generic"
                 ]);
@@ -147,10 +146,11 @@ public class CountryCodeEnumsGenerator : BaseIncrementalGenerator
             .AppendLine("        {");
         foreach (var c in countryList)
         {
+            var title = !string.IsNullOrEmpty(c.OfficialName) ? $"{c.Name} ({c.OfficialName})" : c.Name;
             sb.AppendLine(
                     "            /// <summary>")
                 .AppendLine(
-                    $"            /// {c.Name}")
+                    $"            /// {title}")
                 .AppendLine(
                     "            /// </summary>");
             sb.AppendLine(

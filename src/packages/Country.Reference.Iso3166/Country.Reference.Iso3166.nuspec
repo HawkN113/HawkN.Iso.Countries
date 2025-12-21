@@ -6,9 +6,9 @@
         <title>Country.Reference.Iso3166</title>
         <authors>Nikolay Selyutin (HawkN113)</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Provides strongly typed ISO 3166-1 country and region codes (Alpha-2, Alpha-3, M49 numeric) generated at compile time from UN M49 data. Includes lookup service (ICountryCodeService). Lightweight and optimized for .NET 8 applications.</description>
+        <description>Provides strongly typed ISO 3166-1 country and region codes (Alpha-2, Alpha-3) generated at compile time from Debian-iso codes data. Includes lookup service (ICountryCodeService). Lightweight and optimized for .NET 8 applications. Data is sourced from the Debian iso-codes project (LGPL v2.1)</description>
         <summary>ISO 3166-1 country code reference library with strongly typed enums and code generation.</summary>
-        <tags>iso3166 country countries region m49 code codes .net8 dotnet-core source-generator csharp nuget-package</tags>
+        <tags>iso3166 debian-iso-codes country countries region codes .net8 dotnet-core source-generator csharp nuget-package</tags>
         <repository type="git" url="https://github.com/HawkN113/Country.Reference.Iso3166" branch="main" />
         <projectUrl>https://github.com/HawkN113/Country.Reference.Iso3166</projectUrl>
         <license type="expression">MIT</license>
@@ -18,7 +18,7 @@
         <releaseNotes>
             - Added support for .NET 8.0
             - Strongly typed CountryCode enums (Alpha-2, Alpha-3) generated at compile time
-            - Data sourced from UN M49 (2025 Revision)
+            - Data sourced from Debian iso-codes (LGPL v2.1)
             - Includes ICountryCodeService for lookups
             - Lightweight &amp; dependency-free
         </releaseNotes>

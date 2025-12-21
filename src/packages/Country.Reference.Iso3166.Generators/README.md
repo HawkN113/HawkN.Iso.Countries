@@ -12,7 +12,7 @@
 - Rebuild the solution again.
 
 ### How to update countries
-- Open https://unstats.un.org/unsd/methodology/m49/overview/
-- Download a CSV file
-- Save data in the file ``Content\UNSD—Methodology.csv``
+- Open https://salsa.debian.org/iso-codes-team/iso-codes/-/blob/main/data/iso_3166-1.json
+- Download a JSON file
+- Save data in the file ``Content\iso_3166-1.json``
 - Use command from section <a id="how-use-sourceGenerator">How to use source generator</a>

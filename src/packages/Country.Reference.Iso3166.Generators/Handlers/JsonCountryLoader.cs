@@ -1,14 +1,14 @@
 ﻿namespace Country.Reference.Iso3166.Generators.Handlers;
 
-internal sealed class CsvCountryLoader
+internal sealed class JsonCountryLoader
 {
     private readonly List<Models.Country> _actualCountries = [];
 
     public List<Models.Country> ActualCountries => _actualCountries;
 
-    public CsvCountryLoader(string actualCsv)
+    public JsonCountryLoader(string actualJson)
     {
-        var actual = new CsvCountryHandler(actualCsv)
+        var actual = new JsonCountryHandler(actualJson)
             .LoadActualCountries()
             .OrderBy(c => c.Name)
             .ToList();
