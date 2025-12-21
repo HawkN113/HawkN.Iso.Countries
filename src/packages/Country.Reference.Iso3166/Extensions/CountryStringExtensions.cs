@@ -3,7 +3,7 @@ using Country.Reference.Iso3166.Models;
 namespace Country.Reference.Iso3166.Extensions;
 
 /// <summary>
-/// 
+/// Provides fluent extension methods for string objects and Country models to facilitate ISO 3166-1 lookups and formatting.
 /// </summary>
 public static class CountryStringExtensions
 {

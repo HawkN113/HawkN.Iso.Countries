@@ -54,10 +54,6 @@ public enum ValidationType
 {
     /// <summary>No validation type specified.</summary>
     None = 0,
-
-    /// <summary>Validation performed on a country name or descriptive value.</summary>
-    Value = 1,
-
     /// <summary>Validation performed on a country code (Alpha-2, Alpha-3, or Numeric).</summary>
-    Code = 2
+    Code = 1
 }
