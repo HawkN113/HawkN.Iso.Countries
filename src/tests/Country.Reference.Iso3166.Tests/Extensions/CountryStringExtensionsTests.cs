@@ -13,12 +13,12 @@ public class CountryStringExtensionsTests
     [InlineData("US", "United States")]
     [InlineData("USA", "United States")]
     [InlineData("840", "United States")]
-    
+
     //"United States", 
     public void ToCountry_ValidCode_ReturnsCountry(string input, string expectedName)
     {
         // Arrange
-        var country = new Models.Country(expectedName, CountryCode.TwoLetterCode.US, CountryCode.ThreeLetterCode.USA,"840","United States of America");
+        var country = new Models.Country(expectedName, CountryCode.TwoLetterCode.US, CountryCode.ThreeLetterCode.USA, "840", "United States of America");
         _serviceMock.Setup(s => s.FindByCode(input)).Returns(country);
 
         // Act
@@ -59,10 +59,10 @@ public class CountryStringExtensionsTests
     {
         // Arrange
         var country = new Models.Country(
-            alpha2, 
+            alpha2,
             Enum.Parse<CountryCode.TwoLetterCode>(alpha2),
-            Enum.Parse<CountryCode.ThreeLetterCode>(alpha3), 
-            "001", 
+            Enum.Parse<CountryCode.ThreeLetterCode>(alpha3),
+            "001",
             alpha2);
 
         // Act
@@ -71,17 +71,17 @@ public class CountryStringExtensionsTests
         // Assert
         Assert.Equal(expectedEmoji, result);
     }
-    
+
     [Fact]
     public void ValidateAsCountryCode_ValidCode_ReturnsSuccessAndCountry()
     {
         // Arrange
         var input = "US";
         var expectedCountry = new Models.Country(
-            "United States", 
+            "United States",
             CountryCode.TwoLetterCode.US,
-            CountryCode.ThreeLetterCode.USA, 
-            "840", 
+            CountryCode.ThreeLetterCode.USA,
+            "840",
             "United States of America");
         var successResult = ValidationResult.Success();
 

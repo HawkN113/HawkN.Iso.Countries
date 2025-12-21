@@ -33,7 +33,7 @@ public static class CountryStringExtensions
     {
         return service.TryGet(code ?? string.Empty, out _);
     }
-    
+
     /// <summary>
     /// Converts the ISO 3166-1 Alpha-2 country code into a corresponding Unicode Emoji flag.
     /// </summary>
@@ -49,7 +49,7 @@ public static class CountryStringExtensions
         if (string.IsNullOrEmpty(code) || code.Length != 2)
             return string.Empty;
 
-        return string.Concat(code.ToUpperInvariant().Select(c => 
+        return string.Concat(code.ToUpperInvariant().Select(c =>
             char.ConvertFromUtf32(c + 0x1F1A5)));
     }
 }

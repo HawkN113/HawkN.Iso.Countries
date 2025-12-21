@@ -51,7 +51,7 @@ public class ServiceCollectionExtensionsTests
 
         // Assert
         var registrations = services.Where(d => d.ServiceType == typeof(ICountryCodeService)).ToList();
-        
+
         // TryAddSingleton гарантирует, что регистрация будет только одна
         Assert.Single(registrations);
     }

@@ -44,7 +44,7 @@ public class CountryCodeServiceTests
 
     [Theory]
     [InlineData("United", 2)] // Как минимум United States и United Kingdom
-    [InlineData("Republic", 5)] 
+    [InlineData("Republic", 5)]
     public void SearchByName_Query_ReturnsMultipleResults(string query, int minimumExpected)
     {
         // Act

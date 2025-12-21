@@ -19,7 +19,7 @@ using var host = Host.CreateDefaultBuilder(args)
 try
 {
     Console.OutputEncoding = System.Text.Encoding.UTF8;
-    
+
     var container = host.Services;
     using var scope = container.CreateScope();
     var countryCodeService = scope.ServiceProvider.GetRequiredService<ICountryCodeService>();
@@ -64,8 +64,9 @@ try
 
     // Partial match search (Autocomplete simulation)
     var searchResults = countryCodeService.SearchByName("uni");
-    Console.WriteLine($"Search for 'uni' found {searchResults.Count()} matches:");
-    foreach (var match in searchResults)
+    var enumerable = searchResults as Country.Reference.Iso3166.Models.Country[] ?? searchResults.ToArray();
+    Console.WriteLine($"Search for 'uni' found {enumerable.Length} matches:");
+    foreach (var match in enumerable)
     {
         Console.WriteLine($" - {match.Name} ({match.TwoLetterCode})");
     }
@@ -100,7 +101,7 @@ try
     // Direct conversion using extension method
     var countryExt = inputCode.ToCountry(countryCodeService);
     Console.WriteLine($"[Extension method]     -> Resolved to: {countryExt?.Name}");
-    
+
     // Scenario: Quick search with visual feedback
     var searchCountryResults = countryCodeService.SearchByName("United");
     foreach (var c in searchCountryResults)
