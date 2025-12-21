@@ -58,6 +58,27 @@ var france = service.FindByName("France");
 
 // Strongly typed lookup
 var uk = service.Get(CountryCode.TwoLetterCode.GB);
+
+// Strongly typed lookup
+var uk = service.Get(CountryCode.TwoLetterCode.GB);
+
+// Scenario: User types "Republic" in a search box
+var searchResults = service.SearchByName("Republic");
+
+foreach (var country in searchResults)
+{
+    // Will return:
+    // 1. Republic of Korea
+    // 2. Czech Republic
+    // 3. Lao People's Democratic Republic...
+    Console.WriteLine($"{country.Name} ({country.OfficialName})");
+}
+
+// Pro Tip: Use for suggestion lists
+var suggestions = service.SearchByName("United")
+    .Select(c => c.Name)
+    .Take(5); 
+// Returns: ["United Arab Emirates", "United Kingdom", "United States", ...]
 ```
 
 #### Validation
@@ -100,8 +121,8 @@ if (validationResult.IsValid)
 ```
 
 ### Supported countries
-Supported 248 countries. See the country list with the [link](https://github.com/HawkN113/Country.Reference.Iso3166?tab=readme-ov-file#supported-countries)
-Last updated at 01.12.2025.
+Supported 249 countries. See the country list with the [link](https://github.com/HawkN113/Country.Reference.Iso3166?tab=readme-ov-file#supported-countries)
+Last updated at `01.12.2025`.
 
 ---
 
@@ -112,11 +133,16 @@ Last updated at 01.12.2025.
 
 ---
 
-### License
-This project is licensed under the MIT License. Data sourced from Debian iso-codes (LGPL v2.1).
+### License & Data Sources
+
+- **Code**: Licensed under the [MIT License](./LICENSE.txt).
+- **Data**: Sourced from [Debian iso-codes](https://salsa.debian.org/iso-codes-team/iso-codes) and distributed under [LGPL v2.1](./DATA-LICENSE.txt).
+
+*This project is an independent implementation and is not officially affiliated with ISO or the Debian iso-codes team.*
 
 ---
 
 ### References
 - [ISO 3166 Standard](https://www.iso.org/iso-3166-country-codes.html)
+- [Debian Iso-Codes Team](https://salsa.debian.org/iso-codes-team/iso-codes/-/tree/main)
 - [GitHub Repository](https://github.com/HawkN113/Country.Reference.Iso3166)

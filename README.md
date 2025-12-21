@@ -6,8 +6,8 @@
 [![License: LGPL v2.1](https://img.shields.io/badge/Data%20License-LGPL%20v2.1-blue.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html)
 [![CodeQL Security](https://img.shields.io/github/actions/workflow/status/HawkN113/Country.Reference.Iso3166/codeql-analysis.yml?label=CodeQL%20Security&style=flat-square)](https://github.com/HawkN113/Country.Reference.Iso3166/actions/workflows/codeql-analysis.yml)
 
-| ![HawkN.Country.Reference.Iso3166](docs/img/Country.Reference.Iso3166.png) | **Country.Reference.Iso3166** provides ISO 3166-1 country codes (Alpha-2, Alpha-3, Numeric M49), official names, and validation utilities. |
-|--------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![HawkN.Country.Reference.Iso3166](docs/img/Country.Reference.Iso3166.png) | **Country.Reference.Iso3166** provides ISO 3166-1 country codes (Alpha-2, Alpha-3), official names, and validation utilities. |
+|--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 ---
 
 ## Features
@@ -33,7 +33,7 @@
 ### Install via NuGet
 
 ```bash
-dotnet add package HawkN.Country.Reference.Iso3166 --version <last version>
+dotnet add package HawkN.Country.Reference.Iso3166
 ````
 
 ### Required Namespaces
@@ -74,6 +74,24 @@ var france = service.FindByName("France");
 
 // Strongly typed lookup
 var uk = service.Get(CountryCode.TwoLetterCode.GB);
+
+// Scenario: User types "Republic" in a search box
+var searchResults = service.SearchByName("Republic");
+
+foreach (var country in searchResults)
+{
+    // Will return:
+    // 1. Republic of Korea
+    // 2. Czech Republic
+    // 3. Lao People's Democratic Republic...
+    Console.WriteLine($"{country.Name} ({country.OfficialName})");
+}
+
+// Pro Tip: Use for suggestion lists
+var suggestions = service.SearchByName("United")
+    .Select(c => c.Name)
+    .Take(5); 
+// Returns: ["United Arab Emirates", "United Kingdom", "United States", ...]
 ```
 
 #### Validation
@@ -370,6 +388,7 @@ if (validationResult.IsValid)
 | ZW      | ZWE     | 716     |                   Zimbabwe                   |                 Republic of Zimbabwe                  |
 | AX      | ALA     | 248     |                Åland Islands                 |                                                       |
 
+Last updated at `01.12.2025`.
 
 </details>
 
@@ -382,23 +401,18 @@ if (validationResult.IsValid)
 
 ---
 
-### License
-This project is licensed under the MIT License.
+## Licensing & Data Sources
 
-#### Data Sources & Acknowledgments
+This project is an independent implementation and is not officially affiliated with or endorsed by the ISO or the Debian iso-codes team.
 
-This library utilizes geographic data (ISO 3166-1 and ISO 3166-2) provided by the **iso-codes team** via the Debian Salsa repository.
+- **Library Code:** Licensed under the [MIT License](./LICENSE).
+- **ISO Data:** Sourced from the [Debian iso-codes project](https://salsa.debian.org/iso-codes-team/iso-codes). Data is distributed under the [LGPL v2.1](./DATA-LICENSE.txt).
 
-* **Data Source:** [iso-codes project on Debian Salsa](https://salsa.debian.org/iso-codes-team/iso-codes)
-* **Data License:** [GNU Lesser General Public License v2.1 (LGPL)](https://salsa.debian.org/iso-codes-team/iso-codes/-/blob/main/COPYING)
-
-#### Licensing Note
-The **programmatic code** of this library is licensed under the [MIT License](./LICENSE). However, the **geographic reference data** (country names, codes, and subdivisions) included within this library is distributed under the terms of the **LGPL v2.1**.
-*This project is an independent implementation and is not officially affiliated with or endorsed by the ISO or the Debian iso-codes team.*
+By using this library, you agree to comply with the terms of both licenses.
 
 ---
 
 ### References
 - [ISO 3166 Standard](https://www.iso.org/iso-3166-country-codes.html)
-- [Debian Iso-Codes Team](https://salsa.debian.org/iso-codes-team/iso-codes)
+- [Debian Iso-Codes Team](https://salsa.debian.org/iso-codes-team/iso-codes/-/tree/main)
 - [GitHub Repository](https://github.com/HawkN113/Country.Reference.Iso3166)

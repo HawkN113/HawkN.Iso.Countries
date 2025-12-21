@@ -65,7 +65,7 @@ try
     Console.WriteLine($"Search for 'uni' found {searchResults.Count()} matches:");
     foreach (var match in searchResults)
     {
-        Console.WriteLine($"  - {match.Name} ({match.TwoLetterCode})");
+        Console.WriteLine($" - {match.Name} ({match.TwoLetterCode})");
     }
 
     Console.WriteLine(separator);

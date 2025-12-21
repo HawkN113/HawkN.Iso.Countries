@@ -30,6 +30,8 @@
     <files>
         <file src="bin\Release\net8.0\Package\Content\Country.Reference.Iso3166.ico.png" target="content\Country.Reference.Iso3166.ico.png" />
         <file src="Package\Content\README.md" target="content\README.md" />
+        <file src="..\..\..\DATA-LICENSE.txt" target="DATA-LICENSE.txt" />
+        <file src="..\..\..\LICENSE.txt" target="LICENSE.txt" />
         <file src="bin\Release\net8.0\Country.Reference.Iso3166.dll" target="lib\net8.0\Country.Reference.Iso3166.dll" />
         <file src="bin\Release\net8.0\Country.Reference.Iso3166.xml" target="lib\net8.0\Country.Reference.Iso3166.xml" />
     </files>
