@@ -132,6 +132,21 @@ if (validationResult.IsValid)
 }
 ```
 
+#### Emoji Flags Support
+The library provides an easy way to display country flags using standard Unicode Emoji. This works without any external image assets and is perfect for lightweight UI components.
+
+```csharp
+var country = service.Get(CountryCode.TwoLetterCode.FI);
+
+// Get the emoji flag using the extension method
+string flag = country.GetEmojiFlag(); 
+
+Console.WriteLine($"{flag} {country.Name}"); 
+// Output: 🇫🇮 Finland
+```
+
+---
+
 ### Supported countries
 <details>
 <summary>Click to view the full list of supported countries</summary>
@@ -401,14 +416,23 @@ Last updated at `01.12.2025`.
 
 ---
 
-## Licensing & Data Sources
+### Licensing & Data Sources
 
 This project is an independent implementation and is not officially affiliated with or endorsed by the ISO or the Debian iso-codes team.
 
-- **Library Code:** Licensed under the [MIT License](./LICENSE).
+- **Library Code:** Licensed under the [MIT License](./LICENSE.txt).
 - **ISO Data:** Sourced from the [Debian iso-codes project](https://salsa.debian.org/iso-codes-team/iso-codes). Data is distributed under the [LGPL v2.1](./DATA-LICENSE.txt).
 
 By using this library, you agree to comply with the terms of both licenses.
+
+---
+
+### Troubleshooting: Emoji Display
+If you see `??` instead of flags in your console:
+1. Ensure your console output encoding is set to UTF-8:
+   `Console.OutputEncoding = System.Text.Encoding.UTF8;`
+2. Use a modern terminal like **Windows Terminal** or **VS Code Terminal**.
+3. Use a font that supports Emojis (e.g., *Segoe UI Emoji* or *Cascadia Code*).
 
 ---
 

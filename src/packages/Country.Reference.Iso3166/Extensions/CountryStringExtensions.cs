@@ -33,4 +33,23 @@ public static class CountryStringExtensions
     {
         return service.TryGet(code ?? string.Empty, out _);
     }
+    
+    /// <summary>
+    /// Converts the ISO 3166-1 Alpha-2 country code into a corresponding Unicode Emoji flag.
+    /// </summary>
+    /// <param name="country">The country model containing the Alpha-2 code.</param>
+    /// <returns>
+    /// A string representing the Emoji flag (e.g., "🇺🇸" for US). 
+    /// Returns an empty string if the code is invalid or undefined.
+    /// </returns>
+    public static string GetEmojiFlag(this Models.Country country)
+    {
+        var code = country.TwoLetterCode.ToString();
+
+        if (string.IsNullOrEmpty(code) || code.Length != 2)
+            return string.Empty;
+
+        return string.Concat(code.ToUpperInvariant().Select(c => 
+            char.ConvertFromUtf32(c + 0x1F1A5)));
+    }
 }

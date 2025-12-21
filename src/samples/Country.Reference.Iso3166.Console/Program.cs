@@ -18,6 +18,8 @@ using var host = Host.CreateDefaultBuilder(args)
     .Build();
 try
 {
+    Console.OutputEncoding = System.Text.Encoding.UTF8;
+    
     var container = host.Services;
     using var scope = container.CreateScope();
     var countryCodeService = scope.ServiceProvider.GetRequiredService<ICountryCodeService>();
@@ -98,6 +100,13 @@ try
     // Direct conversion using extension method
     var countryExt = inputCode.ToCountry(countryCodeService);
     Console.WriteLine($"[Extension method]     -> Resolved to: {countryExt?.Name}");
+    
+    // Scenario: Quick search with visual feedback
+    var searchCountryResults = countryCodeService.SearchByName("United");
+    foreach (var c in searchCountryResults)
+    {
+        Console.WriteLine($"[Emoji flag method]     -> {c.GetEmojiFlag()} {c.Name}");
+    }
 }
 catch (Exception ex)
 {
