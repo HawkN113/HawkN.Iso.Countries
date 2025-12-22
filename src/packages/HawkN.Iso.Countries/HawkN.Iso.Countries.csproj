@@ -16,7 +16,7 @@
         <IncludeSymbols>false</IncludeSymbols>
         <IsPackable>true</IsPackable>
         <VersionPrefix>8.0.0</VersionPrefix>
-        <!-- Use when need to update 'CountryCode' -->
+        <!-- Use when need to update 'CountryCode','LocalCountryDatabase' -->
         <GenerateCountryFiles>false</GenerateCountryFiles>
         <CountryCodeFile>$(MSBuildProjectDirectory)\CountryCode.cs</CountryCodeFile>
         <LocalCountryDatabaseFile>$(MSBuildProjectDirectory)\LocalCountryDatabase.cs</LocalCountryDatabaseFile>

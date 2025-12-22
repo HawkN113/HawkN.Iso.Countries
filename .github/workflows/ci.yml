@@ -61,7 +61,7 @@ jobs:
     - name: Check code formatting
       run: dotnet format ${{ env.SOLUTION_NAME }} --no-restore --verify-no-changes --verbosity detailed
 
-    - name: Extract project version (Country.Reference.Iso3166)
+    - name: Extract project version (HawkN.Iso.Countries)
       id: get_version
       run: |
         VERSION=$(grep -oP '(?<=<Version>).*(?=</Version>)' ${{ env.PACKAGE_COUNTRY_PROJECT_PATH }} || true | head -1)
@@ -77,7 +77,7 @@ jobs:
         echo "CURRENT_VERSION=$VERSION" >> $GITHUB_ENV
       shell: bash
 
-    - name: Validate package creation (Country.Reference.Iso3166)
+    - name: Validate package creation (HawkN.Iso.Countries)
       run: dotnet pack ${{ env.PACKAGE_COUNTRY_PROJECT_PATH }} /p:NuspecFile=${{ env.PACKAGE_COUNTRY_NUSPEC_FILE_PATH }} --configuration Release --no-build --output ${{ env.OUTPUT_NUGET_DIR }}
 
     - name: Prepare artifacts folder
@@ -91,7 +91,7 @@ jobs:
     - name: Install git-cliff
       run: cargo install git-cliff
 
-    - name: Determine previous version (Country.Reference.Iso3166)
+    - name: Determine previous version (HawkN.Iso.Countries)
       id: prev_tag
       run: |
         PREV=$(git tag --sort=-creatordate | sed -n '2p')

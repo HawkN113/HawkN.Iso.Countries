@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
-        <id>HawkN.HawkN.Iso.Countries</id>
+        <id>HawkN.Iso.Countries</id>
         <version>8.0.0</version>
         <title>HawkN.Iso.Countries</title>
         <authors>Nikolay Selyutin (HawkN113)</authors>
