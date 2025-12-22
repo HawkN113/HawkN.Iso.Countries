@@ -4,9 +4,9 @@ namespace HawkN.Iso.Countries.Generators.Handlers;
 
 internal sealed class JsonCountryHandler(string jsonContent)
 {
-    public List<Models.Country> LoadActualCountries()
+    public List<Country> LoadActualCountries()
     {
-        var result = new List<Models.Country>();
+        var result = new List<Country>();
 
         if (string.IsNullOrWhiteSpace(jsonContent))
             return result;
@@ -21,7 +21,7 @@ internal sealed class JsonCountryHandler(string jsonContent)
             foreach (var entry in data.Countries)
             {
                 if (!IsValidEntry(entry)) continue;
-                var country = new Models.Country(
+                var country = new Country(
                     entry.Name.Trim(),
                     entry.Alpha2.Trim().ToUpperInvariant(),
                     entry.Alpha3.Trim().ToUpperInvariant(),

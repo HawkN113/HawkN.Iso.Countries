@@ -2,9 +2,9 @@
 
 internal sealed class JsonCountryLoader
 {
-    private readonly List<HawkN.Iso.Countries.Generators.Models.Country> _actualCountries = [];
+    private readonly List<Models.Country> _actualCountries = [];
 
-    public List<HawkN.Iso.Countries.Generators.Models.Country> ActualCountries => _actualCountries;
+    public List<Models.Country> ActualCountries => _actualCountries;
 
     public JsonCountryLoader(string actualJson)
     {
