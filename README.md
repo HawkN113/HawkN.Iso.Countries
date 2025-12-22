@@ -1,10 +1,11 @@
 # HawkN.Iso.Countries
 
-[![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries?label=HawkN.Iso.Countries&color=blue)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
-![Downloads](https://img.shields.io/nuget/dt/HawkN.Iso.Countries?color=brightgreen)
-[![GitHub license](https://img.shields.io/github/license/HawkN113/Country.Reference.Iso3166?color=blue)](https://github.com/HawkN113/Country.Reference.Iso3166/blob/main/LICENSE)
-[![License: LGPL v2.1](https://img.shields.io/badge/Data%20License-LGPL%20v2.1-blue.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/HawkN113/Country.Reference.Iso3166/ci.yml?label=Build&style=flat-square)](https://github.com/HawkN113/Country.Reference.Iso3166/actions/workflows/ci.yml)
 [![CodeQL Security](https://img.shields.io/github/actions/workflow/status/HawkN113/Country.Reference.Iso3166/codeql-analysis.yml?label=CodeQL%20Security&style=flat-square)](https://github.com/HawkN113/Country.Reference.Iso3166/actions/workflows/codeql-analysis.yml)
+[![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries?label=HawkN.Iso.Countries&color=blue&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
+[![Downloads](https://img.shields.io/nuget/dt/HawkN.Iso.Countries?label=Downloads&color=brightgreen&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
+[![GitHub license](https://img.shields.io/github/license/HawkN113/Country.Reference.Iso3166?label=License&color=blue&style=flat-square)](https://github.com/HawkN113/Country.Reference.Iso3166/blob/main/LICENSE)
+[![Data License: LGPL v2.1](https://img.shields.io/badge/Data%20License-LGPL%20v2.1-blue.svg?style=flat-square)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html)
 
 | ![HawkN.Iso.Countries](docs/img/HawkN.Iso.Countries.png) | **HawkN.Iso.Countries** provides ISO 3166-1 country codes (Alpha-2, Alpha-3), official names, and validation services. |
 |--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -416,14 +417,15 @@ Last updated at `01.12.2025`.
 
 ---
 
-### Licensing & Data Sources
+## License
 
-This project is an independent implementation and is not officially affiliated with or endorsed by the ISO or the Debian iso-codes team.
+### Code License
+The source code of **HawkN.Iso.Countries** is licensed under the [MIT License](LICENSE).
+You are free to use, modify, and distribute it in both open-source and commercial projects.
 
-- **Library Code:** Licensed under the [MIT License](./LICENSE.txt).
-- **ISO Data:** Sourced from the [Debian iso-codes project](https://salsa.debian.org/iso-codes-team/iso-codes). Data is distributed under the [LGPL v2.1](./DATA-LICENSE.txt).
-
-By using this library, you agree to comply with the terms of both licenses.
+### Data License
+The country data used in this library is sourced from the [Debian iso-codes project](https://salsa.debian.org/iso-codes-team/iso-codes).
+The data itself is licensed under **GNU LGPL v2.1**. See [DATA-LICENSE.txt](DATA-LICENSE.txt) for more details.
 
 ---
 
@@ -433,6 +435,18 @@ If you see `??` instead of flags in your console:
    `Console.OutputEncoding = System.Text.Encoding.UTF8;`
 2. Use a modern terminal like **Windows Terminal** or **VS Code Terminal**.
 3. Use a font that supports Emojis (e.g., *Segoe UI Emoji* or *Cascadia Code*).
+
+---
+
+## Contributing
+Contributions are welcome! If you find a bug or have a feature request, please [open an issue](https://github.com/HawkN113/HawkN.Iso.Countries/issues).
+If you want to contribute code, feel free to submit a Pull Request.
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/awesome-feature`).
+3. Commit your changes.
+4. Push to the branch.
+5. Open a Pull Request.
 
 ---
 

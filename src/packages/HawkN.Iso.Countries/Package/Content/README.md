@@ -148,13 +148,15 @@ Last updated at `01.12.2025`.
 
 ---
 
-### License & Data Sources
+## License
 
-- **Code**: Licensed under the [MIT License](./LICENSE).
-- **Data**: Sourced from [Debian iso-codes](https://salsa.debian.org/iso-codes-team/iso-codes) and distributed under [LGPL v2.1](./DATA-LICENSE.txt).
+### Code License
+The source code of **HawkN.Iso.Countries** is licensed under the [MIT License](LICENSE).
+You are free to use, modify, and distribute it in both open-source and commercial projects.
 
-*This project is an independent implementation and is not officially affiliated with ISO or the Debian iso-codes team.*
-
+### Data License
+The country data used in this library is sourced from the [Debian iso-codes project](https://salsa.debian.org/iso-codes-team/iso-codes).
+The data itself is licensed under **GNU LGPL v2.1**. See [DATA-LICENSE.txt](DATA-LICENSE.txt) for more details.
 ---
 
 ### Troubleshooting: Emoji Display
