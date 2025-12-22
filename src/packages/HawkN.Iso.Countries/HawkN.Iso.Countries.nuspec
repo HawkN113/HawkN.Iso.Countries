@@ -31,7 +31,7 @@
         <file src="bin\Release\net8.0\Package\Content\HawkN.Iso.Countries.ico.png" target="content\HawkN.Iso.Countries.ico.png" />
         <file src="Package\Content\README.md" target="content\README.md" />
         <file src="..\..\..\DATA-LICENSE.txt" target="DATA-LICENSE.txt" />
-        <file src="..\..\..\LICENSE.txt" target="LICENSE.txt" />
+        <file src="..\..\..\LICENSE" target="LICENSE" />
         <file src="bin\Release\net8.0\HawkN.Iso.Countries.dll" target="lib\net8.0\HawkN.Iso.Countries.dll" />
         <file src="bin\Release\net8.0\HawkN.Iso.Countries.xml" target="lib\net8.0\HawkN.Iso.Countries.xml" />
     </files>

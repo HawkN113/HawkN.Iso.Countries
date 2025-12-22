@@ -1,12 +1,12 @@
 # HawkN.Iso.Countries
 
-[![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries?label=HawkN.Iso.Countries)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
-![Downloads](https://img.shields.io/nuget/dt/HawkN.Iso.Countries)
-[![GitHub license](https://img.shields.io/github/license/HawkN113/Country.Reference.Iso3166)](https://github.com/HawkN113/Country.Reference.Iso3166/blob/main/LICENSE)
+[![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries?label=HawkN.Iso.Countries&color=blue)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
+![Downloads](https://img.shields.io/nuget/dt/HawkN.Iso.Countries?color=brightgreen)
+[![GitHub license](https://img.shields.io/github/license/HawkN113/Country.Reference.Iso3166?color=blue)](https://github.com/HawkN113/Country.Reference.Iso3166/blob/main/LICENSE)
 [![License: LGPL v2.1](https://img.shields.io/badge/Data%20License-LGPL%20v2.1-blue.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html)
 [![CodeQL Security](https://img.shields.io/github/actions/workflow/status/HawkN113/Country.Reference.Iso3166/codeql-analysis.yml?label=CodeQL%20Security&style=flat-square)](https://github.com/HawkN113/Country.Reference.Iso3166/actions/workflows/codeql-analysis.yml)
 
-| ![HawkN.Iso.Countries](docs/img/HawkN.Iso.Countries.png) | **HawkN.Iso.Countries** provides ISO 3166-1 country codes (Alpha-2, Alpha-3), official names, and validation utilities. |
+| ![HawkN.Iso.Countries](docs/img/HawkN.Iso.Countries.png) | **HawkN.Iso.Countries** provides ISO 3166-1 country codes (Alpha-2, Alpha-3), official names, and validation services. |
 |--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 ---
 
@@ -22,9 +22,9 @@
 
 ## Packages
 
-| Package | Description |
-|---------------------------------------------------------------------------------------------------|-------------|
-| [HawkN.Iso.Countries](https://www.nuget.org/packages/HawkN.Iso.Countries) | Main library with country models, validation services, and generated ISO enums. |
+| Package | Description                                                                      |
+|---------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| [HawkN.Iso.Countries](https://www.nuget.org/packages/HawkN.Iso.Countries) | Main library with country models, validation services, and generated ISO enums (Alpha-2, Alpha-3). |
 
 ---
 
@@ -439,4 +439,4 @@ If you see `??` instead of flags in your console:
 ### References
 - [ISO 3166 Standard](https://www.iso.org/iso-3166-country-codes.html)
 - [Debian Iso-Codes Team](https://salsa.debian.org/iso-codes-team/iso-codes/-/tree/main)
-- [GitHub Repository](https://github.com/HawkN113/Country.Reference.Iso3166)
+- [GitHub Repository](https://github.com/HawkN113/HawkN.Iso.Countries)

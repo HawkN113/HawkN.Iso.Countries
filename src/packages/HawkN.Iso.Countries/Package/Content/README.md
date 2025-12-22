@@ -1,6 +1,6 @@
 # HawkN.Iso.Countries
 
-**HawkN.Iso.Countries** provides ISO 3166-1 country codes (Alpha-2, Alpha-3), official names, and validation utilities.
+**HawkN.Iso.Countries** provides ISO 3166-1 country codes (Alpha-2, Alpha-3), official names, and validation services.
 
 ## Features
 - **Comprehensive Country List** – Provides an up-to-date set of country data according to the `ISO 3166-1` standard.
@@ -150,7 +150,7 @@ Last updated at `01.12.2025`.
 
 ### License & Data Sources
 
-- **Code**: Licensed under the [MIT License](./LICENSE.txt).
+- **Code**: Licensed under the [MIT License](./LICENSE).
 - **Data**: Sourced from [Debian iso-codes](https://salsa.debian.org/iso-codes-team/iso-codes) and distributed under [LGPL v2.1](./DATA-LICENSE.txt).
 
 *This project is an independent implementation and is not officially affiliated with ISO or the Debian iso-codes team.*
@@ -169,4 +169,4 @@ If you see `??` instead of flags in your console:
 ### References
 - [ISO 3166 Standard](https://www.iso.org/iso-3166-country-codes.html)
 - [Debian Iso-Codes Team](https://salsa.debian.org/iso-codes-team/iso-codes/-/tree/main)
-- [GitHub Repository](https://github.com/HawkN113/Country.Reference.Iso3166)
+- [GitHub Repository](https://github.com/HawkN113/HawkN.Iso.Countries)
