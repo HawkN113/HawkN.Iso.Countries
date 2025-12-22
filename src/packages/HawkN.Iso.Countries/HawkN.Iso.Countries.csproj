@@ -25,12 +25,12 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <DebugType>embedded</DebugType>
-        <DocumentationFile>bin\Debug\Country.Reference.Iso3166.xml</DocumentationFile>
+        <DocumentationFile>bin\Debug\HawkN.Iso.Countries.xml</DocumentationFile>
         <WarningsAsErrors>;NU1605</WarningsAsErrors>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DebugType>embedded</DebugType>
-        <DocumentationFile>bin\Release\Country.Reference.Iso3166.xml</DocumentationFile>
+        <DocumentationFile>bin\Release\HawkN.Iso.Countries.xml</DocumentationFile>
         <WarningsAsErrors>;NU1605</WarningsAsErrors>
     </PropertyGroup>
     <ItemGroup>
