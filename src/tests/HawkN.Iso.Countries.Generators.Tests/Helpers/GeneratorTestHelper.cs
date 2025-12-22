@@ -24,7 +24,7 @@ public static class GeneratorTestHelper
 
         var generator = new T();
         GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
-        
+
         driver = driver.RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out var diagnostics);
 
         var runResult = driver.GetRunResult();

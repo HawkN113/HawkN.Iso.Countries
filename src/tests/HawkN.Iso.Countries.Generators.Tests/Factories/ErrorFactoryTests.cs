@@ -25,10 +25,10 @@ public class ErrorFactoryTests
     {
         // Arrange
         var factory = new ErrorFactory();
-        var description = new ErrorDescription 
-        { 
-            DiagnosticDescriptor = _testDescriptor, 
-            GeneratorType = GeneratorType.Database 
+        var description = new ErrorDescription
+        {
+            DiagnosticDescriptor = _testDescriptor,
+            GeneratorType = GeneratorType.Database
         };
 
         // Act
@@ -83,7 +83,7 @@ public class ErrorFactoryTests
         // Assert
         Assert.True(factory.IsExists());
     }
-    
+
     [Fact]
     public void ShowDiagnostics_Should_Execute_Without_Errors()
     {
@@ -91,15 +91,15 @@ public class ErrorFactoryTests
         var factory = new ErrorFactory();
         var descriptor = new DiagnosticDescriptor(
             "ERR001", "Title", "Message", "Cat", DiagnosticSeverity.Error, true);
-        
-        factory.Create(new ErrorDescription 
-        { 
-            DiagnosticDescriptor = descriptor, 
-            GeneratorType = GeneratorType.Database 
+
+        factory.Create(new ErrorDescription
+        {
+            DiagnosticDescriptor = descriptor,
+            GeneratorType = GeneratorType.Database
         });
 
         var context = (SourceProductionContext)Activator.CreateInstance(
-            typeof(SourceProductionContext), 
+            typeof(SourceProductionContext),
             nonPublic: true)!;
 
         // Act & Assert

@@ -17,7 +17,7 @@ public class LocalCountryDatabaseGeneratorTests
         Assert.Empty(diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error));
         Assert.Contains("internal static class LocalCountryDatabase", output);
         Assert.Contains("public static IReadOnlyList<Models.Country> ActualCountries", output);
-        Assert.Contains("new(", output); 
+        Assert.Contains("new(", output);
         Assert.Contains("CountryCode.TwoLetterCode.", output);
         Assert.Contains("CountryCode.ThreeLetterCode.", output);
     }
@@ -27,7 +27,7 @@ public class LocalCountryDatabaseGeneratorTests
     {
         // Act
         var (_, output) = GeneratorTestHelper.GetGeneratedOutput<LocalCountryDatabaseGenerator>("");
-        
+
         // Assert
         Assert.Contains("Federal Republic of Germany", output);
     }
@@ -37,7 +37,7 @@ public class LocalCountryDatabaseGeneratorTests
     {
         // Simulate an exception 
         var (diagnostics, output) = GeneratorTestHelper.GetGeneratedOutput<LocalCountryDatabaseGenerator>("invalid");
-        
+
         Assert.NotNull(output);
         Assert.Contains("LocalCountryDatabase", output);
     }

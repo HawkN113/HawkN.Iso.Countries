@@ -19,7 +19,7 @@ public class JsonCountryLoaderTests
 
         // Assert
         Assert.Equal(3, loader.ActualCountries.Count);
-        
+
         Assert.Equal("Austria", loader.ActualCountries[0].Name);
         Assert.Equal("France", loader.ActualCountries[1].Name);
         Assert.Equal("Germany", loader.ActualCountries[2].Name);

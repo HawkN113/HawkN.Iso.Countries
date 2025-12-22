@@ -19,8 +19,6 @@ public class CountryCodeEnumsGeneratorTests
         Assert.Contains("public enum TwoLetterCode", output);
         Assert.Contains("public enum ThreeLetterCode", output);
         Assert.Contains("namespace HawkN.Iso.Countries", output);
-        
-        // Проверка наличия конкретных стран из вашего ресурса (например, AF и AFG)
         Assert.Contains("AF,", output);
         Assert.Contains("AFG,", output);
     }
