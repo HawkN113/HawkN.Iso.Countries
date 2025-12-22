@@ -26,9 +26,9 @@ jobs:
       packages: read
 
     env:
-      SOLUTION_NAME: src/Country.Reference.Iso3166.Solution.sln
-      PACKAGE_COUNTRY_PROJECT_PATH: src/packages/Country.Reference.Iso3166/Country.Reference.Iso3166.csproj
-      PACKAGE_COUNTRY_NUSPEC_FILE_PATH: Country.Reference.Iso3166.nuspec
+      SOLUTION_NAME: src/HawkN.Iso.Countries.Solution.sln
+      PACKAGE_COUNTRY_PROJECT_PATH: src/packages/HawkN.Iso.Countries/HawkN.Iso.Countries.csproj
+      PACKAGE_COUNTRY_NUSPEC_FILE_PATH: HawkN.Iso.Countries.nuspec
       OUTPUT_NUGET_DIR: nuget-packages
       ARTIFACTS_DIR: artifacts
 

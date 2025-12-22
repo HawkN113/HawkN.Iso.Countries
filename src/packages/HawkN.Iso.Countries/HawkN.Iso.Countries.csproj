@@ -1,0 +1,95 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <FileVersion>8.0.0.0</FileVersion>
+        <OutputType>Library</OutputType>
+        <Copyright>Copyright © 2025 Nikolay Selyutin (HawkN113)</Copyright>
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+        <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+        <GenerateAssemblyFileVersionAttribute>true</GenerateAssemblyFileVersionAttribute>
+        <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+        <Optimize>true</Optimize>
+        <PublicSign>false</PublicSign>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <IncludeSymbols>false</IncludeSymbols>
+        <IsPackable>true</IsPackable>
+        <VersionPrefix>8.0.0</VersionPrefix>
+        <!-- Use when need to update 'CountryCode' -->
+        <GenerateCountryFiles>false</GenerateCountryFiles>
+        <CountryCodeFile>$(MSBuildProjectDirectory)\CountryCode.cs</CountryCodeFile>
+        <LocalCountryDatabaseFile>$(MSBuildProjectDirectory)\LocalCountryDatabase.cs</LocalCountryDatabaseFile>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+        <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\Generated</CompilerGeneratedFilesOutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DebugType>embedded</DebugType>
+        <DocumentationFile>bin\Debug\Country.Reference.Iso3166.xml</DocumentationFile>
+        <WarningsAsErrors>;NU1605</WarningsAsErrors>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugType>embedded</DebugType>
+        <DocumentationFile>bin\Release\Country.Reference.Iso3166.xml</DocumentationFile>
+        <WarningsAsErrors>;NU1605</WarningsAsErrors>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    </ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="HawkN.Iso.Countries.Tests" />
+        <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="Package\Content\HawkN.Iso.Countries.ico.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Package\Content\README.md">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    <!-- Warning! [Start] Do not modify the settings manually. -->
+    <!-- Need to update 'LocalCountryDatabase' -->
+    <ItemGroup Condition="'$(GenerateCountryFiles)' == 'true'">
+        <ProjectReference Include="..\..\packages\HawkN.Iso.Countries.Generators\HawkN.Iso.Countries.Generators.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false" />
+    </ItemGroup>
+    <Target Name="CleanGeneratedFilesBeforeBuild" BeforeTargets="CoreCompile" Condition="'$(GenerateCountryFiles)' == 'true'">
+        <Delete Files="$(CountryCodeFile)" Condition="Exists('$(CountryCodeFile)')" />
+        <Message Text="Temporary removed file '$(CountryCodeFile)'" Importance="High" Condition="!Exists('$(CountryCodeFile)')"  />
+        <Delete Files="$(LocalCountryDatabaseFile)" Condition="Exists('$(LocalCountryDatabaseFile)')" />
+        <Message Text="Temporary removed file '$(LocalCountryDatabaseFile)'" Importance="High" Condition="!Exists('$(LocalCountryDatabaseFile)')"  />
+    </Target>
+    <ItemGroup Condition="'$(GenerateCountryFiles)' == 'true'">
+        <Compile Remove="$(CompilerGeneratedFilesOutputPath)\HawkN.Iso.Countries.Generators\**\*.g.cs" ContinueOnError="true" />
+        <None Include="$(CompilerGeneratedFilesOutputPath)\HawkN.Iso.Countries.Generators\**\*.g.cs" ContinueOnError="true" />
+        <None Update="Package\Content\HawkN.Iso.Countries.ico.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Package\Content\README.md">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    <Target Name="CopyGeneratedFiles" AfterTargets="CoreCompile" Condition="'$(GenerateCountryFiles)' == 'true'">
+        <Copy SourceFiles="$(CompilerGeneratedFilesOutputPath)\HawkN.Iso.Countries.Generators\HawkN.Iso.Countries.Generators.CountryCodeEnumsGenerator\CountryCode.g.cs"
+              DestinationFiles="CountryCode.cs"
+              SkipUnchangedFiles="false"
+              ContinueOnError="false" />
+        <Message Text="Copied generated file '$(CountryCodeFile)' into repository " Importance="High" Condition="Exists('$(CountryCodeFile)')"  />
+        <Copy SourceFiles="$(CompilerGeneratedFilesOutputPath)\HawkN.Iso.Countries.Generators\HawkN.Iso.Countries.Generators.LocalCountryDatabaseGenerator\LocalCountryDatabase.g.cs"
+              DestinationFiles="LocalCountryDatabase.cs"
+              SkipUnchangedFiles="false"
+              ContinueOnError="false" />
+        <Message Text="Copied generated file '$(LocalCountryDatabaseFile)' into repository " Importance="High" Condition="Exists('$(LocalCountryDatabaseFile)')"  />
+        <ItemGroup>
+            <Compile Include="LocalCountryDatabase.cs" Condition="Exists('LocalCountryDatabase.cs')" />
+            <Compile Include="CountryCode.cs" Condition="Exists('CountryCode.cs')" />
+        </ItemGroup>
+        <PropertyGroup>
+            <GenerateCurrencyFiles>false</GenerateCurrencyFiles>
+        </PropertyGroup>
+    </Target>
+    <!-- Warning! [Finish] Do not modify the settings manually. -->
+</Project>

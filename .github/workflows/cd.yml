@@ -12,10 +12,10 @@ jobs:
     permissions:
       contents: write
     env:
-      SOLUTION_NAME: src/Country.Reference.Iso3166.Solution.sln
-      PACKAGE_PROJECT_PATH: src/packages/Country.Reference.Iso3166/Country.Reference.Iso3166.csproj
-      PACKAGE_NUSPEC_FILE_PATH: Country.Reference.Iso3166.nuspec
-      PACKAGE_ID: HawkN.Country.Reference.Iso3166
+      SOLUTION_NAME: src/HawkN.Iso.Countries.Solution.sln
+      PACKAGE_PROJECT_PATH: src/packages/HawkN.Iso.Countries/HawkN.Iso.Countries.csproj
+      PACKAGE_NUSPEC_FILE_PATH: HawkN.Iso.Countries.nuspec
+      PACKAGE_ID: HawkN.Iso.Countries
       OUTPUT_NUGET_DIR: nuget-packages
       NUGET_SOURCE_URL: https://api.nuget.org/v3/index.json
 

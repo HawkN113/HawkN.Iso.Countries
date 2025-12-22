@@ -27,7 +27,7 @@ jobs:
       packages: read
 
     env:
-      SOLUTION_NAME: src/Country.Reference.Iso3166.Solution.sln
+      SOLUTION_NAME: src/HawkN.Iso.Countries.Solution.sln
 
     steps:
     - name: Checkout repository
