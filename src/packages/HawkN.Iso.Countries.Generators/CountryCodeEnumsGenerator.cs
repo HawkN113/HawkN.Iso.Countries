@@ -4,7 +4,6 @@ using HawkN.Iso.Countries.Generators.Handlers;
 using HawkN.Iso.Countries.Generators.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
-
 namespace HawkN.Iso.Countries.Generators;
 
 [Generator]
