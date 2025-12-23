@@ -1,0 +1,4 @@
+[*.cs]
+# Disable Analyzer Release Tracking for test projects
+dotnet_diagnostic.RS1038.severity = none
+dotnet_diagnostic.RS2008.severity = none
