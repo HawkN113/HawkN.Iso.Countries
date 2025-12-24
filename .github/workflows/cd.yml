@@ -18,6 +18,8 @@ jobs:
       PACKAGE_ID: HawkN.Iso.Countries
       OUTPUT_NUGET_DIR: nuget-packages
       NUGET_SOURCE_URL: https://api.nuget.org/v3/index.json
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
 
     steps:
     - name: Checkout repository (full history)
@@ -30,6 +32,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
+        cache: true
 
     - name: Extract version from tag
       id: get_version
@@ -43,10 +46,10 @@ jobs:
       id: check_nuget
       run: |
         PACKAGE_ID_LOWER=$(echo "${{ env.PACKAGE_ID }}" | tr '[:upper:]' '[:lower:]')
-        VERSIONS=$(curl -s "https://api.nuget.org/v3-flatcontainer/${PACKAGE_ID_LOWER}/index.json")
-        if echo "$VERSIONS" | grep -w "${{ env.CURRENT_VERSION }}" > /dev/null; then
-          echo "Package version ${{ env.CURRENT_VERSION }} already exists on NuGet.org. Exiting..."
-          exit 1
+        STATUS_CODE=$(curl -s -o /dev/null -I -w "%{http_code}" "https://api.nuget.org/v3-flatcontainer/${PACKAGE_ID_LOWER}/${{ env.CURRENT_VERSION }}/index.json")
+        if [ "$STATUS_CODE" -eq 200 ]; then
+          echo "Error: Version ${{ env.CURRENT_VERSION }} already exists on NuGet.org!"
+        exit 1
         fi
       shell: bash
 
@@ -55,59 +58,47 @@ jobs:
 
     - name: Perform build
       run: dotnet build ${{ env.SOLUTION_NAME }} --no-restore --configuration Release
-
-    - name: Pack NuGet package
+        
+    - name: Build and Pack
       run: |
-        PACKAGE_FILE="${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_ID }}.${{ env.CURRENT_VERSION }}.nupkg"
-        dotnet pack ${{ env.PACKAGE_PROJECT_PATH }} /p:NuspecFile=${{ env.PACKAGE_NUSPEC_FILE_PATH }} --configuration Release --no-build -p:Version=${{ env.CURRENT_VERSION }} --output ${{ env.OUTPUT_NUGET_DIR }}
-        dotnet pack ${{ env.PACKAGE_PROJECT_PATH }} /p:NuspecFile=${{ env.PACKAGE_NUSPEC_FILE_PATH }} --configuration Release --no-build --output ${{ env.OUTPUT_NUGET_DIR }}
+        dotnet pack ${{ env.PACKAGE_PROJECT_PATH }} --configuration Release /p:NuspecFile=${{ env.PACKAGE_NUSPEC_FILE_PATH }} /p:Version=${{ env.CURRENT_VERSION }} /p:ContinuousIntegrationBuild=true --output ${{ env.OUTPUT_NUGET_DIR }}
 
-        if [ ! -f "$PACKAGE_FILE" ]; then
-          echo "Package file $PACKAGE_FILE not found!"
-          exit 1
-        fi
-
-    - name: Install Rust toolchain
-      uses: dtolnay/rust-toolchain@stable
-
-    - name: Install git-cliff
-      run: cargo install git-cliff
-
-    - name: Determine previous version
-      id: prev_tag
-      run: |
-        PREV=$(git tag --sort=-creatordate | sed -n '2p')
-        if [ -z "$PREV" ]; then PREV="8.0.0"; fi
-        echo "PREVIOUS_VERSION=$PREV" >> $GITHUB_ENV
-
-    - name: Create CHANGELOG.md
-      run: |
-        if git rev-parse ${{ env.PREVIOUS_VERSION }} >/dev/null 2>&1 && git rev-parse ${{ env.CURRENT_VERSION }} >/dev/null 2>&1; then
-          git-cliff ${{ env.PREVIOUS_VERSION }}..${{ env.CURRENT_VERSION }} > CHANGELOG.md
-        else
-          git-cliff --unreleased > CHANGELOG.md
-        fi
-
-    - name: Commit and push CHANGELOG.md
+    - name: Generate Changelog
+      uses: orhun/git-cliff-action@v4
+      with:
+        config: cliff.toml
+        args: --latest
+      env:
+        OUTPUT: CHANGELOG_RELEASE.md
+        
+    - name: Update Main CHANGELOG.md
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
+        git pull origin ${{ github.event.repository.default_branch }} --rebase       
+        git-cliff > CHANGELOG.md
         if ! git diff --exit-code CHANGELOG.md; then
           git add CHANGELOG.md
-          git commit -m "docs(changelog): Update CHANGELOG for release ${{ env.CURRENT_VERSION }}"
-          git push
+          git commit -m "docs(changelog): update for version ${{ env.CURRENT_VERSION }}"
+          git push origin HEAD:${{ github.event.repository.default_branch }}
         else
-          echo "No changes to commit"
-        fi
+          echo "No changes in CHANGELOG.md"
+        fi      
       shell: bash
 
-    - name: Publish package to NuGet.org
+    - name: Create GitHub Release for (HawkN.Iso.Countries)
+      uses: softprops/action-gh-release@v2
+      with:
+        body_path: CHANGELOG_RELEASE.md
+        files: ${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_ID }}.${{ env.CURRENT_VERSION }}.nupkg
+        fail_on_unmatched_files: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Publish package (HawkN.Iso.Countries) to NuGet.org
       run: |
-        PACKAGE_FILE="${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_ID }}.${{ env.CURRENT_VERSION }}.nupkg"
-        if [ -f "$PACKAGE_FILE" ]; then
-          dotnet nuget push "$PACKAGE_FILE" --api-key ${{ secrets.NUGET_API_KEY }} --source ${{ env.NUGET_SOURCE_URL }} --skip-duplicate
-        else
-          echo "Package file $PACKAGE_FILE not found!"
-          exit 1
-        fi
+        dotnet nuget push "${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_ID }}.${{ env.CURRENT_VERSION }}.nupkg" \
+          --api-key ${{ secrets.NUGET_API_KEY }} \
+          --source ${{ env.NUGET_SOURCE_URL }} \
+          --skip-duplicate
       shell: bash
