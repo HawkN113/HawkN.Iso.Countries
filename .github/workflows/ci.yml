@@ -46,6 +46,7 @@ jobs:
       with:
         dotnet-version: '8.0.x'
         cache: true
+        cache-dependency-path: ${{ env.SOLUTION_NAME }}
 
     - name: Cache NuGet packages
       uses: actions/cache@v4

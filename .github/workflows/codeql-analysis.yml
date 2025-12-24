@@ -54,6 +54,7 @@ jobs:
       with:
         dotnet-version: '8.0.x'
         cache: true
+        cache-dependency-path: ${{ env.SOLUTION_NAME }}
         
     - name: Perform build for CodeQL
       run: dotnet build ${{ env.SOLUTION_NAME }} --configuration Release --no-restore -p:UseSharedCompilation=false
