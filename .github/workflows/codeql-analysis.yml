@@ -24,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       security-events: write
+      actions: read
       contents: read
       packages: read
 
@@ -48,6 +49,10 @@ jobs:
               - '**/Tests/**'
               - '**/*.Tests.cs'
               - '**/*Tests.cs'
+              - '**/tests/**'
+              - '**/samples/**'
+              - '**/bin/**'
+              - '**/obj/**'
         
     - name: Setup .NET
       uses: actions/setup-dotnet@v4

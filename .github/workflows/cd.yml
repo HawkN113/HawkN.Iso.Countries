@@ -10,6 +10,7 @@ jobs:
     name: Publish to NuGet
     runs-on: ubuntu-latest
     permissions:
+      actions: read
       contents: write
     env:
       SOLUTION_NAME: src/HawkN.Iso.Countries.Solution.sln
