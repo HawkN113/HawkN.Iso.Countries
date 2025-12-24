@@ -19,9 +19,9 @@ internal sealed class JsonCountryHandler(string jsonContent)
                 return result;
 
             result.AddRange(from entry in data.Countries
-                where IsValidEntry(entry)
-                select new Country(entry.Name.Trim(), entry.Alpha2.Trim().ToUpperInvariant(),
-                    entry.Alpha3.Trim().ToUpperInvariant(), entry.Numeric.Trim(), entry.OfficialName?.Trim()));
+                            where IsValidEntry(entry)
+                            select new Country(entry.Name.Trim(), entry.Alpha2.Trim().ToUpperInvariant(),
+                                entry.Alpha3.Trim().ToUpperInvariant(), entry.Numeric.Trim(), entry.OfficialName?.Trim()));
         }
         catch (JsonException ex)
         {
