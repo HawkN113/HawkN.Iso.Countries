@@ -56,6 +56,9 @@ jobs:
         cache: true
         cache-dependency-path: ${{ env.SOLUTION_NAME }}
         
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.SOLUTION_NAME }}
+        
     - name: Perform build for CodeQL
       run: dotnet build ${{ env.SOLUTION_NAME }} --configuration Release --no-restore -p:UseSharedCompilation=false
 
