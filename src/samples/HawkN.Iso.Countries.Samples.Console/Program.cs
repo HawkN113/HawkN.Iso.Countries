@@ -1,4 +1,5 @@
-﻿using HawkN.Iso.Countries;
+﻿using System.Text.Json;
+using HawkN.Iso.Countries;
 using HawkN.Iso.Countries.Abstractions;
 using HawkN.Iso.Countries.Extensions;
 using Microsoft.Extensions.DependencyInjection;
@@ -109,7 +110,7 @@ try
         Console.WriteLine($"[Emoji flag method]     -> {c.GetEmojiFlag()} {c.Name}");
     }
 }
-catch (Exception ex)
+catch (JsonException ex)
 {
     Console.WriteLine($"Error: {ex.Message}");
 }

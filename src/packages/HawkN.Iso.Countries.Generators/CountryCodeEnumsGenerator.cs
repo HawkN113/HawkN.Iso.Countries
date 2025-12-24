@@ -62,7 +62,7 @@ public class CountryCodeEnumsGenerator : BaseIncrementalGenerator
         {
             return LoadResources(Assembly.GetExecutingAssembly());
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             var errorMsg = $"{Constants.ErrorMark}:{ex.Message}";
             return errorMsg;
@@ -104,7 +104,7 @@ public class CountryCodeEnumsGenerator : BaseIncrementalGenerator
                 .AppendLine("}");
             spc.AddSource(HintName, SourceText.From(sb.ToString(), Encoding.UTF8));
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is not OperationCanceledException)
         {
             ErrorFactory.Create(new ErrorDescription
             {
@@ -118,6 +118,7 @@ public class CountryCodeEnumsGenerator : BaseIncrementalGenerator
                 GeneratorType = GeneratorType.Database
             });
             AddStubIfErrors(spc, HintName, StubSource, GeneratorType.Database);
+            throw;
         }
     }
 

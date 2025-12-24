@@ -7,15 +7,16 @@
 // </auto-generated>
 #nullable enable
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using HawkN.Iso.Countries.Models;
 namespace HawkN.Iso.Countries
 {
     /// <summary>
-    /// Country information ISO3166 (M49)
+    /// Country information ISO3166
     /// </summary>
     internal static class LocalCountryDatabase
     {
-        public static IReadOnlyList<Models.Country> ActualCountries = new List<Models.Country>()
+        public static readonly ImmutableArray<Models.Country> ActualCountries = ImmutableArray.Create(new Models.Country[]
         {
             new("Afghanistan", CountryCode.TwoLetterCode.AF, CountryCode.ThreeLetterCode.AFG, "004","Islamic Republic of Afghanistan"),
             new("Åland Islands", CountryCode.TwoLetterCode.AX, CountryCode.ThreeLetterCode.ALA, "248", string.Empty),
@@ -266,6 +267,6 @@ namespace HawkN.Iso.Countries
             new("Yemen", CountryCode.TwoLetterCode.YE, CountryCode.ThreeLetterCode.YEM, "887","Republic of Yemen"),
             new("Zambia", CountryCode.TwoLetterCode.ZM, CountryCode.ThreeLetterCode.ZMB, "894","Republic of Zambia"),
             new("Zimbabwe", CountryCode.TwoLetterCode.ZW, CountryCode.ThreeLetterCode.ZWE, "716","Republic of Zimbabwe"),
-        };
+        });
     }
 }

@@ -18,6 +18,7 @@ public class LocalCountryDatabaseGenerator : BaseIncrementalGenerator
                                       // </auto-generated>
                                       #nullable enable
                                       using System.Collections.Generic;
+                                      using System.Collections.Generic;
                                       using HawkN.Iso.Countries.Models;
                                       namespace HawkN.Iso.Countries
                                       {
@@ -26,7 +27,8 @@ public class LocalCountryDatabaseGenerator : BaseIncrementalGenerator
                                           /// </summary>
                                           internal static class LocalCountryDatabase
                                           {
-                                              public static IReadOnlyList<Models.Country> ActualCountries = new List<Models.Country>();
+                                              public static readonly ImmutableArray<Models.Country> ActualCountries =ImmutableArray.Create(new Models.Country[]
+                                              {});
                                           }
                                       }
                                       """;
@@ -46,7 +48,7 @@ public class LocalCountryDatabaseGenerator : BaseIncrementalGenerator
         {
             return LoadResources(Assembly.GetExecutingAssembly());
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             var errorMsg = $"{Constants.ErrorMark}:{ex.Message}";
             return errorMsg;
@@ -73,11 +75,12 @@ public class LocalCountryDatabaseGenerator : BaseIncrementalGenerator
                 Constants.ExtendedSourceData,
                 [
                     "System.Collections.Generic",
+                    "System.Collections.Immutable",
                     "HawkN.Iso.Countries.Models"
                 ]);
 
             sb.AppendLine("    /// <summary>")
-                .AppendLine("    /// Country information ISO3166 (M49)")
+                .AppendLine("    /// Country information ISO3166")
                 .AppendLine("    /// </summary>")
                 .AppendLine("    internal static class LocalCountryDatabase")
                 .AppendLine("    {");
@@ -88,7 +91,7 @@ public class LocalCountryDatabaseGenerator : BaseIncrementalGenerator
                 .AppendLine("}");
             spc.AddSource(HintName, SourceText.From(sb.ToString(), Encoding.UTF8));
         }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is not OperationCanceledException)
         {
             ErrorFactory.Create(new ErrorDescription
             {
@@ -115,7 +118,7 @@ public class LocalCountryDatabaseGenerator : BaseIncrementalGenerator
     private static void GenerateCountrySection(StringBuilder sb, string propertyName, List<HawkN.Iso.Countries.Generators.Models.Country> countryList)
     {
         sb.AppendLine(
-                $"        public static IReadOnlyList<Models.Country> {propertyName} = new List<Models.Country>()")
+                $"        public static readonly ImmutableArray<Models.Country> {propertyName} = ImmutableArray.Create(new Models.Country[]")
             .AppendLine("        {");
         foreach (var c in countryList)
         {
@@ -125,7 +128,7 @@ public class LocalCountryDatabaseGenerator : BaseIncrementalGenerator
                     : $"            new(\"{c.Name}\", CountryCode.TwoLetterCode.{c.CodeAlpha2}, CountryCode.ThreeLetterCode.{c.CodeAlpha3}, \"{c.NumericCode}\", string.Empty),");
         }
 
-        sb.AppendLine("        };");
+        sb.AppendLine("        });");
     }
 
     private void ReportResourceError(string msg)

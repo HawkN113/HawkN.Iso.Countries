@@ -17,7 +17,7 @@ public class CountryStringExtensionsTests
     public void ToCountry_ValidCode_ReturnsCountry(string input, string expectedName)
     {
         // Arrange
-        var country = new HawkN.Iso.Countries.Models.Country(expectedName, CountryCode.TwoLetterCode.US, CountryCode.ThreeLetterCode.USA, "840", "United States of America");
+        var country = new Country(expectedName, CountryCode.TwoLetterCode.US, CountryCode.ThreeLetterCode.USA, "840", "United States of America");
         _serviceMock.Setup(s => s.FindByCode(input)).Returns(country);
 
         // Act
@@ -32,7 +32,7 @@ public class CountryStringExtensionsTests
     public void ToCountry_NullOrEmpty_ReturnsNull()
     {
         // Act & Assert
-        Assert.Null(((string?)null).ToCountry(_serviceMock.Object));
+        Assert.Null(string.Empty.ToCountry(_serviceMock.Object));
         Assert.Null("".ToCountry(_serviceMock.Object));
     }
 
@@ -40,7 +40,7 @@ public class CountryStringExtensionsTests
     public void IsCountryCode_ValidCode_ReturnsTrue()
     {
         // Arrange
-        HawkN.Iso.Countries.Models.Country? country;
+        Country? country;
         _serviceMock.Setup(s => s.TryGet("DE", out country)).Returns(true);
 
         // Act
@@ -57,7 +57,7 @@ public class CountryStringExtensionsTests
     public void GetEmojiFlag_ValidAlpha2_ReturnsCorrectEmoji(string alpha2, string alpha3, string expectedEmoji)
     {
         // Arrange
-        var country = new HawkN.Iso.Countries.Models.Country(
+        var country = new Country(
             alpha2,
             Enum.Parse<CountryCode.TwoLetterCode>(alpha2),
             Enum.Parse<CountryCode.ThreeLetterCode>(alpha3),
@@ -76,7 +76,7 @@ public class CountryStringExtensionsTests
     {
         // Arrange
         var input = "US";
-        var expectedCountry = new HawkN.Iso.Countries.Models.Country(
+        var expectedCountry = new Country(
             "United States",
             CountryCode.TwoLetterCode.US,
             CountryCode.ThreeLetterCode.USA,
@@ -102,7 +102,7 @@ public class CountryStringExtensionsTests
     {
         // Arrange
         var input = "XX";
-        HawkN.Iso.Countries.Models.Country? nullCountry = null;
+        Country? nullCountry = null;
         var failureResult = ValidationResult.Failure("Invalid code", ValidationType.Code);
 
         _serviceMock.Setup(s => s.ValidateByCode(input, out nullCountry))
@@ -130,6 +130,6 @@ public class CountryStringExtensionsTests
         Assert.False(result.IsValid);
         Assert.Null(actualCountry);
         Assert.Equal("Code is required.", result.Reason);
-        _serviceMock.Verify(s => s.ValidateByCode(It.IsAny<string>(), out It.Ref<HawkN.Iso.Countries.Models.Country?>.IsAny), Times.Never);
+        _serviceMock.Verify(s => s.ValidateByCode(It.IsAny<string>(), out It.Ref<Country?>.IsAny), Times.Never);
     }
 }

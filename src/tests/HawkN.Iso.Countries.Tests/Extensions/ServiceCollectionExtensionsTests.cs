@@ -2,7 +2,6 @@
 using HawkN.Iso.Countries.Extensions;
 using HawkN.Iso.Countries.Services;
 using Microsoft.Extensions.DependencyInjection;
-
 namespace HawkN.Iso.Countries.Tests.Extensions;
 
 public class ServiceCollectionExtensionsTests

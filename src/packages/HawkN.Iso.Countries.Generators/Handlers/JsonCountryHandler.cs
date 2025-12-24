@@ -18,18 +18,10 @@ internal sealed class JsonCountryHandler(string jsonContent)
             if (data?.Countries == null)
                 return result;
 
-            foreach (var entry in data.Countries)
-            {
-                if (!IsValidEntry(entry)) continue;
-                var country = new Country(
-                    entry.Name.Trim(),
-                    entry.Alpha2.Trim().ToUpperInvariant(),
-                    entry.Alpha3.Trim().ToUpperInvariant(),
-                    entry.Numeric.Trim(),
-                    entry.OfficialName?.Trim()
-                );
-                result.Add(country);
-            }
+            result.AddRange(from entry in data.Countries
+                where IsValidEntry(entry)
+                select new Country(entry.Name.Trim(), entry.Alpha2.Trim().ToUpperInvariant(),
+                    entry.Alpha3.Trim().ToUpperInvariant(), entry.Numeric.Trim(), entry.OfficialName?.Trim()));
         }
         catch (JsonException ex)
         {
