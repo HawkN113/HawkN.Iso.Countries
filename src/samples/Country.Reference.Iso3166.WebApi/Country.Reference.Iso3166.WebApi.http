@@ -1,6 +1,0 @@
-@Country.Reference.Iso3166.WebApi_HostAddress = http://localhost:5252
-
-GET {{Country.Reference.Iso3166.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

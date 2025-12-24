@@ -19,3 +19,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+-------------------------------------------------------------------------------
+DATA SOURCE ACKNOWLEDGMENT
+-------------------------------------------------------------------------------
+This library includes ISO 3166-1 and ISO 3166-2 geographic data derived from 
+the "iso-codes" project (https://salsa.debian.org/iso-codes-team/iso-codes).
+
+The data provided within this library is distributed under the terms of the 
+GNU Lesser General Public License v2.1 (LGPL). 
+
+The software (code) itself remains under the MIT License.
+-------------------------------------------------------------------------------
