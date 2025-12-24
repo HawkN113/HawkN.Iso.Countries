@@ -1,0 +1,15 @@
+**/.idea/*
+src/packages/HawkN.Iso.Countries/obj/**
+src/packages/HawkN.Iso.Countries/bin/**
+src/packages/HawkN.Iso.Countries.Generators/obj/**
+src/packages/HawkN.Iso.Countries.Generators/bin/**
+src/tests/HawkN.Iso.Countries.Tests/obj/**
+src/tests/HawkN.Iso.Countries.Tests/bin/**
+src/tests/HawkN.Iso.Countries.Generators.Tests/obj/**
+src/tests/HawkN.Iso.Countries.Generators.Tests/bin/**
+src/samples/HawkN.Iso.Countries.Samples.Console/obj/**
+src/samples/HawkN.Iso.Countries.Samples.Console/bin/**
+src/samples/HawkN.Iso.Countries.Samples.WebApi/obj/**
+src/samples/HawkN.Iso.Countries.Samples.WebApi/bin/**
+src/NuGetPackages/**
+**/*.user
