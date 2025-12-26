@@ -115,18 +115,10 @@ jobs:
           fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install NuGet CLI
-        run: |
-          wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -O nuget.exe
-          chmod +x nuget.exe
-          sudo mv nuget.exe /usr/local/bin/nuget
-        
+          
       - name: Publish package (HawkN.Iso.Countries) to NuGet.org (Trusted Publishing)
         run: |
-          nuget push \
-            "${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg" \
-            -Source ${{ env.NUGET_SOURCE_URL }} \
-            -ApiKey GitHubActions \
-            -NonInteractive \
-            -ForceEnglishOutput
+          dotnet nuget push "${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg" \
+            --source ${{ env.NUGET_SOURCE_URL }} \
+            --skip-duplicate
+        shell: bash
