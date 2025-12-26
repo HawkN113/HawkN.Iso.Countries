@@ -116,9 +116,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
+      - name: NuGet login (OIDC)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: HawkN113
+          
       - name: Publish package (HawkN.Iso.Countries) to NuGet.org (Trusted Publishing)
         run: |
           dotnet nuget push "${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg" \
-            --source ${{ env.NUGET_SOURCE_URL }} \
-            --skip-duplicate
+            --api-key ${{steps.login.outputs.NUGET_API_KEY}} \
+            --source ${{ env.NUGET_SOURCE_URL }}
         shell: bash
