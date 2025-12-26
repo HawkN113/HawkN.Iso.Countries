@@ -23,16 +23,6 @@ public class LocalCountryDatabaseGeneratorTests
     }
 
     [Fact]
-    public void Generator_Should_Handle_OfficialNames_Correctly()
-    {
-        // Act
-        var (_, output) = GeneratorTestHelper.GetGeneratedOutput<LocalCountryDatabaseGenerator>("");
-
-        // Assert
-        Assert.Contains("Federal Republic of Germany", output);
-    }
-
-    [Fact]
     public void Generator_Should_Produce_Stub_On_Error()
     {
         // Simulate an exception 

@@ -35,13 +35,12 @@ public class CountryCodeEnumsGeneratorTests
     }
 
     [Fact]
-    public void Generator_Should_Include_License_Information()
+    public void Generator_Should_Include_DataSource_Information()
     {
         // Act
         var (_, output) = GeneratorTestHelper.GetGeneratedOutput<CountryCodeEnumsGenerator>("");
 
         // Assert
-        Assert.Contains("Data Source: iso-codes project", output);
-        Assert.Contains("GNU Lesser General Public License v2.1", output);
+        Assert.Contains("Source URL: https://unstats.un.org/unsd/methodology/m49/overview", output);
     }
 }

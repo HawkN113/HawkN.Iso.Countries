@@ -5,14 +5,14 @@ namespace HawkN.Iso.Countries.Services;
 
 internal sealed class CountryCodeService : ICountryCodeService
 {
-    private readonly Dictionary<string, HawkN.Iso.Countries.Models.Country> _byCode = new(StringComparer.OrdinalIgnoreCase);
-    private readonly Dictionary<CountryCode.TwoLetterCode, HawkN.Iso.Countries.Models.Country> _byAlpha2 = [];
-    private readonly Dictionary<CountryCode.ThreeLetterCode, HawkN.Iso.Countries.Models.Country> _byAlpha3 = [];
-    private readonly Dictionary<int, HawkN.Iso.Countries.Models.Country> _byNumericInt = [];
+    private readonly Dictionary<string, Country> _byCode = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<CountryCode.TwoLetterCode, Country> _byAlpha2 = [];
+    private readonly Dictionary<CountryCode.ThreeLetterCode, Country> _byAlpha3 = [];
+    private readonly Dictionary<int, Country> _byNumericInt = [];
 
-    private readonly Dictionary<string, HawkN.Iso.Countries.Models.Country> _byName = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, Country> _byName = new(StringComparer.OrdinalIgnoreCase);
 
-    private readonly IReadOnlyList<HawkN.Iso.Countries.Models.Country> _allCountries;
+    private readonly IReadOnlyList<Country> _allCountries;
 
     public CountryCodeService()
     {
@@ -24,32 +24,30 @@ internal sealed class CountryCodeService : ICountryCodeService
         {
             _byCode[country.TwoLetterCode.ToString()] = country;
             _byCode[country.ThreeLetterCode.ToString()] = country;
-            _byCode[country.NumericCode] = country;
+            _byCode[country.NumericCodeString] = country;
 
-            if (int.TryParse(country.NumericCode, out var nCode))
-                _byNumericInt[nCode] = country;
+            _byNumericInt[country.NumericCode] = country;
 
             _byAlpha2[country.TwoLetterCode] = country;
             _byAlpha3[country.ThreeLetterCode] = country;
 
             IndexName(country.Name, country);
-            IndexName(country.OfficialName, country);
         }
     }
 
-    private void IndexName(string? name, HawkN.Iso.Countries.Models.Country country)
+    private void IndexName(string? name, Country country)
     {
         if (string.IsNullOrWhiteSpace(name)) return;
-        _byName.TryAdd(name!, country);
+        _byName.TryAdd(name, country);
     }
 
-    public HawkN.Iso.Countries.Models.Country? FindByCode(string code) =>
+    public Country? FindByCode(string code) =>
         _byCode.GetValueOrDefault(code);
 
-    public HawkN.Iso.Countries.Models.Country? FindByName(string name) =>
+    public Country? FindByName(string name) =>
         _byName.GetValueOrDefault(name);
 
-    public IEnumerable<HawkN.Iso.Countries.Models.Country> SearchByName(string query)
+    public IEnumerable<Country> SearchByName(string query)
     {
         if (string.IsNullOrWhiteSpace(query)) return [];
 
@@ -57,32 +55,31 @@ internal sealed class CountryCodeService : ICountryCodeService
         const StringComparison comparison = StringComparison.OrdinalIgnoreCase;
 
         return _allCountries
-            .Where(c => (c.Name?.Contains(term, comparison) ?? false) ||
-                        (c.OfficialName?.Contains(term, comparison) ?? false))
+            .Where(c => c.Name?.Contains(term, comparison) ?? false)
             .OrderBy(c => c.Name.StartsWith(term, comparison) ? 0 : 1)
             .ThenBy(c => c.Name);
     }
 
-    public HawkN.Iso.Countries.Models.Country Get(CountryCode.TwoLetterCode code) => _byAlpha2[code];
+    public Country Get(CountryCode.TwoLetterCode code) => _byAlpha2[code];
 
-    public HawkN.Iso.Countries.Models.Country Get(CountryCode.ThreeLetterCode code) => _byAlpha3[code];
+    public Country Get(CountryCode.ThreeLetterCode code) => _byAlpha3[code];
 
-    public HawkN.Iso.Countries.Models.Country? Get(int numericCode) =>
+    public Country? Get(int numericCode) =>
         _byNumericInt.GetValueOrDefault(numericCode);
 
-    public bool TryGet(string code, [NotNullWhen(true)] out HawkN.Iso.Countries.Models.Country? country) =>
+    public bool TryGet(string code, [NotNullWhen(true)] out Country? country) =>
         _byCode.TryGetValue(code, out country);
 
-    public ValidationResult ValidateByCode(string code, [NotNullWhen(true)] out HawkN.Iso.Countries.Models.Country? country)
+    public ValidationResult ValidateByCode(string code, [NotNullWhen(true)] out Country? country)
     {
         return TryGet(code, out country) ? ValidationResult.Success() : ValidationResult.Failure($"Country code '{code}' is not a valid ISO 3166-1 code.");
     }
 
-    public ValidationResult ValidateByName(string name, [NotNullWhen(true)] out HawkN.Iso.Countries.Models.Country? country)
+    public ValidationResult ValidateByName(string name, [NotNullWhen(true)] out Country? country)
     {
         country = FindByName(name);
         return country is not null ? ValidationResult.Success() : ValidationResult.Failure($"Country name '{name}' was not found in the ISO 3166-1 database.");
     }
 
-    public IReadOnlyList<HawkN.Iso.Countries.Models.Country> GetAll() => _allCountries;
+    public IReadOnlyList<Country> GetAll() => _allCountries;
 }

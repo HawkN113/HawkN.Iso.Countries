@@ -27,7 +27,7 @@ public class CountryCodeServiceTests
 
         // Assert
         Assert.NotNull(country);
-        Assert.Equal("United States", country.Name);
+        Assert.Equal("United States of America", country.Name);
     }
 
     [Fact]
@@ -90,17 +90,5 @@ public class CountryCodeServiceTests
         Assert.False(result.IsValid);
         Assert.Null(country);
         Assert.Contains("not a valid ISO 3166-1 code", result.Reason);
-    }
-
-    [Fact]
-    public void ValidateByName_ValidOfficialName_ReturnsSuccess()
-    {
-        // Act
-        var result = _service.ValidateByName("French Republic", out var country);
-
-        // Assert
-        Assert.True(result.IsValid);
-        Assert.NotNull(country);
-        Assert.Equal("France", country!.Name);
     }
 }

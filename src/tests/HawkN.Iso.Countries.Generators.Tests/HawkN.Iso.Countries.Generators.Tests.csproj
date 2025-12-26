@@ -27,5 +27,6 @@
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\packages\HawkN.Iso.Countries.Generators\HawkN.Iso.Countries.Generators.csproj" />
+      <ProjectReference Include="..\..\packages\HawkN.Iso.Countries\HawkN.Iso.Countries.csproj" />
     </ItemGroup>
 </Project>

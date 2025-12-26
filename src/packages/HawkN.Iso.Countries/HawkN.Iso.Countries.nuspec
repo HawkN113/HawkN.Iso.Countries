@@ -6,9 +6,9 @@
         <title>HawkN.Iso.Countries</title>
         <authors>Nikolay Selyutin (HawkN113)</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Provides strongly typed ISO 3166-1 country and region codes (Alpha-2, Alpha-3) generated at compile time from Debian-iso codes data. Includes lookup service (ICountryCodeService). Lightweight and optimized for .NET 8 applications. Data is sourced from the Debian iso-codes project (LGPL v2.1)</description>
-        <summary>ISO 3166-1 country code reference library with strongly typed enums and code generation.</summary>
-        <tags>iso3166 debian-iso-codes country countries region codes .net8 dotnet-core source-generator csharp nuget-package</tags>
+        <description>Provides strongly typed ISO 3166-1 country and region codes (Alpha-2, Alpha-3) generated at compile time from UN M49 numeric codes. Includes lookup service (ICountryCodeService). Lightweight and optimized for .NET 8 applications.</description>
+        <summary>ISO 3166-1 country code reference library with strongly typed enums, numeric codes (UN M49), and code generation.</summary>
+        <tags>iso3166 country countries region codes net8 dotnet-core source-generator csharp nuget-package UN-M49</tags>
         <repository type="git" url="https://github.com/HawkN113/HawkN.Iso.Countries" branch="main" />
         <projectUrl>https://github.com/HawkN113/HawkN.Iso.Countries</projectUrl>
         <license type="expression">MIT</license>
@@ -18,7 +18,7 @@
         <releaseNotes>
             - Added support for .NET 8.0
             - Strongly typed CountryCode enums (Alpha-2, Alpha-3) generated at compile time
-            - Data sourced from Debian iso-codes (LGPL v2.1)
+            - Includes NumericCode (UN M49) and NumericCodeString ("D3" format)
             - Includes ICountryCodeService for lookups
             - Lightweight &amp; dependency-free
         </releaseNotes>
@@ -30,7 +30,6 @@
     <files>
         <file src="bin\Release\net8.0\Package\Content\HawkN.Iso.Countries.ico.png" target="content\HawkN.Iso.Countries.ico.png" />
         <file src="Package\Content\README.md" target="content\README.md" />
-        <file src="..\..\..\DATA-LICENSE.txt" target="DATA-LICENSE.txt" />
         <file src="..\..\..\LICENSE" target="LICENSE" />
         <file src="bin\Release\net8.0\HawkN.Iso.Countries.dll" target="lib\net8.0\HawkN.Iso.Countries.dll" />
         <file src="bin\Release\net8.0\HawkN.Iso.Countries.xml" target="lib\net8.0\HawkN.Iso.Countries.xml" />

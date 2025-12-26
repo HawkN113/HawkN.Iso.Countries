@@ -20,10 +20,6 @@
         <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
         <IncludeBuildOutput>false</IncludeBuildOutput>
         <IsPackable>false</IsPackable>
-        <!--Official Debian Salsa repository-->
-        <IsoCodesUrl>https://salsa.debian.org/iso-codes-team/iso-codes/-/raw/main/data/iso_3166-1.json</IsoCodesUrl>
-        <!--Local project directory -->
-        <IsoCodesLocalPath>$(ProjectDir)Content\iso_3166-1.json</IsoCodesLocalPath>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" PrivateAssets="all" />
@@ -45,17 +41,9 @@
       <Folder Include="Content\" />
     </ItemGroup>
     <ItemGroup>
-        <None Remove="Content\iso_3166-1.json" />
-        <EmbeddedResource Include="Content\iso_3166-1.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <None Remove="Content\UNSD — Methodology.csv" />
+        <EmbeddedResource Include="Content\un_m49.csv">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </EmbeddedResource>
     </ItemGroup>
-    <Target Name="DownloadIsoCodes" BeforeTargets="BeforeBuild">
-        <Error Condition="'$(IsoCodesUrl)' == ''" Text="IsoCodesUrl property is empty. Cannot download data." />
-        <Message Text="Starting ISO codes download from: $(IsoCodesUrl)" Importance="high" />
-        <MakeDir Directories="$(ProjectDir)Content" Condition="!Exists('$(ProjectDir)Content')" />
-        <DownloadFile SourceUrl="$(IsoCodesUrl)" DestinationFolder="Content" SkipUnchangedFiles="true">
-            <Output TaskParameter="DownloadedFile" ItemName="DownloadedIsoFile" />
-        </DownloadFile>
-    </Target>
 </Project>
