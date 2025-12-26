@@ -115,11 +115,17 @@ jobs:
           fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install NuGet CLI as global tool
+        run: |
+          dotnet tool install --global NuGet.CommandLine --version 6.5.1
+          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
         
       - name: Publish package (HawkN.Iso.Countries) to NuGet.org (Trusted Publishing)
         run: |
           nuget push \
             "${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg" \
-            -Source https://api.nuget.org/v3/index.json \
+            -Source ${{ env.NUGET_SOURCE_URL }} \
             -ApiKey GitHubActions \
-            -NonInteractive
+            -NonInteractive \
+            -ForceEnglishOutput
