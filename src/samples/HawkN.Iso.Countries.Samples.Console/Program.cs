@@ -30,12 +30,12 @@ try
     Console.WriteLine(separator);
 
     var allCountries = countryCodeService.GetAll();
-    Console.WriteLine("| Alpha-2 | Alpha-3 | Numeric | Country Name | Official Name |");
-    Console.WriteLine("|:-------:|:-------:|:-------:|:-------------|:-------------|");
+    Console.WriteLine("| Alpha-2 | Alpha-3 | Numeric (string) | Country Name |");
+    Console.WriteLine("|:-------:|:-------:|:-------:|:-------------:|");
 
     foreach (var country in allCountries)
     {
-        Console.WriteLine($"| {country.TwoLetterCode,-7} | {country.ThreeLetterCode,-7} | {country.NumericCode,-7} | {country.Name,-12} | {country.OfficialName,-12} |");
+        Console.WriteLine($"| {country.TwoLetterCode,-7} | {country.ThreeLetterCode,-7} | {country.NumericCodeString,-7} | {country.Name,-12} |");
     }
     Console.WriteLine($"Total countries found: {allCountries.Count}");
 

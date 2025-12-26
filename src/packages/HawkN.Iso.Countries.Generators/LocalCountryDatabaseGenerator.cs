@@ -68,7 +68,7 @@ public class LocalCountryDatabaseGenerator : BaseIncrementalGenerator
                 return;
             }
 
-            var loader = new JsonCountryLoader(originalIsoData);
+            var loader = new CsvCountryLoader(originalIsoData);
             var sb = CreateSourceBuilder(
                 Constants.GeneratorName,
                 Constants.DefaultNamespace,
@@ -115,17 +115,14 @@ public class LocalCountryDatabaseGenerator : BaseIncrementalGenerator
         return messages.Count > 0;
     }
 
-    private static void GenerateCountrySection(StringBuilder sb, string propertyName, List<HawkN.Iso.Countries.Generators.Models.Country> countryList)
+    private static void GenerateCountrySection(StringBuilder sb, string propertyName, List<CountryRow> countryList)
     {
         sb.AppendLine(
                 $"        public static readonly ImmutableArray<Models.Country> {propertyName} = ImmutableArray.Create(new Models.Country[]")
             .AppendLine("        {");
         foreach (var c in countryList)
         {
-            sb.AppendLine(
-                !string.IsNullOrEmpty(c.OfficialName)
-                    ? $"            new(\"{c.Name}\", CountryCode.TwoLetterCode.{c.CodeAlpha2}, CountryCode.ThreeLetterCode.{c.CodeAlpha3}, \"{c.NumericCode}\",\"{c.OfficialName}\"),"
-                    : $"            new(\"{c.Name}\", CountryCode.TwoLetterCode.{c.CodeAlpha2}, CountryCode.ThreeLetterCode.{c.CodeAlpha3}, \"{c.NumericCode}\", string.Empty),");
+            sb.AppendLine($"            new(\"{c.Name}\", CountryCode.TwoLetterCode.{c.CodeAlpha2}, CountryCode.ThreeLetterCode.{c.CodeAlpha3}, {c.NumericCode}),");
         }
 
         sb.AppendLine("        });");
