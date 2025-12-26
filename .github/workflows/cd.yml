@@ -67,7 +67,7 @@ jobs:
       - name: Perform build
         run: dotnet build ${{ env.SOLUTION_NAME }} --no-restore --configuration Release
 
-      - name: Build and Pack (${{ env.PACKAGE_COUNTRIES_ID }})
+      - name: Build and Pack (HawkN.Iso.Countries)
         run: |
           dotnet pack ${{ env.PACKAGE_COUNTRIES_PROJECT_PATH }} \
             --configuration Release \
@@ -76,26 +76,35 @@ jobs:
             /p:ContinuousIntegrationBuild=true \
             --output ${{ env.OUTPUT_NUGET_DIR }}
 
-      - name: Generate Changelog
+      - name: Generate Release Changelog
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          args: --latest
+        env:
+          OUTPUT: CHANGELOG_RELEASE.md
+
+      - name: Generate Full CHANGELOG.md
         uses: orhun/git-cliff-action@v4
         with:
           config: cliff.toml
         env:
-          OUTPUT: CHANGELOG_RELEASE.md
+          OUTPUT: CHANGELOG.md
 
-      - name: Update Main CHANGELOG.md
+      - name: Commit CHANGELOG.md (if changed)
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git pull origin ${{ github.event.repository.default_branch }} --rebase       
-          git-cliff > CHANGELOG.md
+
+          git pull origin ${{ github.event.repository.default_branch }} --rebase
+
           if ! git diff --exit-code CHANGELOG.md; then
             git add CHANGELOG.md
             git commit -m "docs(changelog): update for version ${{ env.CURRENT_VERSION }}"
             git push origin HEAD:${{ github.event.repository.default_branch }}
           else
             echo "No changes in CHANGELOG.md"
-          fi      
+          fi
         shell: bash
 
       - name: Create GitHub Release (HawkN.Iso.Countries)
