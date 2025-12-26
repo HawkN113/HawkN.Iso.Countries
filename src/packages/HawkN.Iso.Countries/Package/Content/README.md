@@ -1,11 +1,11 @@
 # HawkN.Iso.Countries
 
-**HawkN.Iso.Countries** provides ISO 3166-1 country codes (Alpha-2, Alpha-3), official names, and validation services.
+**HawkN.Iso.Countries** provides ISO 3166-1 country codes (Alpha-2, Alpha-3), official names, numeric codes (UN M49), and validation services.
 
 ## Features
-- **Comprehensive Country List** – Provides an up-to-date set of country data according to the `ISO 3166-1` standard.
+- **Comprehensive Country List** – Provides an up-to-date `ISO 3166-1` country data with numeric codes from `UN M49`.
 - **Strongly Typed Codes** – `TwoLetterCode` and `ThreeLetterCode` enums are generated at compile-time.
-- **Multiple Search Methods** – Lookup by Alpha-2, Alpha-3, Numeric code, or Official Name.
+- **Multiple Search Methods** – Lookup by Alpha-2, Alpha-3, Numeric code, or Country Name.
 - **Advanced Validation** – Built-in `ValidationResult` providing detailed feedback for code and name verification.
 - **Ultra-Fast Performance** – O(1) lookups via pre-indexed static dictionaries.
 - **Lightweight & Dependency-Free** – Compatible with .NET 8 and above.
@@ -136,8 +136,8 @@ Console.WriteLine($"{flag} {country.Name}");
 ---
 
 ### Supported countries
-Supported 249 countries. See the country list with the [link](https://github.com/HawkN113/HawkN.Iso.Countries?tab=readme-ov-file#supported-countries)
-Last updated at `01.12.2025`.
+See the country list with the [link](https://github.com/HawkN113/HawkN.Iso.Countries?tab=readme-ov-file#supported-countries)
+Last updated at `25.12.2025`.
 
 ---
 
@@ -151,12 +151,11 @@ Last updated at `01.12.2025`.
 ## License
 
 ### Code License
-The source code of **HawkN.Iso.Countries** is licensed under the [MIT License](LICENSE).
-You are free to use, modify, and distribute it in both open-source and commercial projects.
+The source code of `HawkN.Iso.Countries` is licensed under the [MIT License](LICENSE).
 
 ### Data License
-The country data used in this library is sourced from the [Debian iso-codes project](https://salsa.debian.org/iso-codes-team/iso-codes).
-The data itself is licensed under **GNU LGPL v2.1**. See [DATA-LICENSE.txt](DATA-LICENSE.txt) for more details.
+Country data (`ISO 3166-1` and `UN M49` numeric codes) is sourced from the [UN Statistics Division – M49 standard](https://unstats.un.org/unsd/methodology/m49/overview)
+
 ---
 
 ### Troubleshooting: Emoji Display
@@ -170,5 +169,5 @@ If you see `??` instead of flags in your console:
 
 ### References
 - [ISO 3166 Standard](https://www.iso.org/iso-3166-country-codes.html)
-- [Debian Iso-Codes Team](https://salsa.debian.org/iso-codes-team/iso-codes/-/tree/main)
+- [UN Statistics Division – M49 standard](https://unstats.un.org/unsd/methodology/m49/overview)
 - [GitHub Repository](https://github.com/HawkN113/HawkN.Iso.Countries)

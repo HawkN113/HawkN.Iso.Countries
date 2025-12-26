@@ -17,7 +17,7 @@ public class CountryStringExtensionsTests
     public void ToCountry_ValidCode_ReturnsCountry(string input, string expectedName)
     {
         // Arrange
-        var country = new Country(expectedName, CountryCode.TwoLetterCode.US, CountryCode.ThreeLetterCode.USA, "840", "United States of America");
+        var country = new Country(expectedName, CountryCode.TwoLetterCode.US, CountryCode.ThreeLetterCode.USA, 840);
         _serviceMock.Setup(s => s.FindByCode(input)).Returns(country);
 
         // Act
@@ -61,8 +61,7 @@ public class CountryStringExtensionsTests
             alpha2,
             Enum.Parse<CountryCode.TwoLetterCode>(alpha2),
             Enum.Parse<CountryCode.ThreeLetterCode>(alpha3),
-            "001",
-            alpha2);
+            1);
 
         // Act
         var result = country.GetEmojiFlag();
@@ -80,8 +79,7 @@ public class CountryStringExtensionsTests
             "United States",
             CountryCode.TwoLetterCode.US,
             CountryCode.ThreeLetterCode.USA,
-            "840",
-            "United States of America");
+            840);
         var successResult = ValidationResult.Success();
 
         // Настройка Mock для метода с out параметром

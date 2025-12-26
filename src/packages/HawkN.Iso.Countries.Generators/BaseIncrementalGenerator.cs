@@ -21,6 +21,7 @@ public abstract class BaseIncrementalGenerator : IIncrementalGenerator
 
     protected static string LoadResources(Assembly assembly)
     {
+        return ReadResource("HawkN.Iso.Countries.Generators.Content.un_m49.csv");
         string ReadResource(string name)
         {
             using var stream = assembly.GetManifestResourceStream(name)
@@ -28,7 +29,6 @@ public abstract class BaseIncrementalGenerator : IIncrementalGenerator
             using var reader = new StreamReader(stream, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
             return reader.ReadToEnd();
         }
-        return ReadResource("HawkN.Iso.Countries.Generators.Content.iso_3166-1.json");
     }
 
     protected void GenerateSourceOutput(string content, SourceProductionContext spc)

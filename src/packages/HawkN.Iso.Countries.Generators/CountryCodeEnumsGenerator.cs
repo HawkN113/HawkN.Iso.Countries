@@ -82,7 +82,7 @@ public class CountryCodeEnumsGenerator : BaseIncrementalGenerator
                 return;
             }
 
-            var loader = new JsonCountryLoader(originalIsoData);
+            var loader = new CsvCountryLoader(originalIsoData);
             var sb = CreateSourceBuilder(
                 Constants.GeneratorName,
                 Constants.DefaultNamespace,
@@ -132,7 +132,7 @@ public class CountryCodeEnumsGenerator : BaseIncrementalGenerator
     private static void GenerateCountryEnumSection(
         StringBuilder sb,
         string propertyName,
-        List<HawkN.Iso.Countries.Generators.Models.Country> countryList,
+        List<CountryRow> countryList,
         string summary,
         bool isThreeLetterCode)
     {
@@ -147,7 +147,7 @@ public class CountryCodeEnumsGenerator : BaseIncrementalGenerator
             .AppendLine("        {");
         foreach (var c in countryList)
         {
-            var title = !string.IsNullOrEmpty(c.OfficialName) ? $"{c.Name} ({c.OfficialName})" : c.Name;
+            var title = c.Name;
             sb.AppendLine(
                     "            /// <summary>")
                 .AppendLine(
