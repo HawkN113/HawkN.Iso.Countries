@@ -80,7 +80,6 @@ jobs:
         uses: orhun/git-cliff-action@v4
         with:
           config: cliff.toml
-          args: --latest
         env:
           OUTPUT: CHANGELOG_RELEASE.md
 
@@ -99,7 +98,7 @@ jobs:
           fi      
         shell: bash
 
-      - name: Create GitHub Release (${{ env.PACKAGE_COUNTRIES_ID }})
+      - name: Create GitHub Release (HawkN.Iso.Countries)
         uses: softprops/action-gh-release@v2
         with:
           body_path: CHANGELOG_RELEASE.md
@@ -108,7 +107,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-      - name: Publish package (${{ env.PACKAGE_COUNTRIES_ID }}) to NuGet.org
+      - name: Publish package (HawkN.Iso.Countries) to NuGet.org
         run: |
           dotnet nuget push "${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg" \
             --source ${{ env.NUGET_SOURCE_URL }} \
