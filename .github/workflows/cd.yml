@@ -116,9 +116,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
-      - name: Publish package (HawkN.Iso.Countries) to NuGet.org
+      - name: Publish package (HawkN.Iso.Countries) to NuGet.org (Trusted Publishing)
         run: |
-          dotnet nuget push "${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg" \
-            --source ${{ env.NUGET_SOURCE_URL }} \
-            --skip-duplicate
-        shell: bash
+          nuget push \
+            "${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg" \
+            -Source https://api.nuget.org/v3/index.json \
+            -ApiKey GitHubActions \
+            -NonInteractive
