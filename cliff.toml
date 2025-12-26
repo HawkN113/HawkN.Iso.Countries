@@ -2,13 +2,20 @@
 # Documentation: https://git-cliff.org/docs/configuration
 [changelog]
 body = """
-{% if version %} ## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
-[Compare changes](https://github.com/HawkN113/HawkN.Iso.Countries/compare/{{ previous_version }}...{{ version }}){% else %}\
+{% if version %}
+## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+{% if previous_version %}
+[Compare changes](https://github.com/HawkN113/HawkN.Iso.Countries/compare/{{ previous_version }}...{{ version }})
+{% endif %}
+{% else %}
 ## [Unreleased]
-{% endif %} {% for group, commits in commits | group_by(attribute="group") %}
+{% endif %}
+
+{% for group, commits in commits | group_by(attribute="group") %}
 ### {{ group | striptags | trim }}
 {% for commit in commits %}
-- {% if commit.scope %}**{{ commit.scope }}:** {% endif %}{% if commit.breaking %}[**BREAKING**] {% endif %}{{ commit.message | upper_first | trim }} ({{ commit.id | truncate(length=7, end="") }}){% endfor %}
+- {% if commit.scope %}**{{ commit.scope }}:** {% endif %}{% if commit.breaking %}[**BREAKING**] {% endif %}{{ commit.message | upper_first | trim }} ({{ commit.id | truncate(length=7, end="") }})
+{% endfor %}
 {% endfor %}
 """
 trim = true
