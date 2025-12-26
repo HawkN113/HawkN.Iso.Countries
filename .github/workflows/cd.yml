@@ -116,10 +116,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install NuGet CLI as global tool
+      - name: Install NuGet CLI
         run: |
-          dotnet tool install --global NuGet.CommandLine --version 6.5.1
-          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+          wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -O nuget.exe
+          chmod +x nuget.exe
+          sudo mv nuget.exe /usr/local/bin/nuget
         
       - name: Publish package (HawkN.Iso.Countries) to NuGet.org (Trusted Publishing)
         run: |
