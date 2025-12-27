@@ -1,13 +1,17 @@
 # HawkN.Iso.Countries
-
-[![Build Status](https://img.shields.io/github/actions/workflow/status/HawkN113/Country.Reference.Iso3166/ci.yml?label=Build&style=flat-square)](https://github.com/HawkN113/Country.Reference.Iso3166/actions/workflows/ci.yml)
-[![CodeQL Security](https://img.shields.io/github/actions/workflow/status/HawkN113/Country.Reference.Iso3166/codeql-analysis.yml?label=CodeQL%20Security&style=flat-square)](https://github.com/HawkN113/Country.Reference.Iso3166/actions/workflows/codeql-analysis.yml)
-[![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries?label=HawkN.Iso.Countries&color=blue&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
-[![Downloads](https://img.shields.io/nuget/dt/HawkN.Iso.Countries?label=Downloads&color=brightgreen&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
-[![GitHub license](https://img.shields.io/github/license/HawkN113/Country.Reference.Iso3166?label=License&color=blue&style=flat-square)](https://github.com/HawkN113/Country.Reference.Iso3166/blob/main/LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/HawkN113/HawkN.Iso.Countries/ci.yml?label=Build&style=flat-square)](https://github.com/HawkN113/HawkN.Iso.Countries/actions/workflows/ci.yml)
+[![CodeQL Security](https://img.shields.io/github/actions/workflow/status/HawkN113/HawkN.Iso.Countries/codeql-analysis.yml?label=CodeQL%20Security&style=flat-square)](https://github.com/HawkN113/HawkN.Iso.Countries/actions/workflows/codeql-analysis.yml)
+[![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries?label=NuGet&color=blue&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
+[![Downloads](https://img.shields.io/nuget/dt/HawkN.Iso.Countries?logo=nuget&label=Downloads&color=brightgreen&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
+<br />
+[![NuGet Trusted Publishing](https://img.shields.io/badge/NuGet-Trusted_Publishing-blue?logo=nuget&logoColor=white&style=flat-square)](https://learn.microsoft.com/en-us/nuget/nuget-org/trusted-publishing)
+[![Target Framework](https://img.shields.io/badge/.NET-8.0-512bd4?logo=dotnet&style=flat-square)](https://dotnet.microsoft.com/download)
+[![NuGet Ribbon](https://img.shields.io/badge/NuGet-Small_Size-success?logo=nuget&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
+[![GitHub license](https://img.shields.io/github/license/HawkN113/HawkN.Iso.Countries?label=License&style=flat-square)](https://github.com/HawkN113/HawkN.Iso.Countries/blob/main/LICENSE)
 
 | ![HawkN.Iso.Countries](docs/img/HawkN.Iso.Countries.png) | **HawkN.Iso.Countries** provides ISO 3166-1 country codes (Alpha-2, Alpha-3), official names, numeric codes (UN M49), and validation services. |
 |--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
 ---
 
 ## Features
