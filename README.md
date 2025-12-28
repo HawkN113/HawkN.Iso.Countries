@@ -1,8 +1,8 @@
 # HawkN.Iso.Countries
 [![Build Status](https://img.shields.io/github/actions/workflow/status/HawkN113/HawkN.Iso.Countries/ci.yml?label=Build&style=flat-square)](https://github.com/HawkN113/HawkN.Iso.Countries/actions/workflows/ci.yml)
 [![CodeQL Security](https://img.shields.io/github/actions/workflow/status/HawkN113/HawkN.Iso.Countries/codeql-analysis.yml?label=CodeQL%20Security&style=flat-square)](https://github.com/HawkN113/HawkN.Iso.Countries/actions/workflows/codeql-analysis.yml)
-[![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries?label=NuGet&color=blue&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
-[![Downloads](https://img.shields.io/nuget/dt/HawkN.Iso.Countries?logo=nuget&label=Downloads&color=brightgreen&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
+[![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries?label=HawkN.Iso.Countries&color=blue&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
+[![Downloads](https://img.shields.io/nuget/dt/HawkN.Iso.Countries?logo=nuget&label=Downloads&color=brightgreen&style=flat-square&cacheSeconds=3600)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
 <br />
 [![NuGet Trusted Publishing](https://img.shields.io/badge/NuGet-Trusted_Publishing-blue?logo=nuget&logoColor=white&style=flat-square)](https://learn.microsoft.com/en-us/nuget/nuget-org/trusted-publishing)
 [![Target Framework](https://img.shields.io/badge/.NET-8.0-512bd4?logo=dotnet&style=flat-square)](https://dotnet.microsoft.com/download)
