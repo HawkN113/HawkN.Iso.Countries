@@ -28,7 +28,7 @@
 
 | Package | Description                                                                      |
 |---------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
-| [HawkN.Iso.Countries](https://www.nuget.org/packages/HawkN.Iso.Countries) | Main library with country models, validation services, and generated ISO enums (Alpha-2, Alpha-3). |
+| [![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries?label=HawkN.Iso.Countries&color=blue&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/) | Main library with country models, validation services, and generated ISO enums (Alpha-2, Alpha-3). |
 
 ---
 
