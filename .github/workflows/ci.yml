@@ -35,7 +35,7 @@ jobs:
       
       # Iso.Countries.Currencies package (Extensions)
       PACKAGE_COUNTRIES_CURRENCIES_PROJECT_PATH: src/packages/HawkN.Iso.Countries.Currencies/HawkN.Iso.Countries.Currencies.csproj
-      PACKAGE_COUNTRIES_CURRENCIES_NUSPEC_FILE_PATH: HawkN.Iso.Countries.nuspec
+      PACKAGE_COUNTRIES_CURRENCIES_NUSPEC_FILE_PATH: HawkN.Iso.Countries.Currencies.nuspec
       
       OUTPUT_NUGET_DIR: nuget-packages
       ARTIFACTS_DIR: artifacts
