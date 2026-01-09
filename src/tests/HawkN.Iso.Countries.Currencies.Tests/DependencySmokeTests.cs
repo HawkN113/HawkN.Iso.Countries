@@ -60,7 +60,7 @@ public sealed class DependencySmokeTests
         // Assert
         Assert.NotNull(currency);
     }
-        
+
     private static Version GetInformationalVersion(Assembly assembly)
     {
         var attr = assembly
