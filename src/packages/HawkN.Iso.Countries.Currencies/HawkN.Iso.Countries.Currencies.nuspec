@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>HawkN.Iso.Countries.Currencies</id>
+        <version>8.0.0</version>
+        <title>HawkN.Iso.Countries.Currencies</title>
+        <authors>Nikolay Selyutin (HawkN113)</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Provides mapping between countries and currencies (primary and secondary). Includes extension methods to query primary, secondary, or all currencies and check usage.</description>
+        <summary>ISO 4217 / ISO 3166 currency-country mapping library with strongly typed codes and utility extensions</summary>
+        <tags>iso4217 iso3166 currency currencies countries finance money money-codes dotnet8 dotnet-core dotnet-library csharp currency-code nuget-package</tags>
+        <repository type="git" url="https://github.com/HawkN113/HawkN.Iso.Countries" branch="main" />
+        <projectUrl>https://github.com/HawkN113/HawkN.Iso.Countries</projectUrl>
+        <license type="expression">MIT</license>
+        <icon>content\HawkN.Iso.Countries.ico.png</icon>
+        <readme>content\README.md</readme>
+        <language>en-GB</language>
+        <releaseNotes>
+            - Added support for .NET 8.0
+            - Initial release with Country - Currency mapping.
+            - Lightweight &amp; dependency-free
+        </releaseNotes>
+        <copyright>Copyright © 2026 Nikolay Selyutin (HawkN113)</copyright>
+        <dependencies>
+            <group targetFramework="net8.0">
+                <dependency id="HawkN.Iso.Countries" version="[8.0.0,9.0.0)" />
+                <dependency id="HawkN.Iso.Currencies" version="[8.0.0,9.0.0)" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="bin\Release\net8.0\Package\Content\HawkN.Iso.Countries.ico.png" target="content\HawkN.Iso.Countries.ico.png" />
+        <file src="Package\Content\README.md" target="content\README.md" />
+        <file src="Package\Content\DATA-LICENSE" target="DATA-LICENSE" />
+        <file src="..\..\..\LICENSE" target="LICENSE" />
+        <file src="Package\Content\NOTICE" target="NOTICE" />
+        <file src="bin\Release\net8.0\HawkN.Iso.Countries.Currencies.dll" target="lib\net8.0\HawkN.Iso.Countries.Currencies.dll" />
+        <file src="bin\Release\net8.0\HawkN.Iso.Countries.Currencies.xml" target="lib\net8.0\HawkN.Iso.Countries.Currencies.xml" />
+    </files>
+</package>

@@ -2,19 +2,26 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/HawkN113/HawkN.Iso.Countries/ci.yml?label=Build&style=flat-square)](https://github.com/HawkN113/HawkN.Iso.Countries/actions/workflows/ci.yml)
 [![CodeQL Security](https://img.shields.io/github/actions/workflow/status/HawkN113/HawkN.Iso.Countries/codeql-analysis.yml?label=CodeQL%20Security&style=flat-square)](https://github.com/HawkN113/HawkN.Iso.Countries/actions/workflows/codeql-analysis.yml)
 [![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries?label=HawkN.Iso.Countries&color=blue&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
-[![Downloads](https://img.shields.io/nuget/dt/HawkN.Iso.Countries?logo=nuget&label=Downloads&color=brightgreen&style=flat-square&cacheSeconds=3600)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
-<br />
+[![Downloads](https://img.shields.io/nuget/dt/HawkN.Iso.Countries?logo=nuget&label=&color=brightgreen&style=flat-square&cacheSeconds=3600)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
+[![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries.Currencies?label=HawkN.Iso.Countries.Currencies&color=blue&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries.Currencies/)
+[![Downloads](https://img.shields.io/nuget/dt/HawkN.Iso.Countries.Currencies?logo=nuget&label=&color=brightgreen&style=flat-square&cacheSeconds=3600)](https://www.nuget.org/packages/HawkN.Iso.Countries.Currencies/)
+
+</br>
+
 [![NuGet Trusted Publishing](https://img.shields.io/badge/NuGet-Trusted_Publishing-blue?logo=nuget&logoColor=white&style=flat-square)](https://learn.microsoft.com/en-us/nuget/nuget-org/trusted-publishing)
 [![Target Framework](https://img.shields.io/badge/.NET-8.0-512bd4?logo=dotnet&style=flat-square)](https://dotnet.microsoft.com/download)
 [![NuGet Ribbon](https://img.shields.io/badge/NuGet-Small_Size-success?logo=nuget&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)
 [![GitHub license](https://img.shields.io/github/license/HawkN113/HawkN.Iso.Countries?label=License&style=flat-square)](https://github.com/HawkN113/HawkN.Iso.Countries/blob/main/LICENSE)
+[![Data: Unicode CLDR](https://img.shields.io/badge/data-Unicode%20CLDR-lightgrey.svg?label=Data%20license&style=flat-square)](https://unicode.org/license.html)
+[![Data: ODbL](https://img.shields.io/badge/data-ODbL%201.0-orange.svg?label=Data%20license&style=flat-square)](https://opendatacommons.org/licenses/odbl/1-0/)
 
 | ![HawkN.Iso.Countries](docs/img/HawkN.Iso.Countries.png) | **HawkN.Iso.Countries** provides ISO 3166-1 country codes (Alpha-2, Alpha-3), official names, numeric codes (UN M49), and validation services. |
 |--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
 ---
 
-## Features
+## Features 
+### HawkN.Iso.Countries (Core)
 - **Comprehensive Country List** – Provides an up-to-date `ISO 3166-1` country data with numeric codes from `UN M49`.
 - **Strongly Typed Codes** – `TwoLetterCode` and `ThreeLetterCode` enums are generated at compile-time.
 - **Multiple Search Methods** – Lookup by Alpha-2, Alpha-3, Numeric code, or Country Name.
@@ -22,13 +29,21 @@
 - **Ultra-Fast Performance** – O(1) lookups via pre-indexed static dictionaries.
 - **Lightweight & Dependency-Free** – Compatible with .NET 8 and above.
 
+### HawkN.Iso.Countries.Currencies (Extension)
+- **Primary and Secondary Currencies** – Get the main currency or all secondary currencies of a country.
+- **Fast Lookups** – O(1) lookups using pre-indexed dictionaries and HashSet for secondary currencies.
+- **Currency Validation** – Check if a country uses a given currency.
+- **Seamless Integration** – Built to work with `HawkN.Iso.Countries` types (`CountryCode.TwoLetterCode`).
+- **Lightweight & Dependency-Free** – Compatible with .NET 8 and above.
+
 ---
 
 ## Packages
 
-| Package | Description                                                                      |
-|---------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
-| [![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries?label=HawkN.Iso.Countries&color=blue&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/) | Main library with country models, validation services, and generated ISO enums (Alpha-2, Alpha-3). |
+| Package                                                                                                                                                                                                     | Description                                                                                                                                                                                                                               |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries?label=HawkN.Iso.Countries&color=blue&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries/)                                  | Main library with country models, validation services, and generated ISO enums (Alpha-2, Alpha-3).                                                                                                                                        |
+| [![NuGet](https://img.shields.io/nuget/v/HawkN.Iso.Countries.Currencies?label=HawkN.Iso.Countries.Currencies&color=blue&style=flat-square)](https://www.nuget.org/packages/HawkN.Iso.Countries.Currencies/) | Provides ISO-based mapping of primary and secondary currencies for countries.It allows you to quickly retrieve the main currency, secondary currencies, all currencies, or check if a currency is used by a specific country. |
 
 ---
 
@@ -41,17 +56,29 @@ dotnet add package HawkN.Iso.Countries
 ````
 
 ### Required Namespaces
+
+#### HawkN.Iso.Countries (Core)
+
 ```csharp
 using HawkN.Iso.Countries;
 using HawkN.Iso.Countries.Abstractions;
 using HawkN.Iso.Countries.Models;
 using HawkN.Iso.Countries.Extensions;
 ```
+
+#### HawkN.Iso.Countries.Currencies (Extension)
+```csharp
+using HawkN.Iso.Countries;
+using HawkN.Iso.Currencies;
+using HawkN.Iso.Countries.Currencies.Extensions;
+```
 ---
 
 ### Usage Example
 
-#### Registration
+#### HawkN.Iso.Countries (Core)
+
+##### Registration
 Register the service in your DI container:
 ```csharp
 using var host = Host.CreateDefaultBuilder(args)
@@ -61,7 +88,7 @@ using var host = Host.CreateDefaultBuilder(args)
     })
     .Build();
 ```
-#### Retrieval & Search
+##### Retrieval & Search
 The service provides O(1) lookups via pre-indexed dictionaries and efficient partial searching.
 ```csharp
 var service = scope.ServiceProvider.GetRequiredService<ICountryCodeService>();
@@ -98,7 +125,7 @@ var suggestions = service.SearchByName("United")
 // Returns: ["United Arab Emirates", "United Kingdom", "United States", ...]
 ```
 
-#### Validation
+##### Validation
 Check if a code or name is valid and retrieve the model simultaneously:
 ```csharp
 // Validate by Code
@@ -115,7 +142,7 @@ if (!nameResult.IsValid)
     Console.WriteLine($"Error: {nameResult.Reason}"); 
 }
 ```
-#### Fluent String Extensions
+##### Fluent String Extensions
 ```csharp
 string input = "FRA";
 
@@ -136,7 +163,7 @@ if (validationResult.IsValid)
 }
 ```
 
-#### Emoji Flags Support
+##### Emoji Flags Support
 The library provides an easy way to display country flags using standard Unicode Emoji. This works without any external image assets and is perfect for lightweight UI components.
 
 ```csharp
@@ -147,6 +174,31 @@ string flag = country.GetEmojiFlag();
 
 Console.WriteLine($"{flag} {country.Name}"); 
 // Output: 🇫🇮 Finland
+```
+
+#### HawkN.Iso.Countries.Currencies (Extension)
+
+##### Currency mapping
+```csharp
+var country = CountryCode.TwoLetterCode.CH;
+
+// Primary currency
+var primary = country.GetPrimaryCurrency();   // CHF
+
+// Secondary currencies
+var secondary = country.GetSecondaryCurrencies();
+
+// All currencies
+var all = country.GetAllCurrencies();
+
+// Check if used
+bool usesChe = country.IsCurrencyUsedByCountry(CurrencyCode.CHE);
+```
+
+##### Validation
+```csharp
+// Check if used the currency
+bool usesChe = country.IsCurrencyUsedByCountry(CurrencyCode.CHE);
 ```
 
 ---
@@ -421,11 +473,19 @@ Last updated at `25.12.2025`.
 
 ## License
 
-### Code License
-The source code of `HawkN.Iso.Countries` is licensed under the [MIT License](LICENSE).
+### Code
+This project’s source code is licensed under the [MIT License](LICENSE).
 
-### Data License
-Country data (`ISO 3166-1` and `UN M49` numeric codes) is sourced from the [UN Statistics Division – M49 standard](https://unstats.un.org/unsd/methodology/m49/overview)
+### Data
+This project uses data derived from the following sources:
+
+- **Unicode Common Locale Data Repository (CLDR)**  
+  Licensed under the [Unicode License Agreement](https://unicode.org/license.html).
+
+- Country data (`ISO 3166-1` and `UN M49` numeric codes) is sourced from the [UN Statistics Division – M49 standard](https://unstats.un.org/unsd/methodology/m49/overview)
+
+The above data licenses are **permissive and compatible with MIT-licensed code**  
+when used for reference and code generation.
 
 ---
 
