@@ -125,7 +125,7 @@ public sealed class CountryCurrencyMapTests
     public void All_Entries_Should_Have_Primary_Currency()
     {
         CountryCurrencyInfo? info = null;
-        foreach (var country in Enum
+        foreach (var _ in Enum
                      .GetValues<CountryCode.TwoLetterCode>()
                      .Where(country => CountryCurrencyMap.TryGet(country, out info)))
         {
