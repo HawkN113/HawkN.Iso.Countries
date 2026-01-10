@@ -12,4 +12,14 @@ internal static class Constants
         "Release: release-48",
         "CLDR URL: https://github.com/unicode-org/cldr",
     ];
+    public static readonly string[] SystemNamespaces = [
+        "System.Collections.Generic",
+        "System.Collections.Immutable"
+    ];
+    public static readonly string[] ReferencesNamespaces =
+    [
+        "HawkN.Iso.Countries",
+        "HawkN.Iso.Currencies",
+        "HawkN.Iso.Countries.Currencies.Models"
+    ];
 }

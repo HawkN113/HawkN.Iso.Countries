@@ -20,8 +20,8 @@ It allows you to quickly retrieve the main currency, secondary currencies, all c
 dotnet add package HawkN.Iso.Countries.Currencies
 ````
 #### References
-- [HawkN.Iso.Countries](https://github.com/HawkN113/HawkN.Iso.Countries) – Provides country codes and models.
-- [HawkN.Iso.Currencies](https://github.com/HawkN113/HawkN.Iso.Currencies) – Provides currency codes and enums.
+- [HawkN.Iso.Countries](https://www.nuget.org/packages/HawkN.Iso.Countries) – Provides country codes and models.
+- [HawkN.Iso.Currencies](https://www.nuget.org/packages/HawkN.Iso.Currencies) – Provides currency codes and enums.
 
 ### Required Namespaces
 ```csharp

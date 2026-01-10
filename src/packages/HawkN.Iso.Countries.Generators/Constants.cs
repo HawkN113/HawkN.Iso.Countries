@@ -10,4 +10,12 @@ internal static class Constants
     [
         "Source URL: https://unstats.un.org/unsd/methodology/m49/overview"
     ];
+    public static readonly string[] SystemNamespaces = [
+        "System.Collections.Generic",
+        "System.Collections.Immutable"
+    ];
+    public static readonly string[] ReferencesNamespaces =
+    [
+        "HawkN.Iso.Countries.Models"
+    ];
 }

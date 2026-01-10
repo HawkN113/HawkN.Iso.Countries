@@ -138,18 +138,16 @@ public class CountryCurrencySourceGenerator : BaseIncrementalGenerator
                 return;
             }
 
+
+
             var loader = new CurrencyDataLoader(tuple.originalXml, tuple.translationsXml);
             var sb = CreateSourceBuilder(
                 Constants.GeneratorName,
                 Constants.DefaultNamespace,
                 Constants.ExtendedSourceData,
-                [
-                    "System.Collections.Generic",
-                    "System.Collections.Immutable",
-                    "HawkN.Iso.Countries",
-                    "HawkN.Iso.Currencies",
-                    "HawkN.Iso.Countries.Currencies.Models"
-                ]);
+                Constants.SystemNamespaces
+                    .Concat(Constants.ReferencesNamespaces)
+                    .ToArray());
 
             sb.AppendLine("   /// <summary>")
                 .AppendLine("   /// Provides fast ISO 3166 → ISO 4217 country-to-currency mapping.")
