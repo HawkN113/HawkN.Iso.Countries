@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>HawkN.Iso.Countries</id>
-        <version>8.0.0</version>
         <title>HawkN.Iso.Countries</title>
+        <version>8.0.1</version>
         <authors>Nikolay Selyutin (HawkN113)</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Provides strongly typed ISO 3166-1 country and region codes (Alpha-2, Alpha-3) generated at compile time from UN M49 numeric codes. Includes lookup service (ICountryCodeService). Lightweight and optimized for .NET 8 applications.</description>

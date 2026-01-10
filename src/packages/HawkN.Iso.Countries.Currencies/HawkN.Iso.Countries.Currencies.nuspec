@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>HawkN.Iso.Countries.Currencies</id>
-        <version>8.0.0</version>
         <title>HawkN.Iso.Countries.Currencies</title>
+        <version>8.0.1</version>
         <authors>Nikolay Selyutin (HawkN113)</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Provides mapping between countries and currencies (primary and secondary). Includes extension methods to query primary, secondary, or all currencies and check usage.</description>
