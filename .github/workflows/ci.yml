@@ -28,8 +28,15 @@ jobs:
 
     env:
       SOLUTION_NAME: src/HawkN.Iso.Countries.Solution.sln
-      PACKAGE_COUNTRY_PROJECT_PATH: src/packages/HawkN.Iso.Countries/HawkN.Iso.Countries.csproj
-      PACKAGE_COUNTRY_NUSPEC_FILE_PATH: HawkN.Iso.Countries.nuspec
+      
+      # Iso.Countries package (Core)
+      PACKAGE_COUNTRIES_PROJECT_PATH: src/packages/HawkN.Iso.Countries/HawkN.Iso.Countries.csproj
+      PACKAGE_COUNTRIES_NUSPEC_FILE_PATH: HawkN.Iso.Countries.nuspec
+      
+      # Iso.Countries.Currencies package (Extensions)
+      PACKAGE_COUNTRIES_CURRENCIES_PROJECT_PATH: src/packages/HawkN.Iso.Countries.Currencies/HawkN.Iso.Countries.Currencies.csproj
+      PACKAGE_COUNTRIES_CURRENCIES_NUSPEC_FILE_PATH: HawkN.Iso.Countries.Currencies.nuspec
+      
       OUTPUT_NUGET_DIR: nuget-packages
       ARTIFACTS_DIR: artifacts
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
@@ -72,7 +79,7 @@ jobs:
     - name: Extract project version (HawkN.Iso.Countries)
       id: get_version
       run: |
-        VERSION=$(sed -n 's/.*<\(VersionPrefix\|Version\)>\([^<]*\)<\/\1>.*/\2/p' ${{ env.PACKAGE_COUNTRY_PROJECT_PATH }} | head -n 1)
+        VERSION=$(sed -n 's/.*<\(VersionPrefix\|Version\)>\([^<]*\)<\/\1>.*/\2/p' ${{ env.PACKAGE_COUNTRIES_PROJECT_PATH }} | head -n 1)
         if [ -z "$VERSION" ]; then
         VERSION=$(date +%Y%m%d)
         fi
@@ -81,7 +88,10 @@ jobs:
       shell: bash
 
     - name: Validate package creation (HawkN.Iso.Countries)
-      run: dotnet pack ${{ env.PACKAGE_COUNTRY_PROJECT_PATH }} /p:NuspecFile=${{ env.PACKAGE_COUNTRY_NUSPEC_FILE_PATH }} /p:ContinuousIntegrationBuild=true --configuration Release --no-build --output ${{ env.OUTPUT_NUGET_DIR }}
+      run: dotnet pack ${{ env.PACKAGE_COUNTRIES_PROJECT_PATH }} /p:NuspecFile=${{ env.PACKAGE_COUNTRIES_NUSPEC_FILE_PATH }} /p:ContinuousIntegrationBuild=true --configuration Release --no-build --output ${{ env.OUTPUT_NUGET_DIR }}
+
+    - name: Validate package creation (HawkN.Iso.Countries.Currencies)
+      run: dotnet pack ${{ env.PACKAGE_COUNTRIES_CURRENCIES_PROJECT_PATH }} /p:NuspecFile=${{ env.PACKAGE_COUNTRIES_CURRENCIES_NUSPEC_FILE_PATH }} /p:ContinuousIntegrationBuild=true --configuration Release --no-build --output ${{ env.OUTPUT_NUGET_DIR }}
         
     - name: Generate CHANGELOG.md
       uses: orhun/git-cliff-action@v4

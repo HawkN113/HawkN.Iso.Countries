@@ -7,21 +7,27 @@ on:
 
 jobs:
   publish:
-    name: Publish to NuGet
+    name: Publish packages (NuGet.org + GitHub)
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: write
+      packages: write
       actions: read
     
     env:
       SOLUTION_NAME: src/HawkN.Iso.Countries.Solution.sln
       NUGET_ORG_USERNAME: HawkN113
       
-      ## Iso.Countries package settings
+      ## Iso.Countries package (Core)
       PACKAGE_COUNTRIES_PROJECT_PATH: src/packages/HawkN.Iso.Countries/HawkN.Iso.Countries.csproj
       PACKAGE_COUNTRIES_NUSPEC_FILE_PATH: HawkN.Iso.Countries.nuspec
       PACKAGE_COUNTRIES_ID: HawkN.Iso.Countries
+      
+      ## Iso.Countries.Currencies package (Extension)
+      PACKAGE_COUNTRIES_CURRENCIES_PROJECT_PATH: src/packages/HawkN.Iso.Countries.Currencies/HawkN.Iso.Countries.Currencies.csproj
+      PACKAGE_COUNTRIES_CURRENCIES_NUSPEC_FILE_PATH: HawkN.Iso.Countries.Currencies.nuspec
+      PACKAGE_COUNTRIES_CURRENCIES_ID: HawkN.Iso.Countries.Currencies
       
       OUTPUT_NUGET_DIR: nuget-packages
       NUGET_SOURCE_URL: https://api.nuget.org/v3/index.json
@@ -50,17 +56,6 @@ jobs:
           echo "CURRENT_VERSION=$VERSION" >> $GITHUB_ENV
         shell: bash
 
-      - name: Check if package (${{ env.PACKAGE_COUNTRIES_ID }}) version already exists on NuGet.org
-        id: check_nuget
-        run: |
-          PACKAGE_COUNTRIES_ID_LOWER=$(echo "${{ env.PACKAGE_COUNTRIES_ID }}" | tr '[:upper:]' '[:lower:]')
-          STATUS_CODE=$(curl -s -o /dev/null -I -w "%{http_code}" "https://api.nuget.org/v3-flatcontainer/${PACKAGE_COUNTRIES_ID_LOWER}/${{ env.CURRENT_VERSION }}/index.json")
-          if [ "$STATUS_CODE" -eq 200 ]; then
-            echo "Error: Version ${{ env.CURRENT_VERSION }} already exists on NuGet.org!"
-            exit 1
-          fi
-        shell: bash
-
       - name: Restore dependencies
         run: dotnet restore ${{ env.SOLUTION_NAME }}
 
@@ -72,6 +67,15 @@ jobs:
           dotnet pack ${{ env.PACKAGE_COUNTRIES_PROJECT_PATH }} \
             --configuration Release \
             /p:NuspecFile=${{ env.PACKAGE_COUNTRIES_NUSPEC_FILE_PATH }} \
+            /p:Version=${{ env.CURRENT_VERSION }} \
+            /p:ContinuousIntegrationBuild=true \
+            --output ${{ env.OUTPUT_NUGET_DIR }}
+          
+      - name: Build and Pack (HawkN.Iso.Countries.Currencies) (Extension)
+        run: |
+          dotnet pack ${{ env.PACKAGE_COUNTRIES_CURRENCIES_PROJECT_PATH }} \
+            --configuration Release \
+            /p:NuspecFile=${{ env.PACKAGE_COUNTRIES_CURRENCIES_NUSPEC_FILE_PATH }} \
             /p:Version=${{ env.CURRENT_VERSION }} \
             /p:ContinuousIntegrationBuild=true \
             --output ${{ env.OUTPUT_NUGET_DIR }}
@@ -111,7 +115,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           body_path: CHANGELOG_RELEASE.md
-          files: ${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg
+          files: |
+            ${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg
+            ${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_CURRENCIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg          
           fail_on_unmatched_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -126,5 +132,28 @@ jobs:
         run: |
           dotnet nuget push "${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg" \
             --api-key ${{steps.login.outputs.NUGET_API_KEY}} \
-            --source ${{ env.NUGET_SOURCE_URL }}
+            --source ${{ env.NUGET_SOURCE_URL }} \
+            --skip-duplicate
         shell: bash
+        
+      - name: Publish package (HawkN.Iso.Countries.Currencies) to NuGet.org (Trusted Publishing)
+        run: |
+          dotnet nuget push "${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_CURRENCIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg" \
+            --api-key ${{steps.login.outputs.NUGET_API_KEY}} \
+            --source ${{ env.NUGET_SOURCE_URL }} \
+            --skip-duplicate
+        shell: bash
+        
+      - name: Publish package (HawkN.Iso.Countries) to GitHub packages
+        run: |
+          dotnet nuget push "${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg" \
+            --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+            --api-key ${{ secrets.GITHUB_TOKEN }} \
+            --skip-duplicate
+          
+      - name: Publish package (HawkN.Iso.Countries.Currencies) to GitHub Packages
+        run: |
+          dotnet nuget push "${{ env.OUTPUT_NUGET_DIR }}/${{ env.PACKAGE_COUNTRIES_CURRENCIES_ID }}.${{ env.CURRENT_VERSION }}.nupkg" \
+            --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+            --api-key ${{ secrets.GITHUB_TOKEN }} \
+            --skip-duplicate
