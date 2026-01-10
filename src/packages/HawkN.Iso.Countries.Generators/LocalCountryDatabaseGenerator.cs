@@ -73,11 +73,9 @@ public class LocalCountryDatabaseGenerator : BaseIncrementalGenerator
                 Constants.GeneratorName,
                 Constants.DefaultNamespace,
                 Constants.ExtendedSourceData,
-                [
-                    "System.Collections.Generic",
-                    "System.Collections.Immutable",
-                    "HawkN.Iso.Countries.Models"
-                ]);
+                Constants.SystemNamespaces
+                    .Concat(Constants.ReferencesNamespaces)
+                    .ToArray());
 
             sb.AppendLine("    /// <summary>")
                 .AppendLine("    /// Country information ISO3166")

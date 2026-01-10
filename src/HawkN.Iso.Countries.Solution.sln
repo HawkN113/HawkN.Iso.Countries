@@ -18,6 +18,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HawkN.Iso.Countries.Samples
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HawkN.Iso.Countries.Samples.Console", "samples\HawkN.Iso.Countries.Samples.Console\HawkN.Iso.Countries.Samples.Console.csproj", "{6364342A-33F1-46FF-9DAB-DF3B24113905}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HawkN.Iso.Countries.Currencies.Generators", "packages\HawkN.Iso.Countries.Currencies.Generators\HawkN.Iso.Countries.Currencies.Generators.csproj", "{43FCD81D-3ECA-47B8-A321-1A21E5EEB298}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HawkN.Iso.Countries.Currencies", "packages\HawkN.Iso.Countries.Currencies\HawkN.Iso.Countries.Currencies.csproj", "{46A4E3EC-0692-4789-AA53-9076919685BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HawkN.Iso.Countries.Currencies.Tests", "tests\HawkN.Iso.Countries.Currencies.Tests\HawkN.Iso.Countries.Currencies.Tests.csproj", "{CAE6BB22-420C-4E8B-8E53-F085F6A0A058}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +36,9 @@ Global
 		{58ED09AB-F167-4532-B809-F53B8F8CF7CC} = {04424310-F4C5-420F-AFFA-B929A8D07DC4}
 		{6321C47D-C275-424C-ACD7-390367A9968E} = {6602CF55-B7B8-4466-81CB-1A600068CC3F}
 		{6364342A-33F1-46FF-9DAB-DF3B24113905} = {6602CF55-B7B8-4466-81CB-1A600068CC3F}
+		{43FCD81D-3ECA-47B8-A321-1A21E5EEB298} = {B2038C6B-5338-4A76-AF4F-2A4E8692BF6E}
+		{46A4E3EC-0692-4789-AA53-9076919685BE} = {B2038C6B-5338-4A76-AF4F-2A4E8692BF6E}
+		{CAE6BB22-420C-4E8B-8E53-F085F6A0A058} = {04424310-F4C5-420F-AFFA-B929A8D07DC4}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B8C15C2C-5F8A-4C9C-927B-AE9946534E9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -56,5 +65,17 @@ Global
 		{6364342A-33F1-46FF-9DAB-DF3B24113905}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6364342A-33F1-46FF-9DAB-DF3B24113905}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6364342A-33F1-46FF-9DAB-DF3B24113905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43FCD81D-3ECA-47B8-A321-1A21E5EEB298}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43FCD81D-3ECA-47B8-A321-1A21E5EEB298}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43FCD81D-3ECA-47B8-A321-1A21E5EEB298}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43FCD81D-3ECA-47B8-A321-1A21E5EEB298}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46A4E3EC-0692-4789-AA53-9076919685BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46A4E3EC-0692-4789-AA53-9076919685BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46A4E3EC-0692-4789-AA53-9076919685BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46A4E3EC-0692-4789-AA53-9076919685BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAE6BB22-420C-4E8B-8E53-F085F6A0A058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAE6BB22-420C-4E8B-8E53-F085F6A0A058}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAE6BB22-420C-4E8B-8E53-F085F6A0A058}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAE6BB22-420C-4E8B-8E53-F085F6A0A058}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

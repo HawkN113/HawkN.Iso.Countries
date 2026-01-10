@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <FileVersion>8.0.0.0</FileVersion>
+        <AssemblyVersion>8.0.0.0</AssemblyVersion>
+        <OutputType>Library</OutputType>
+        <Copyright>Copyright © 2026 Nikolay Selyutin (HawkN113)</Copyright>
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+        <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+        <GenerateAssemblyFileVersionAttribute>true</GenerateAssemblyFileVersionAttribute>
+        <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+        <Optimize>true</Optimize>
+        <PublicSign>false</PublicSign>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <IncludeSymbols>false</IncludeSymbols>
+        <IsPackable>true</IsPackable>
+        <VersionPrefix>8.0.0</VersionPrefix>
+        <GenerateDataFiles Condition="'$(GenerateDataFiles)' == ''">false</GenerateDataFiles>
+        <EmitCompilerGeneratedFiles>$(GenerateDataFiles)</EmitCompilerGeneratedFiles>
+        <LocalCountryCurrencyMapFile>$(MSBuildProjectDirectory)\CountryCurrencyMap.cs</LocalCountryCurrencyMapFile>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DebugType>embedded</DebugType>
+        <DocumentationFile>bin\Debug\HawkN.Iso.Countries.Currencies.xml</DocumentationFile>
+        <WarningsAsErrors>;NU1605</WarningsAsErrors>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugType>embedded</DebugType>
+        <DocumentationFile>bin\Release\HawkN.Iso.Countries.Currencies.xml</DocumentationFile>
+        <WarningsAsErrors>;NU1605</WarningsAsErrors>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="HawkN.Iso.Countries" Version="8.0.0" />
+        <PackageReference Include="HawkN.Iso.Currencies" Version="8.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="HawkN.Iso.Countries.Currencies.Tests" />
+        <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(GenerateDataFiles)' == 'true'">
+        <ProjectReference Include="..\..\packages\HawkN.Iso.Countries.Currencies.Generators\HawkN.Iso.Countries.Currencies.Generators.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Update="Package\Content\HawkN.Iso.Countries.ico.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Package\Content\README.md">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+    <Target Name="CleanGeneratedFilesBeforeBuild" BeforeTargets="BeforeBuild" Condition="'$(GenerateDataFiles)' == 'true'">
+        <Delete Files="CountryCurrencyMap.cs" />
+    </Target>
+    <Target Name="CopyGeneratedFiles" AfterTargets="CoreCompile" Condition="'$(GenerateDataFiles)' == 'true'">
+        <ItemGroup>
+            <_GeneratedFiles Include="$(CompilerGeneratedFilesOutputPath)\**\*.g.cs" />
+        </ItemGroup>
+        <Error Condition="'@(_GeneratedFiles)' == ''" Text="Source Generator did not produce any files in $(CompilerGeneratedFilesOutputPath)" />
+        <Copy SourceFiles="@(_GeneratedFiles)" DestinationFiles="@(_GeneratedFiles->'$(MSBuildProjectDirectory)\%(Filename).cs')" OverwriteReadOnlyFiles="true" />
+        <Move SourceFiles="$(MSBuildProjectDirectory)\CountryCurrencyMap.g.cs" DestinationFiles="$(MSBuildProjectDirectory)\CountryCurrencyMap.cs" Condition="Exists('$(MSBuildProjectDirectory)\CountryCurrencyMap.g.cs')" />
+        <ItemGroup>
+            <Compile Include="CountryCurrencyMap.cs" />
+            <FileWrites Include="CountryCurrencyMap.cs" />
+        </ItemGroup>
+        <Message Text="Successfully materialized files to project root." Importance="high" />
+    </Target>
+</Project>

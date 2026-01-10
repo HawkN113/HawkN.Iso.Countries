@@ -4,8 +4,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <FileVersion>8.0.0.0</FileVersion>
+        <AssemblyVersion>8.0.0.0</AssemblyVersion>
         <OutputType>Library</OutputType>
-        <Copyright>Copyright © 2025 Nikolay Selyutin (HawkN113)</Copyright>
+        <Copyright>Copyright © 2026 Nikolay Selyutin (HawkN113)</Copyright>
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
         <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
         <GenerateAssemblyFileVersionAttribute>true</GenerateAssemblyFileVersionAttribute>

@@ -77,7 +77,7 @@ public class CountryCodeServiceTests
 
         // Assert
         Assert.NotNull(country);
-        Assert.Equal("Germany", country!.Name);
+        Assert.Equal("Germany", country.Name);
     }
 
     [Fact]
