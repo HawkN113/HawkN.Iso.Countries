@@ -13,6 +13,7 @@ internal static class Constants
         "CLDR URL: https://github.com/unicode-org/cldr",
     ];
     public static readonly string[] SystemNamespaces = [
+        "System.Linq",
         "System.Collections.Generic",
         "System.Collections.Immutable"
     ];

@@ -56,12 +56,11 @@ public class CountryCurrencySourceGenerator : BaseIncrementalGenerator
                                                   var dataBuilder = ImmutableArray.CreateBuilder<CountryCurrencyInfo>(RawData.Length);
                                                   var index = new Dictionary<CountryCode.TwoLetterCode, CountryCurrencyInfo>(RawData.Length);
 
-                                                  foreach (var row in RawData)
+                                                  foreach (var row in RawData.Where(r => Enum.TryParse(r.CountryCode, out CountryCode.TwoLetterCode _)))
                                                   {
-                                                     if (!Enum.TryParse(row.CountryCode, out CountryCode.TwoLetterCode country))
-                                                        continue;
                                                      if (!Enum.TryParse(row.PrimaryCurrency, out CurrencyCode primary))
                                                         continue;
+                                                     Enum.TryParse(row.CountryCode, out CountryCode.TwoLetterCode country);
 
                                                      var info = new CountryCurrencyInfo
                                                      {
@@ -88,7 +87,7 @@ public class CountryCurrencySourceGenerator : BaseIncrementalGenerator
 
                                                   foreach (var value in values)
                                                   {
-                                                     if (Enum.TryParse(value, out CurrencyCode code))
+                                                     if (TryParseCurrency(value, out CurrencyCode code))
                                                         buffer[count++] = code;
                                                   }
 
@@ -102,6 +101,8 @@ public class CountryCurrencySourceGenerator : BaseIncrementalGenerator
                                                   Array.Copy(buffer, result, count);
                                                   return result;
                                                }
+                                               
+                                               private static bool TryParseCurrency(string value, out CurrencyCode code) => Enum.TryParse(value, out code);
                                          """;
 
     public override void Initialize(IncrementalGeneratorInitializationContext context)
@@ -137,8 +138,6 @@ public class CountryCurrencySourceGenerator : BaseIncrementalGenerator
                 AddStubIfErrors(spc, HintName, StubSource, GeneratorType.Database);
                 return;
             }
-
-
 
             var loader = new CurrencyDataLoader(tuple.originalXml, tuple.translationsXml);
             var sb = CreateSourceBuilder(
@@ -190,12 +189,7 @@ public class CountryCurrencySourceGenerator : BaseIncrementalGenerator
             }
             spc.AddSource(HintName, SourceText.From(sb.ToString(), Encoding.UTF8));
         }
-        catch (OperationCanceledException)
-        {
-            // Let the host (Roslyn) handle cancellations properly.
-            throw;
-        }
-        catch (Exception ex)
+        catch (Exception ex) when (ex is not OperationCanceledException)
         {
             ErrorFactory.Create(new ErrorDescription
             {
@@ -228,7 +222,7 @@ public class CountryCurrencySourceGenerator : BaseIncrementalGenerator
             .AppendLine("      /// Parsed and validated at type initialization.")
             .AppendLine("      /// </summary>");
         sb.AppendLine(
-                $"      internal static ImmutableArray<CountryCurrencyInfoRow> {propertyName} = ImmutableArray.Create(new CountryCurrencyInfoRow[]")
+                $"      internal static readonly ImmutableArray<CountryCurrencyInfoRow> {propertyName} = ImmutableArray.Create(new CountryCurrencyInfoRow[]")
             .AppendLine("         {");
         foreach (var item in data)
         {

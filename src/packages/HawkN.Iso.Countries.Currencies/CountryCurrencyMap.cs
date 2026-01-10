@@ -5,6 +5,7 @@
 //     Do not modify this file manually.
 // </auto-generated>
 #nullable enable
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using HawkN.Iso.Countries;
@@ -22,7 +23,7 @@ namespace HawkN.Iso.Countries.Currencies
       /// Raw string-based data generated from CLDR.
       /// Parsed and validated at type initialization.
       /// </summary>
-      internal static ImmutableArray<CountryCurrencyInfoRow> RawData = ImmutableArray.Create(new CountryCurrencyInfoRow[]
+      internal static readonly ImmutableArray<CountryCurrencyInfoRow> RawData = ImmutableArray.Create(new CountryCurrencyInfoRow[]
          {
                new CountryCurrencyInfoRow()
                {
@@ -1651,12 +1652,11 @@ namespace HawkN.Iso.Countries.Currencies
          var dataBuilder = ImmutableArray.CreateBuilder<CountryCurrencyInfo>(RawData.Length);
          var index = new Dictionary<CountryCode.TwoLetterCode, CountryCurrencyInfo>(RawData.Length);
 
-         foreach (var row in RawData)
+         foreach (var row in RawData.Where(r => Enum.TryParse(r.CountryCode, out CountryCode.TwoLetterCode _)))
          {
-            if (!Enum.TryParse(row.CountryCode, out CountryCode.TwoLetterCode country))
-               continue;
             if (!Enum.TryParse(row.PrimaryCurrency, out CurrencyCode primary))
                continue;
+            Enum.TryParse(row.CountryCode, out CountryCode.TwoLetterCode country);
 
             var info = new CountryCurrencyInfo
             {
@@ -1683,7 +1683,7 @@ namespace HawkN.Iso.Countries.Currencies
 
          foreach (var value in values)
          {
-            if (Enum.TryParse(value, out CurrencyCode code))
+            if (TryParseCurrency(value, out CurrencyCode code))
                buffer[count++] = code;
          }
 
@@ -1697,5 +1697,7 @@ namespace HawkN.Iso.Countries.Currencies
          Array.Copy(buffer, result, count);
          return result;
       }
+      
+      private static bool TryParseCurrency(string value, out CurrencyCode code) => Enum.TryParse(value, out code);
     }
 }

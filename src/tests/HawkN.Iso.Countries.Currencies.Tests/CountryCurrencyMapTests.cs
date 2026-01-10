@@ -68,11 +68,12 @@ public sealed class CountryCurrencyMapTests
     [Fact]
     public void Secondary_Currencies_Should_Not_Contain_Primary()
     {
-        foreach (var country in Enum.GetValues<CountryCode.TwoLetterCode>())
+        foreach (var country in Enum
+                     .GetValues<CountryCode.TwoLetterCode>()
+                     .Where(c => CountryCurrencyMap.TryGet(c, out _)))
         {
             // Act
-            if (!CountryCurrencyMap.TryGet(country, out var info))
-                continue;
+            CountryCurrencyMap.TryGet(country, out var info);
 
             // Assert
             foreach (var secondary in info!.SecondaryCurrencies)
