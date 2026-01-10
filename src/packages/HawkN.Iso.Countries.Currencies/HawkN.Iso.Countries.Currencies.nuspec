@@ -3,7 +3,7 @@
     <metadata>
         <id>HawkN.Iso.Countries.Currencies</id>
         <title>HawkN.Iso.Countries.Currencies</title>
-        <version>$version$</version>
+        <version>8.0.1</version>
         <authors>Nikolay Selyutin (HawkN113)</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Provides mapping between countries and currencies (primary and secondary). Includes extension methods to query primary, secondary, or all currencies and check usage.</description>
