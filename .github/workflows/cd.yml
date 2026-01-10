@@ -7,7 +7,7 @@ on:
 
 jobs:
   publish:
-    name: Publish to NuGet
+    name: Publish packages (NuGet.org + GitHub)
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -54,28 +54,6 @@ jobs:
           TAG_NAME=${{ github.ref_name }}
           VERSION=${TAG_NAME#v}
           echo "CURRENT_VERSION=$VERSION" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Check if package (${{ env.PACKAGE_COUNTRIES_ID }}) version already exists on NuGet.org
-        id: check_countries_nuget
-        run: |
-          PACKAGE_COUNTRIES_ID_LOWER=$(echo "${{ env.PACKAGE_COUNTRIES_ID }}" | tr '[:upper:]' '[:lower:]')
-          STATUS_CODE=$(curl -s -o /dev/null -I -w "%{http_code}" "https://api.nuget.org/v3-flatcontainer/${PACKAGE_COUNTRIES_ID_LOWER}/${{ env.CURRENT_VERSION }}/index.json")
-          if [ "$STATUS_CODE" -eq 200 ]; then
-            echo "Error: Version ${{ env.CURRENT_VERSION }} for ${{ env.PACKAGE_COUNTRIES_ID }} package already exists on NuGet.org!"
-            exit 1
-          fi
-        shell: bash
-        
-      - name: Check if package (${{ env.PACKAGE_COUNTRIES_CURRENCIES_ID }}) version already exists on NuGet.org
-        id: check_countries_currencies_nuget
-        run: |
-          PACKAGE_COUNTRIES_ID_LOWER=$(echo "${{ env.PACKAGE_COUNTRIES_CURRENCIES_ID }}" | tr '[:upper:]' '[:lower:]')
-          STATUS_CODE=$(curl -s -o /dev/null -I -w "%{http_code}" "https://api.nuget.org/v3-flatcontainer/${PACKAGE_COUNTRIES_ID_LOWER}/${{ env.CURRENT_VERSION }}/index.json")
-          if [ "$STATUS_CODE" -eq 200 ]; then
-            echo "Error: Version ${{ env.CURRENT_VERSION }} for ${{ env.PACKAGE_COUNTRIES_CURRENCIES_ID }} package already exists on NuGet.org!"
-            exit 1
-          fi
         shell: bash
 
       - name: Restore dependencies
