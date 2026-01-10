@@ -86,11 +86,12 @@ public sealed class CountryCurrencyMapTests
     [Fact]
     public void All_Currency_Codes_Must_Be_Valid_ISO_4217()
     {
-        foreach (var country in Enum.GetValues<CountryCode.TwoLetterCode>())
+        foreach (var country in Enum
+                     .GetValues<CountryCode.TwoLetterCode>()
+                     .Where(c => CountryCurrencyMap.TryGet(c, out _)))
         {
             // Act
-            if (!CountryCurrencyMap.TryGet(country, out var info))
-                continue;
+            CountryCurrencyMap.TryGet(country, out var info);
 
             // Assert
             Assert.True(Enum.IsDefined(info!.PrimaryCurrency));
