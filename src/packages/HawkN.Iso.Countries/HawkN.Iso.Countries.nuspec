@@ -3,7 +3,7 @@
     <metadata>
         <id>HawkN.Iso.Countries</id>
         <title>HawkN.Iso.Countries</title>
-        <version>8.0.1</version>
+        <version>8.0.2</version>
         <authors>Nikolay Selyutin (HawkN113)</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Provides strongly typed ISO 3166-1 country and region codes (Alpha-2, Alpha-3) generated at compile time from UN M49 numeric codes. Includes lookup service (ICountryCodeService). Lightweight and optimized for .NET 8 applications.</description>
@@ -22,7 +22,7 @@
             - Includes ICountryCodeService for lookups
             - Lightweight &amp; dependency-free
         </releaseNotes>
-        <copyright>Copyright © 2025 Nikolay Selyutin (HawkN113)</copyright>
+        <copyright>Copyright © 2026 Nikolay Selyutin (HawkN113)</copyright>
         <dependencies>
             <group targetFramework="net8.0" />
         </dependencies>

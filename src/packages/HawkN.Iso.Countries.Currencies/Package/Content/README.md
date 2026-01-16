@@ -25,8 +25,11 @@ dotnet add package HawkN.Iso.Countries.Currencies
 
 ### Required Namespaces
 ```csharp
-using HawkN.Iso.Countries;
 using HawkN.Iso.Currencies;
+using HawkN.Iso.Countries;
+using HawkN.Iso.Countries.Abstractions;
+using HawkN.Iso.Countries.Extensions;
+using HawkN.Iso.Currencies.Extensions;
 using HawkN.Iso.Countries.Currencies.Extensions;
 ```
 ---
@@ -35,7 +38,7 @@ using HawkN.Iso.Countries.Currencies.Extensions;
 
 #### Get Main Currency
 ```csharp
-CurrencyCode.TwoLetterCode? mainCurrency = CountryCode.TwoLetterCode.US.GetMainCurrency();
+var mainCurrency = CountryCode.TwoLetterCode.US.GetPrimaryCurrency();
 Console.WriteLine($"Primary currency of US: {mainCurrency}"); // USD
 ```
 
@@ -47,7 +50,7 @@ Console.WriteLine($"Secondary currencies of BO: {string.Join(", ", secondaryCurr
 
 ### Get all Currencies for specific country
 ```csharp
-var allCurrencies = CountryCode.BO.GetAllCurrencies();
+var allCurrencies = CountryCode.TwoLetterCode.BO.GetAllCurrencies();
 Console.WriteLine($"All currencies of BO: {string.Join(", ", allCurrencies)}"); // BOB, BOV
 ```
 
@@ -55,8 +58,8 @@ Console.WriteLine($"All currencies of BO: {string.Join(", ", allCurrencies)}"); 
 
 Check if Currency is Used by Country
 ```csharp
-bool isUsed = CountryCode.BO.IsCurrencyUsedByCountry(CurrencyCode.BOB); // True
-bool isUsdUsed = CountryCode.BO.IsCurrencyUsedByCountry(CurrencyCode.USD); // False
+bool isUsed = CountryCode.TwoLetterCode.BO.IsCurrencyUsedByCountry(CurrencyCode.BOB); // True
+bool isUsdUsed = CountryCode.TwoLetterCode.BO.IsCurrencyUsedByCountry(CurrencyCode.USD); // False
 ````
 
 ---
